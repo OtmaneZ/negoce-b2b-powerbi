@@ -67,7 +67,7 @@ Sur chaque page, le segment Année est sur 2025 et le segment Région sur « Tou
 - Barres des commerciaux titrées « Damien Revol : taux de remise de 10,9 % à 19,2 % (+8,3 pts) ».
 - Tableau de 12 clients et tableau de 8 produits, triés par marge croissante.
 
-**Points à observer en particulier** : libellé de la barre de total de la cascade (« Total » par défaut) et couleur de sa première barre ; titres et synthèses affichés en entier, sans coupure ; aucun visuel en erreur.
+**Points à observer en particulier** : libellé de la barre de total de la cascade (« Total » par défaut) et couleur de sa première barre ; titres et synthèses affichés en entier, sans coupure ; volet Filtres signalé comme masqué en lecture (icône en forme d'œil barré à côté de son titre) ; aucun visuel en erreur.
 
 **À relever sinon** : une capture de chaque page et, pour chaque visuel en erreur, le message affiché par « Afficher les détails ».
 

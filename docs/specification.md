@@ -546,7 +546,7 @@ Récapitulatif des dossiers : 1. Chiffre d'affaires (9 mesures), 2. Marge (9), 3
 - Deux segments dans la zone filtres, synchronisés entre les pages : **Année** (Date[Année], liste horizontale affichée en vignettes, sélection unique, 2025 par défaut ; x 960, y 32, 120 × 96) et **Région** (Région[Région], liste déroulante, sélection multiple avec « Tout sélectionner » ; x 1096, y 32, 160 × 96). Les segments occupent toute la hauteur de la bande du titre et de la synthèse : un segment en liste déroulante avec en-tête demande au moins 80 px avec des marges de 8 px.
 - Les titres de page et de visuels sont des mesures texte (section 4.6) : ils répondent à la question métier et restent justes quel que soit le filtre ou le rôle RLS. Titre et synthèse de page sont affichés par une carte à valeur unique (`cardVisual`, libellé masqué, retour à la ligne activé, alignement à gauche) ; les titres des graphiques sont des titres de visuel liés à la mesure. Aucune zone de texte à valeur dynamique n'est utilisée : son encodage PBIR n'est pas documenté de façon assez fiable pour être vérifié sans Desktop.
 - Interactions : un clic sur une barre, une ligne ou un tableau **filtre** les autres visuels de la page (paramètre du rapport « filtrer plutôt que mettre en surbrillance »). Exceptions déclarées dans la page : la cascade ne filtre rien (sa table d'étapes n'est reliée à rien) ; le graphique des segments clients n'agit pas sur le graphique budgétaire (le budget n'existe pas par segment).
-- Navigation par les onglets natifs des pages ; pas de boutons. Le volet de filtres reste visible : il montre le filtre de visuel des deux tableaux, également annoncé dans leurs titres.
+- Navigation par les onglets natifs des pages ; pas de boutons. Le volet de filtres est masqué en lecture (`report.json`, objet `outspacePane`, propriété `visible`, prévue par le schéma report 3.3.0) : les segments couvrent les filtres utiles, et le filtre de visuel des deux tableaux est annoncé dans leurs titres.
 - Ordre de tabulation = ordre de lecture (titre, synthèse, segments, KPI, principal, secondaire, bas gauche, centre, droite). Texte de remplacement sur chaque visuel de données, lié à la même mesure que son titre.
 
 ### Page 1 : « Vue Direction » (d'où vient la croissance)
@@ -651,7 +651,7 @@ Tolérances : 1 € sur les montants, 0,05 point sur les taux, égalité exacte 
 
 ### Contrôles dans Power BI Desktop
 
-La procédure pas à pas est dans `docs/test-windows.md` : mise à jour de Desktop, ouverture et actualisation, requête de validation (« 0 KO » attendu), parcours des deux pages, test des deux comptes RLS, enregistrement et commit. Points qui ne se vérifient que dans Desktop : rendu des visuels, lisibilité des titres longs, libellé « Total » et couleur de la première barre de la cascade, comportement des segments synchronisés, RLS.
+La procédure pas à pas est dans `docs/test-windows.md` : mise à jour de Desktop, ouverture et actualisation, requête de validation (« 0 KO » attendu), parcours des deux pages, test des deux comptes RLS, enregistrement et commit. Points qui ne se vérifient que dans Desktop : rendu des visuels, lisibilité des titres longs, libellé « Total » et couleur de la première barre de la cascade, comportement des segments synchronisés, volet de filtres masqué en lecture, RLS.
 
 ## Annexe : contrat de mise en page
 
