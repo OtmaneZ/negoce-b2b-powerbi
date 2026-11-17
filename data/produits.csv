@@ -1,0 +1,601 @@
+cle_produit,reference,produit,sous_famille,cle_famille
+1,VIS-0001,"Vis TH M6x20 zinguée, boîte 100",Vis,1
+2,VIS-0002,"Vis TH M6x20 inox A2, boîte 100",Vis,1
+3,VIS-0003,"Vis TH M6x20 inox A4, boîte 100",Vis,1
+4,VIS-0004,"Vis TH M6x30 zinguée, boîte 100",Vis,1
+5,VIS-0005,"Vis TH M6x30 inox A2, boîte 100",Vis,1
+6,VIS-0006,"Vis TH M6x30 inox A4, boîte 100",Vis,1
+7,VIS-0007,"Vis TH M6x40 zinguée, boîte 100",Vis,1
+8,VIS-0008,"Vis TH M6x40 inox A2, boîte 100",Vis,1
+9,VIS-0009,"Vis TH M6x40 inox A4, boîte 100",Vis,1
+10,VIS-0010,"Vis TH M6x50 zinguée, boîte 100",Vis,1
+11,VIS-0011,"Vis TH M6x50 inox A2, boîte 100",Vis,1
+12,VIS-0012,"Vis TH M6x50 inox A4, boîte 100",Vis,1
+13,VIS-0013,"Vis TH M6x60 zinguée, boîte 100",Vis,1
+14,VIS-0014,"Vis TH M6x60 inox A2, boîte 100",Vis,1
+15,VIS-0015,"Vis TH M6x60 inox A4, boîte 100",Vis,1
+16,VIS-0016,"Vis TH M6x80 zinguée, boîte 100",Vis,1
+17,VIS-0017,"Vis TH M6x80 inox A4, boîte 100",Vis,1
+18,VIS-0018,"Vis TH M8x20 zinguée, boîte 100",Vis,1
+19,VIS-0019,"Vis TH M8x20 inox A2, boîte 100",Vis,1
+20,VIS-0020,"Vis TH M8x20 inox A4, boîte 100",Vis,1
+21,VIS-0021,"Vis TH M8x30 zinguée, boîte 100",Vis,1
+22,VIS-0022,"Vis TH M8x30 inox A2, boîte 100",Vis,1
+23,VIS-0023,"Vis TH M8x40 zinguée, boîte 100",Vis,1
+24,VIS-0024,"Vis TH M8x40 inox A2, boîte 100",Vis,1
+25,VIS-0025,"Vis TH M8x40 inox A4, boîte 100",Vis,1
+26,VIS-0026,"Vis TH M8x50 zinguée, boîte 100",Vis,1
+27,VIS-0027,"Vis TH M8x50 inox A2, boîte 100",Vis,1
+28,VIS-0028,"Vis TH M8x50 inox A4, boîte 100",Vis,1
+29,VIS-0029,"Vis TH M8x60 inox A2, boîte 100",Vis,1
+30,VIS-0030,"Vis TH M8x60 inox A4, boîte 100",Vis,1
+31,VIS-0031,"Vis TH M8x80 zinguée, boîte 100",Vis,1
+32,VIS-0032,"Vis TH M8x80 inox A2, boîte 100",Vis,1
+33,VIS-0033,"Vis TH M8x80 inox A4, boîte 100",Vis,1
+34,VIS-0034,"Vis TH M10x20 zinguée, boîte 100",Vis,1
+35,VIS-0035,"Vis TH M10x20 inox A4, boîte 100",Vis,1
+36,VIS-0036,"Vis TH M10x30 zinguée, boîte 100",Vis,1
+37,VIS-0037,"Vis TH M10x30 inox A2, boîte 100",Vis,1
+38,VIS-0038,"Vis TH M10x30 inox A4, boîte 100",Vis,1
+39,VIS-0039,"Vis TH M10x40 zinguée, boîte 100",Vis,1
+40,VIS-0040,"Vis TH M10x40 inox A2, boîte 100",Vis,1
+41,VIS-0041,"Vis TH M10x40 inox A4, boîte 100",Vis,1
+42,VIS-0042,"Vis TH M10x50 zinguée, boîte 100",Vis,1
+43,VIS-0043,"Vis TH M10x50 inox A2, boîte 100",Vis,1
+44,VIS-0044,"Vis TH M10x50 inox A4, boîte 100",Vis,1
+45,VIS-0045,"Vis TH M10x60 zinguée, boîte 100",Vis,1
+46,VIS-0046,"Vis TH M10x60 inox A2, boîte 100",Vis,1
+47,VIS-0047,"Vis TH M10x60 inox A4, boîte 100",Vis,1
+48,VIS-0048,"Vis TH M10x80 inox A2, boîte 100",Vis,1
+49,VIS-0049,"Vis TH M12x20 zinguée, boîte 100",Vis,1
+50,VIS-0050,"Vis TH M12x20 inox A2, boîte 100",Vis,1
+51,VIS-0051,"Vis TH M12x20 inox A4, boîte 100",Vis,1
+52,VIS-0052,"Vis TH M12x30 zinguée, boîte 100",Vis,1
+53,VIS-0053,"Vis TH M12x30 inox A2, boîte 100",Vis,1
+54,VIS-0054,"Vis TH M12x30 inox A4, boîte 100",Vis,1
+55,VIS-0055,"Vis TH M12x40 zinguée, boîte 100",Vis,1
+56,VIS-0056,"Vis TH M12x40 inox A2, boîte 100",Vis,1
+57,VIS-0057,"Vis TH M12x40 inox A4, boîte 100",Vis,1
+58,VIS-0058,"Vis TH M12x50 zinguée, boîte 100",Vis,1
+59,VIS-0059,"Vis TH M12x50 inox A2, boîte 100",Vis,1
+60,VIS-0060,"Vis TH M12x50 inox A4, boîte 100",Vis,1
+61,VIS-0061,"Vis TH M12x60 zinguée, boîte 100",Vis,1
+62,VIS-0062,"Vis TH M12x60 inox A2, boîte 100",Vis,1
+63,VIS-0063,"Vis TH M12x60 inox A4, boîte 100",Vis,1
+64,VIS-0064,"Vis TH M12x80 zinguée, boîte 100",Vis,1
+65,VIS-0065,"Vis TH M12x80 inox A2, boîte 100",Vis,1
+66,VIS-0066,"Vis TH M12x80 inox A4, boîte 100",Vis,1
+67,VIS-0067,"Vis agglo 3,5x20, boîte 200",Vis,1
+68,VIS-0068,"Vis agglo 3,5x30, boîte 200",Vis,1
+69,VIS-0069,"Vis agglo 3,5x50, boîte 200",Vis,1
+70,VIS-0070,"Vis agglo 3,5x60, boîte 200",Vis,1
+71,VIS-0071,"Vis agglo 3,5x80, boîte 200",Vis,1
+72,VIS-0072,"Vis agglo 3,5x100, boîte 200",Vis,1
+73,VIS-0073,"Vis agglo 4x20, boîte 200",Vis,1
+74,VIS-0074,"Vis agglo 4x30, boîte 200",Vis,1
+75,VIS-0075,"Vis agglo 4x40, boîte 200",Vis,1
+76,VIS-0076,"Vis agglo 4x50, boîte 200",Vis,1
+77,VIS-0077,"Vis agglo 4x60, boîte 200",Vis,1
+78,VIS-0078,"Vis agglo 4x80, boîte 200",Vis,1
+79,VIS-0079,"Vis agglo 4x100, boîte 200",Vis,1
+80,VIS-0080,"Vis agglo 5x20, boîte 200",Vis,1
+81,VIS-0081,"Vis agglo 5x30, boîte 200",Vis,1
+82,VIS-0082,"Vis agglo 5x40, boîte 200",Vis,1
+83,VIS-0083,"Vis agglo 5x50, boîte 200",Vis,1
+84,VIS-0084,"Vis agglo 5x60, boîte 200",Vis,1
+85,VIS-0085,"Vis agglo 5x80, boîte 200",Vis,1
+86,VIS-0086,"Vis agglo 5x100, boîte 200",Vis,1
+87,VIS-0087,"Vis agglo 6x20, boîte 200",Vis,1
+88,VIS-0088,"Vis agglo 6x30, boîte 200",Vis,1
+89,VIS-0089,"Vis agglo 6x40, boîte 200",Vis,1
+90,VIS-0090,"Vis agglo 6x50, boîte 200",Vis,1
+91,VIS-0091,"Vis agglo 6x60, boîte 200",Vis,1
+92,VIS-0092,"Vis agglo 6x80, boîte 200",Vis,1
+93,VIS-0093,"Vis agglo 6x100, boîte 200",Vis,1
+94,VIS-0094,"Cheville nylon 5 mm, boîte 100",Chevilles,1
+95,VIS-0095,"Cheville nylon 6 mm, boîte 100",Chevilles,1
+96,VIS-0096,"Cheville nylon 8 mm, boîte 100",Chevilles,1
+97,VIS-0097,"Cheville nylon 10 mm, boîte 100",Chevilles,1
+98,VIS-0098,"Cheville nylon 12 mm, boîte 100",Chevilles,1
+99,VIS-0099,"Cheville métal M5, boîte 50",Chevilles,1
+100,VIS-0100,"Cheville métal M6, boîte 50",Chevilles,1
+101,VIS-0101,"Cheville métal M8, boîte 50",Chevilles,1
+102,VIS-0102,Cheville chimique 150 ml,Chevilles,1
+103,VIS-0103,Cheville chimique 300 ml,Chevilles,1
+104,VIS-0104,Cheville chimique 410 ml,Chevilles,1
+105,VIS-0105,"Écrou HU M6 zingué, boîte 100",Boulonnerie,1
+106,VIS-0106,"Écrou HU M6 inox A2, boîte 100",Boulonnerie,1
+107,VIS-0107,"Écrou HU M8 zingué, boîte 100",Boulonnerie,1
+108,VIS-0108,"Écrou HU M8 inox A2, boîte 100",Boulonnerie,1
+109,VIS-0109,"Écrou HU M10 zingué, boîte 100",Boulonnerie,1
+110,VIS-0110,"Écrou HU M10 inox A2, boîte 100",Boulonnerie,1
+111,VIS-0111,"Écrou HU M12 zingué, boîte 100",Boulonnerie,1
+112,VIS-0112,"Écrou HU M12 inox A2, boîte 100",Boulonnerie,1
+113,VIS-0113,"Rondelle plate M6 zinguée, x100",Boulonnerie,1
+114,VIS-0114,"Rondelle plate M6 inox A2, x100",Boulonnerie,1
+115,VIS-0115,"Rondelle plate M8 zinguée, x100",Boulonnerie,1
+116,VIS-0116,"Rondelle plate M8 inox A2, x100",Boulonnerie,1
+117,VIS-0117,"Rondelle plate M10 zinguée, x100",Boulonnerie,1
+118,VIS-0118,"Rondelle plate M10 inox A2, x100",Boulonnerie,1
+119,VIS-0119,"Rondelle plate M12 zinguée, x100",Boulonnerie,1
+120,VIS-0120,"Rondelle plate M12 inox A2, x100",Boulonnerie,1
+121,VIS-0121,"Tige filetée M6 zinguée, 1 m",Boulonnerie,1
+122,VIS-0122,"Tige filetée M6 inox A2, 1 m",Boulonnerie,1
+123,VIS-0123,"Tige filetée M8 zinguée, 1 m",Boulonnerie,1
+124,VIS-0124,"Tige filetée M8 inox A2, 1 m",Boulonnerie,1
+125,VIS-0125,"Tige filetée M10 zinguée, 1 m",Boulonnerie,1
+126,VIS-0126,"Tige filetée M10 inox A2, 1 m",Boulonnerie,1
+127,VIS-0127,"Tige filetée M12 zinguée, 1 m",Boulonnerie,1
+128,VIS-0128,"Tige filetée M12 inox A2, 1 m",Boulonnerie,1
+129,VIS-0129,"Tige filetée M16 zinguée, 1 m",Boulonnerie,1
+130,VIS-0130,"Tige filetée M16 inox A2, 1 m",Boulonnerie,1
+131,VIS-0131,"Rivet aveugle 3,2x8 alu, x500",Rivets,1
+132,VIS-0132,"Rivet aveugle 3,2x10 alu, x500",Rivets,1
+133,VIS-0133,"Rivet aveugle 3,2x12 alu, x500",Rivets,1
+134,VIS-0134,"Rivet aveugle 3,2x16 alu, x500",Rivets,1
+135,VIS-0135,"Rivet aveugle 4x8 alu, x500",Rivets,1
+136,VIS-0136,"Rivet aveugle 4x10 alu, x500",Rivets,1
+137,VIS-0137,"Rivet aveugle 4x12 alu, x500",Rivets,1
+138,VIS-0138,"Rivet aveugle 4x16 alu, x500",Rivets,1
+139,VIS-0139,"Rivet aveugle 4,8x10 alu, x500",Rivets,1
+140,VIS-0140,"Rivet aveugle 4,8x16 alu, x500",Rivets,1
+141,OUT-0001,Tournevis plat 3 mm,Tournevis,2
+142,OUT-0002,Tournevis plat 4 mm,Tournevis,2
+143,OUT-0003,"Tournevis plat 5,5 mm",Tournevis,2
+144,OUT-0004,"Tournevis plat 6,5 mm",Tournevis,2
+145,OUT-0005,Tournevis plat 8 mm,Tournevis,2
+146,OUT-0006,Tournevis cruciforme PH0,Tournevis,2
+147,OUT-0007,Tournevis cruciforme PH1,Tournevis,2
+148,OUT-0008,Tournevis cruciforme PH2,Tournevis,2
+149,OUT-0009,Tournevis cruciforme PH3,Tournevis,2
+150,OUT-0010,Tournevis Torx T10,Tournevis,2
+151,OUT-0011,Tournevis Torx T15,Tournevis,2
+152,OUT-0012,Tournevis Torx T20,Tournevis,2
+153,OUT-0013,Tournevis Torx T25,Tournevis,2
+154,OUT-0014,Tournevis Torx T30,Tournevis,2
+155,OUT-0015,Tournevis Torx T40,Tournevis,2
+156,OUT-0016,Coffret tournevis 6 pièces,Tournevis,2
+157,OUT-0017,Coffret tournevis 8 pièces,Tournevis,2
+158,OUT-0018,Coffret tournevis 12 pièces,Tournevis,2
+159,OUT-0019,Clé mixte 8 mm,Clés,2
+160,OUT-0020,Clé mixte 9 mm,Clés,2
+161,OUT-0021,Clé mixte 10 mm,Clés,2
+162,OUT-0022,Clé mixte 11 mm,Clés,2
+163,OUT-0023,Clé mixte 12 mm,Clés,2
+164,OUT-0024,Clé mixte 13 mm,Clés,2
+165,OUT-0025,Clé mixte 14 mm,Clés,2
+166,OUT-0026,Clé mixte 15 mm,Clés,2
+167,OUT-0027,Clé mixte 16 mm,Clés,2
+168,OUT-0028,Clé mixte 17 mm,Clés,2
+169,OUT-0029,Clé mixte 18 mm,Clés,2
+170,OUT-0030,Clé mixte 19 mm,Clés,2
+171,OUT-0031,Clé mixte 20 mm,Clés,2
+172,OUT-0032,Clé mixte 21 mm,Clés,2
+173,OUT-0033,Clé mixte 22 mm,Clés,2
+174,OUT-0034,Clé mixte 23 mm,Clés,2
+175,OUT-0035,Clé mixte 24 mm,Clés,2
+176,OUT-0036,Clé à cliquet 1/4 po,Clés,2
+177,OUT-0037,Clé à cliquet 1/2 po,Clés,2
+178,OUT-0038,Coffret douilles 24 pièces,Clés,2
+179,OUT-0039,Coffret douilles 46 pièces,Clés,2
+180,OUT-0040,Coffret douilles 94 pièces,Clés,2
+181,OUT-0041,Jeu de clés Allen 9 pièces,Clés,2
+182,OUT-0042,Jeu de clés Allen 10 pièces,Clés,2
+183,OUT-0043,Clé à molette 150 mm,Clés,2
+184,OUT-0044,Clé à molette 200 mm,Clés,2
+185,OUT-0045,Clé à molette 250 mm,Clés,2
+186,OUT-0046,Clé à molette 300 mm,Clés,2
+187,OUT-0047,Clé plate 6x7 mm,Clés,2
+188,OUT-0048,Clé plate 8x9 mm,Clés,2
+189,OUT-0049,Clé plate 10x11 mm,Clés,2
+190,OUT-0050,Clé plate 12x13 mm,Clés,2
+191,OUT-0051,Clé plate 14x15 mm,Clés,2
+192,OUT-0052,Clé plate 16x17 mm,Clés,2
+193,OUT-0053,Clé plate 18x19 mm,Clés,2
+194,OUT-0054,Clé plate 20x22 mm,Clés,2
+195,OUT-0055,Clé plate 24x27 mm,Clés,2
+196,OUT-0056,Clé à pipe 8 mm,Clés,2
+197,OUT-0057,Clé à pipe 9 mm,Clés,2
+198,OUT-0058,Clé à pipe 10 mm,Clés,2
+199,OUT-0059,Clé à pipe 11 mm,Clés,2
+200,OUT-0060,Clé à pipe 12 mm,Clés,2
+201,OUT-0061,Clé à pipe 13 mm,Clés,2
+202,OUT-0062,Clé à pipe 14 mm,Clés,2
+203,OUT-0063,Clé à pipe 15 mm,Clés,2
+204,OUT-0064,Clé à pipe 16 mm,Clés,2
+205,OUT-0065,Clé à pipe 17 mm,Clés,2
+206,OUT-0066,Clé à pipe 18 mm,Clés,2
+207,OUT-0067,Clé à pipe 19 mm,Clés,2
+208,OUT-0068,Pince universelle 160 mm,Pinces,2
+209,OUT-0069,Pince universelle 180 mm,Pinces,2
+210,OUT-0070,Pince universelle 200 mm,Pinces,2
+211,OUT-0071,Pince coupante 140 mm,Pinces,2
+212,OUT-0072,Pince coupante 160 mm,Pinces,2
+213,OUT-0073,Pince coupante 180 mm,Pinces,2
+214,OUT-0074,Pince multiprise 180 mm,Pinces,2
+215,OUT-0075,Pince multiprise 250 mm,Pinces,2
+216,OUT-0076,Pince multiprise 300 mm,Pinces,2
+217,OUT-0077,Pince à dénuder 160 mm,Pinces,2
+218,OUT-0078,Pince à dénuder 180 mm,Pinces,2
+219,OUT-0079,Marteau rivoir 200 g,Frappe et mesure,2
+220,OUT-0080,Marteau rivoir 300 g,Frappe et mesure,2
+221,OUT-0081,Marteau rivoir 400 g,Frappe et mesure,2
+222,OUT-0082,Marteau rivoir 500 g,Frappe et mesure,2
+223,OUT-0083,Massette 1 kg,Frappe et mesure,2
+224,OUT-0084,"Massette 1,25 kg",Frappe et mesure,2
+225,OUT-0085,"Massette 1,5 kg",Frappe et mesure,2
+226,OUT-0086,Mètre ruban 3 m,Frappe et mesure,2
+227,OUT-0087,Mètre ruban 5 m,Frappe et mesure,2
+228,OUT-0088,Mètre ruban 8 m,Frappe et mesure,2
+229,OUT-0089,Mètre ruban 10 m,Frappe et mesure,2
+230,OUT-0090,Niveau à bulle 40 cm,Frappe et mesure,2
+231,OUT-0091,Niveau à bulle 60 cm,Frappe et mesure,2
+232,OUT-0092,Niveau à bulle 80 cm,Frappe et mesure,2
+233,OUT-0093,Niveau à bulle 100 cm,Frappe et mesure,2
+234,OUT-0094,Équerre de menuisier 250 mm,Frappe et mesure,2
+235,OUT-0095,Équerre de menuisier 300 mm,Frappe et mesure,2
+236,OUT-0096,Équerre de menuisier 400 mm,Frappe et mesure,2
+237,OUT-0097,Scie à métaux 300 mm,Coupe,2
+238,OUT-0098,Cutter lame 9 mm,Coupe,2
+239,OUT-0099,Cutter lame 18 mm,Coupe,2
+240,OUT-0100,Cutter lame 25 mm,Coupe,2
+241,OUT-0101,Lime plate 150 mm,Coupe,2
+242,OUT-0102,Lime plate 200 mm,Coupe,2
+243,OUT-0103,Lime plate 250 mm,Coupe,2
+244,OUT-0104,Lime ronde 150 mm,Coupe,2
+245,OUT-0105,Lime ronde 200 mm,Coupe,2
+246,OUT-0106,Lime ronde 250 mm,Coupe,2
+247,OUT-0107,Serre-joint 150 mm,Coupe,2
+248,OUT-0108,Serre-joint 300 mm,Coupe,2
+249,OUT-0109,Serre-joint 500 mm,Coupe,2
+250,OUT-0110,Serre-joint 800 mm,Coupe,2
+251,ELE-0001,Perceuse visseuse 18 V 2 Ah,Perçage et vissage,3
+252,ELE-0002,Perceuse visseuse 18 V 4 Ah,Perçage et vissage,3
+253,ELE-0003,Perceuse visseuse 18 V 5 Ah,Perçage et vissage,3
+254,ELE-0004,Perceuse à percussion 600 W,Perçage et vissage,3
+255,ELE-0005,Perceuse à percussion 750 W,Perçage et vissage,3
+256,ELE-0006,Perceuse à percussion 850 W,Perçage et vissage,3
+257,ELE-0007,Perceuse à percussion 1000 W,Perçage et vissage,3
+258,ELE-0008,Perforateur SDS+ 650 W,Perçage et vissage,3
+259,ELE-0009,Perforateur SDS+ 800 W,Perçage et vissage,3
+260,ELE-0010,Perforateur SDS+ 1000 W,Perçage et vissage,3
+261,ELE-0011,Perforateur SDS+ 1250 W,Perçage et vissage,3
+262,ELE-0012,Visseuse à chocs 18 V 2 Ah,Perçage et vissage,3
+263,ELE-0013,Visseuse à chocs 18 V 4 Ah,Perçage et vissage,3
+264,ELE-0014,Visseuse à chocs 18 V 5 Ah,Perçage et vissage,3
+265,ELE-0015,Boulonneuse 18 V 300 Nm,Perçage et vissage,3
+266,ELE-0016,Boulonneuse 18 V 600 Nm,Perçage et vissage,3
+267,ELE-0017,Boulonneuse 18 V 1000 Nm,Perçage et vissage,3
+268,ELE-0018,Agrafeuse électrique 8 mm,Perçage et vissage,3
+269,ELE-0019,Agrafeuse électrique 10 mm,Perçage et vissage,3
+270,ELE-0020,Agrafeuse électrique 14 mm,Perçage et vissage,3
+271,ELE-0021,Meuleuse Ø115 750 W,Meulage et coupe,3
+272,ELE-0022,Meuleuse Ø125 900 W,Meulage et coupe,3
+273,ELE-0023,Meuleuse Ø125 1200 W,Meulage et coupe,3
+274,ELE-0024,Meuleuse Ø150 1400 W,Meulage et coupe,3
+275,ELE-0025,Meuleuse Ø230 2200 W,Meulage et coupe,3
+276,ELE-0026,Meuleuse Ø230 2600 W,Meulage et coupe,3
+277,ELE-0027,Scie sauteuse 500 W,Meulage et coupe,3
+278,ELE-0028,Scie sauteuse 650 W,Meulage et coupe,3
+279,ELE-0029,Scie sauteuse 800 W,Meulage et coupe,3
+280,ELE-0030,Scie circulaire Ø165 mm,Meulage et coupe,3
+281,ELE-0031,Scie circulaire Ø190 mm,Meulage et coupe,3
+282,ELE-0032,Scie circulaire Ø210 mm,Meulage et coupe,3
+283,ELE-0033,Scie circulaire Ø235 mm,Meulage et coupe,3
+284,ELE-0034,Scie sabre 900 W,Meulage et coupe,3
+285,ELE-0035,Scie sabre 1100 W,Meulage et coupe,3
+286,ELE-0036,Scie sabre 1300 W,Meulage et coupe,3
+287,ELE-0037,Rainureuse béton Ø125 mm,Meulage et coupe,3
+288,ELE-0038,Rainureuse béton Ø150 mm,Meulage et coupe,3
+289,ELE-0039,Carotteuse Ø82 mm,Meulage et coupe,3
+290,ELE-0040,Carotteuse Ø132 mm,Meulage et coupe,3
+291,ELE-0041,Ponceuse orbitale 200 W,Ponçage,3
+292,ELE-0042,Ponceuse orbitale 300 W,Ponçage,3
+293,ELE-0043,Ponceuse orbitale 350 W,Ponçage,3
+294,ELE-0044,Ponceuse à bande 750 W,Ponçage,3
+295,ELE-0045,Ponceuse à bande 1000 W,Ponçage,3
+296,ELE-0046,Ponceuse excentrique Ø125 mm,Ponçage,3
+297,ELE-0047,Ponceuse excentrique Ø150 mm,Ponçage,3
+298,ELE-0048,Rabot électrique 650 W,Ponçage,3
+299,ELE-0049,Rabot électrique 850 W,Ponçage,3
+300,ELE-0050,Batterie 18 V 2 Ah,Batteries et accessoires,3
+301,ELE-0051,Batterie 18 V 4 Ah,Batteries et accessoires,3
+302,ELE-0052,Batterie 18 V 5 Ah,Batteries et accessoires,3
+303,ELE-0053,Batterie 18 V 8 Ah,Batteries et accessoires,3
+304,ELE-0054,Batterie 12 V 2 Ah,Batteries et accessoires,3
+305,ELE-0055,Batterie 12 V 3 Ah,Batteries et accessoires,3
+306,ELE-0056,Batterie 12 V 6 Ah,Batteries et accessoires,3
+307,ELE-0057,Chargeur rapide 12 V,Batteries et accessoires,3
+308,ELE-0058,Chargeur rapide 18 V,Batteries et accessoires,3
+309,ELE-0059,Lampe de chantier 18 V 1000 lm,Batteries et accessoires,3
+310,ELE-0060,Lampe de chantier 18 V 2000 lm,Batteries et accessoires,3
+311,ELE-0061,Lampe de chantier 18 V 3000 lm,Batteries et accessoires,3
+312,ELE-0062,Aspirateur chantier 20 L,Batteries et accessoires,3
+313,ELE-0063,Aspirateur chantier 30 L,Batteries et accessoires,3
+314,ELE-0064,Aspirateur chantier 45 L,Batteries et accessoires,3
+315,ELE-0065,Décapeur thermique 1600 W,Batteries et accessoires,3
+316,ELE-0066,Décapeur thermique 2000 W,Batteries et accessoires,3
+317,ELE-0067,Pistolet à colle 80 W,Batteries et accessoires,3
+318,ELE-0068,Pistolet à colle 150 W,Batteries et accessoires,3
+319,ELE-0069,Malaxeur 1200 W,Batteries et accessoires,3
+320,ELE-0070,Malaxeur 1600 W,Batteries et accessoires,3
+321,ABR-0001,"Disque tronçonnage inox 115x1,0",Disques,4
+322,ABR-0002,"Disque tronçonnage inox 125x1,0",Disques,4
+323,ABR-0003,"Disque tronçonnage inox 125x1,6",Disques,4
+324,ABR-0004,"Disque tronçonnage inox 230x1,9",Disques,4
+325,ABR-0005,"Disque tronçonnage inox 230x3,0",Disques,4
+326,ABR-0006,"Disque tronçonnage métal 125x1,0",Disques,4
+327,ABR-0007,"Disque tronçonnage métal 125x1,6",Disques,4
+328,ABR-0008,"Disque tronçonnage métal 230x1,9",Disques,4
+329,ABR-0009,"Disque tronçonnage métal 230x3,0",Disques,4
+330,ABR-0010,Disque à lamelles 115 G40,Disques,4
+331,ABR-0011,Disque à lamelles 115 G60,Disques,4
+332,ABR-0012,Disque à lamelles 115 G80,Disques,4
+333,ABR-0013,Disque à lamelles 115 G120,Disques,4
+334,ABR-0014,Disque à lamelles 125 G40,Disques,4
+335,ABR-0015,Disque à lamelles 125 G60,Disques,4
+336,ABR-0016,Disque à lamelles 125 G80,Disques,4
+337,ABR-0017,Disque à lamelles 125 G120,Disques,4
+338,ABR-0018,"Disque à ébarber 115x6,0",Disques,4
+339,ABR-0019,"Disque à ébarber 125x6,4",Disques,4
+340,ABR-0020,"Disque à ébarber 230x6,4",Disques,4
+341,ABR-0021,Disque diamant 125 béton,Disques,4
+342,ABR-0022,Disque diamant 125 carrelage,Disques,4
+343,ABR-0023,Disque diamant 125 universel,Disques,4
+344,ABR-0024,Disque diamant 230 béton,Disques,4
+345,ABR-0025,Disque diamant 230 carrelage,Disques,4
+346,ABR-0026,Disque diamant 230 universel,Disques,4
+347,ABR-0027,Foret HSS Ø2 mm,Perçage,4
+348,ABR-0028,"Foret HSS Ø2,5 mm",Perçage,4
+349,ABR-0029,Foret HSS Ø3 mm,Perçage,4
+350,ABR-0030,"Foret HSS Ø3,5 mm",Perçage,4
+351,ABR-0031,Foret HSS Ø4 mm,Perçage,4
+352,ABR-0032,"Foret HSS Ø4,5 mm",Perçage,4
+353,ABR-0033,Foret HSS Ø5 mm,Perçage,4
+354,ABR-0034,"Foret HSS Ø5,5 mm",Perçage,4
+355,ABR-0035,Foret HSS Ø6 mm,Perçage,4
+356,ABR-0036,"Foret HSS Ø6,5 mm",Perçage,4
+357,ABR-0037,Foret HSS Ø7 mm,Perçage,4
+358,ABR-0038,Foret HSS Ø8 mm,Perçage,4
+359,ABR-0039,Foret HSS Ø9 mm,Perçage,4
+360,ABR-0040,Foret HSS Ø10 mm,Perçage,4
+361,ABR-0041,Foret HSS Ø12 mm,Perçage,4
+362,ABR-0042,Foret béton SDS+ Ø5 mm,Perçage,4
+363,ABR-0043,Foret béton SDS+ Ø6 mm,Perçage,4
+364,ABR-0044,Foret béton SDS+ Ø8 mm,Perçage,4
+365,ABR-0045,Foret béton SDS+ Ø10 mm,Perçage,4
+366,ABR-0046,Foret béton SDS+ Ø12 mm,Perçage,4
+367,ABR-0047,Foret béton SDS+ Ø14 mm,Perçage,4
+368,ABR-0048,Foret béton SDS+ Ø16 mm,Perçage,4
+369,ABR-0049,Coffret forets HSS 13 pièces,Perçage,4
+370,ABR-0050,Coffret forets HSS 19 pièces,Perçage,4
+371,ABR-0051,Coffret forets HSS 25 pièces,Perçage,4
+372,ABR-0052,Scie cloche Ø20 mm,Perçage,4
+373,ABR-0053,Scie cloche Ø25 mm,Perçage,4
+374,ABR-0054,Scie cloche Ø32 mm,Perçage,4
+375,ABR-0055,Scie cloche Ø40 mm,Perçage,4
+376,ABR-0056,Scie cloche Ø51 mm,Perçage,4
+377,ABR-0057,Scie cloche Ø68 mm,Perçage,4
+378,ABR-0058,Scie cloche Ø76 mm,Perçage,4
+379,ABR-0059,Foret étagé 4 à 20 mm,Perçage,4
+380,ABR-0060,Foret étagé 6 à 30 mm,Perçage,4
+381,ABR-0061,Bande abrasive 75x457 G40,Ponçage,4
+382,ABR-0062,Bande abrasive 75x457 G80,Ponçage,4
+383,ABR-0063,Bande abrasive 75x457 G120,Ponçage,4
+384,ABR-0064,Bande abrasive 75x533 G40,Ponçage,4
+385,ABR-0065,Bande abrasive 75x533 G80,Ponçage,4
+386,ABR-0066,Bande abrasive 75x533 G120,Ponçage,4
+387,ABR-0067,Bande abrasive 100x610 G40,Ponçage,4
+388,ABR-0068,Bande abrasive 100x610 G80,Ponçage,4
+389,ABR-0069,Bande abrasive 100x610 G120,Ponçage,4
+390,ABR-0070,"Feuille abrasive G40, x50",Ponçage,4
+391,ABR-0071,"Feuille abrasive G60, x50",Ponçage,4
+392,ABR-0072,"Feuille abrasive G80, x50",Ponçage,4
+393,ABR-0073,"Feuille abrasive G120, x50",Ponçage,4
+394,ABR-0074,"Feuille abrasive G180, x50",Ponçage,4
+395,ABR-0075,"Feuille abrasive G240, x50",Ponçage,4
+396,ABR-0076,Rouleau abrasif 115 mm G80,Ponçage,4
+397,ABR-0077,Rouleau abrasif 115 mm G120,Ponçage,4
+398,ABR-0078,Rouleau abrasif 115 mm G180,Ponçage,4
+399,ABR-0079,"Lame scie sauteuse bois, x5",Lames,4
+400,ABR-0080,"Lame scie sauteuse métal, x5",Lames,4
+401,ABR-0081,"Lame scie sauteuse PVC, x5",Lames,4
+402,ABR-0082,Lame scie circulaire Ø165 24D,Lames,4
+403,ABR-0083,Lame scie circulaire Ø165 48D,Lames,4
+404,ABR-0084,Lame scie circulaire Ø190 24D,Lames,4
+405,ABR-0085,Lame scie circulaire Ø190 48D,Lames,4
+406,ABR-0086,Lame scie circulaire Ø210 24D,Lames,4
+407,ABR-0087,Lame scie circulaire Ø210 48D,Lames,4
+408,ABR-0088,"Lame cutter 9 mm, x10",Lames,4
+409,ABR-0089,"Lame cutter 18 mm, x10",Lames,4
+410,ABR-0090,"Lame cutter 25 mm, x10",Lames,4
+411,EPI-0001,"Gants nitrile TS, boîte 100",Gants,5
+412,EPI-0002,"Gants nitrile TM, boîte 100",Gants,5
+413,EPI-0003,"Gants nitrile TL, boîte 100",Gants,5
+414,EPI-0004,"Gants nitrile TXL, boîte 100",Gants,5
+415,EPI-0005,Gants de manutention T7,Gants,5
+416,EPI-0006,Gants de manutention T8,Gants,5
+417,EPI-0007,Gants de manutention T9,Gants,5
+418,EPI-0008,Gants de manutention T10,Gants,5
+419,EPI-0009,Gants de manutention T11,Gants,5
+420,EPI-0010,Gants anticoupure T7,Gants,5
+421,EPI-0011,Gants anticoupure T8,Gants,5
+422,EPI-0012,Gants anticoupure T9,Gants,5
+423,EPI-0013,Gants anticoupure T10,Gants,5
+424,EPI-0014,Gants anticoupure T11,Gants,5
+425,EPI-0015,Gants soudeur T9,Gants,5
+426,EPI-0016,Gants soudeur T10,Gants,5
+427,EPI-0017,Gants soudeur T11,Gants,5
+428,EPI-0018,Sous-gants coton T7,Gants,5
+429,EPI-0019,Sous-gants coton T8,Gants,5
+430,EPI-0020,Sous-gants coton T9,Gants,5
+431,EPI-0021,Sous-gants coton T10,Gants,5
+432,EPI-0022,Chaussures S3 basses P38,Chaussures,5
+433,EPI-0023,Chaussures S3 basses P39,Chaussures,5
+434,EPI-0024,Chaussures S3 basses P40,Chaussures,5
+435,EPI-0025,Chaussures S3 basses P41,Chaussures,5
+436,EPI-0026,Chaussures S3 basses P42,Chaussures,5
+437,EPI-0027,Chaussures S3 basses P43,Chaussures,5
+438,EPI-0028,Chaussures S3 basses P44,Chaussures,5
+439,EPI-0029,Chaussures S3 basses P45,Chaussures,5
+440,EPI-0030,Chaussures S3 basses P46,Chaussures,5
+441,EPI-0031,Chaussures S3 montantes P38,Chaussures,5
+442,EPI-0032,Chaussures S3 montantes P39,Chaussures,5
+443,EPI-0033,Chaussures S3 montantes P40,Chaussures,5
+444,EPI-0034,Chaussures S3 montantes P41,Chaussures,5
+445,EPI-0035,Chaussures S3 montantes P42,Chaussures,5
+446,EPI-0036,Chaussures S3 montantes P43,Chaussures,5
+447,EPI-0037,Chaussures S3 montantes P44,Chaussures,5
+448,EPI-0038,Chaussures S3 montantes P45,Chaussures,5
+449,EPI-0039,Chaussures S3 montantes P46,Chaussures,5
+450,EPI-0040,Bottes de sécurité P39,Chaussures,5
+451,EPI-0041,Bottes de sécurité P40,Chaussures,5
+452,EPI-0042,Bottes de sécurité P41,Chaussures,5
+453,EPI-0043,Bottes de sécurité P42,Chaussures,5
+454,EPI-0044,Bottes de sécurité P43,Chaussures,5
+455,EPI-0045,Bottes de sécurité P44,Chaussures,5
+456,EPI-0046,Bottes de sécurité P45,Chaussures,5
+457,EPI-0047,Bottes de sécurité P46,Chaussures,5
+458,EPI-0048,Gilet haute visibilité TM,Vêtements,5
+459,EPI-0049,Gilet haute visibilité TL,Vêtements,5
+460,EPI-0050,Gilet haute visibilité TXL,Vêtements,5
+461,EPI-0051,Gilet haute visibilité TXXL,Vêtements,5
+462,EPI-0052,Combinaison jetable TM,Vêtements,5
+463,EPI-0053,Combinaison jetable TL,Vêtements,5
+464,EPI-0054,Combinaison jetable TXL,Vêtements,5
+465,EPI-0055,Combinaison jetable TXXL,Vêtements,5
+466,EPI-0056,Parka haute visibilité TM,Vêtements,5
+467,EPI-0057,Parka haute visibilité TL,Vêtements,5
+468,EPI-0058,Parka haute visibilité TXL,Vêtements,5
+469,EPI-0059,Parka haute visibilité TXXL,Vêtements,5
+470,EPI-0060,Pantalon de travail T38,Vêtements,5
+471,EPI-0061,Pantalon de travail T40,Vêtements,5
+472,EPI-0062,Pantalon de travail T42,Vêtements,5
+473,EPI-0063,Pantalon de travail T44,Vêtements,5
+474,EPI-0064,Pantalon de travail T46,Vêtements,5
+475,EPI-0065,Pantalon de travail T48,Vêtements,5
+476,EPI-0066,Pantalon de travail T50,Vêtements,5
+477,EPI-0067,Veste softshell TM,Vêtements,5
+478,EPI-0068,Veste softshell TL,Vêtements,5
+479,EPI-0069,Veste softshell TXL,Vêtements,5
+480,EPI-0070,Veste softshell TXXL,Vêtements,5
+481,EPI-0071,Tee-shirt haute visibilité TM,Vêtements,5
+482,EPI-0072,Tee-shirt haute visibilité TL,Vêtements,5
+483,EPI-0073,Tee-shirt haute visibilité TXL,Vêtements,5
+484,EPI-0074,Tee-shirt haute visibilité TXXL,Vêtements,5
+485,EPI-0075,Casque de chantier blanc,"Tête, yeux et respiration",5
+486,EPI-0076,Casque de chantier jaune,"Tête, yeux et respiration",5
+487,EPI-0077,Casque de chantier bleu,"Tête, yeux et respiration",5
+488,EPI-0078,Casque de chantier rouge,"Tête, yeux et respiration",5
+489,EPI-0079,Lunettes de protection incolores,"Tête, yeux et respiration",5
+490,EPI-0080,Lunettes de protection teintées,"Tête, yeux et respiration",5
+491,EPI-0081,Lunettes de protection anti-buée,"Tête, yeux et respiration",5
+492,EPI-0082,"Masque FFP1, boîte 20","Tête, yeux et respiration",5
+493,EPI-0083,"Masque FFP2, boîte 20","Tête, yeux et respiration",5
+494,EPI-0084,"Masque FFP3, boîte 20","Tête, yeux et respiration",5
+495,EPI-0085,"Masque FFP2 à valve, boîte 10","Tête, yeux et respiration",5
+496,EPI-0086,"Masque FFP3 à valve, boîte 10","Tête, yeux et respiration",5
+497,EPI-0087,Casque antibruit SNR 27 dB,"Tête, yeux et respiration",5
+498,EPI-0088,Casque antibruit SNR 30 dB,"Tête, yeux et respiration",5
+499,EPI-0089,Casque antibruit SNR 33 dB,"Tête, yeux et respiration",5
+500,EPI-0090,"Bouchons d'oreilles, boîte 200","Tête, yeux et respiration",5
+501,EPI-0091,Écran facial polycarbonate,"Tête, yeux et respiration",5
+502,EPI-0092,Écran facial grillagé,"Tête, yeux et respiration",5
+503,EPI-0093,Harnais antichute 1 points,Travail en hauteur et secours,5
+504,EPI-0094,Harnais antichute 2 points,Travail en hauteur et secours,5
+505,EPI-0095,Longe antichute 1 m,Travail en hauteur et secours,5
+506,EPI-0096,"Longe antichute 1,5 m",Travail en hauteur et secours,5
+507,EPI-0097,Longe antichute 2 m,Travail en hauteur et secours,5
+508,EPI-0098,Genouillères mousse,Travail en hauteur et secours,5
+509,EPI-0099,Genouillères gel,Travail en hauteur et secours,5
+510,EPI-0100,Trousse de secours atelier,Travail en hauteur et secours,5
+511,HYG-0001,Dégraissant atelier 1 L,Nettoyage,6
+512,HYG-0002,Dégraissant atelier 5 L,Nettoyage,6
+513,HYG-0003,Dégraissant atelier 20 L,Nettoyage,6
+514,HYG-0004,Savon d'atelier 1 L,Nettoyage,6
+515,HYG-0005,"Savon d'atelier 2,5 L",Nettoyage,6
+516,HYG-0006,Savon d'atelier 5 L,Nettoyage,6
+517,HYG-0007,Nettoyant freins 400 ml,Nettoyage,6
+518,HYG-0008,Nettoyant freins 600 ml,Nettoyage,6
+519,HYG-0009,Nettoyant vitres 1 L,Nettoyage,6
+520,HYG-0010,Nettoyant vitres 5 L,Nettoyage,6
+521,HYG-0011,Désinfectant surfaces 1 L,Nettoyage,6
+522,HYG-0012,Désinfectant surfaces 5 L,Nettoyage,6
+523,HYG-0013,"Lingettes nettoyantes, x50",Nettoyage,6
+524,HYG-0014,"Lingettes nettoyantes, x100",Nettoyage,6
+525,HYG-0015,"Lingettes nettoyantes, x150",Nettoyage,6
+526,HYG-0016,Gel hydroalcoolique 100 ml,Nettoyage,6
+527,HYG-0017,Gel hydroalcoolique 500 ml,Nettoyage,6
+528,HYG-0018,Gel hydroalcoolique 1000 ml,Nettoyage,6
+529,HYG-0019,Crème protectrice 100 ml,Nettoyage,6
+530,HYG-0020,Crème protectrice 250 ml,Nettoyage,6
+531,HYG-0021,Savon micro-billes 1 L,Nettoyage,6
+532,HYG-0022,Savon micro-billes 4 L,Nettoyage,6
+533,HYG-0023,Pulvérisateur 1 L,Nettoyage,6
+534,HYG-0024,Pulvérisateur 5 L,Nettoyage,6
+535,HYG-0025,Pulvérisateur 8 L,Nettoyage,6
+536,HYG-0026,Nettoyant sols 1 L,Nettoyage,6
+537,HYG-0027,Nettoyant sols 5 L,Nettoyage,6
+538,HYG-0028,Pelle à poussière standard,Nettoyage,6
+539,HYG-0029,Pelle à poussière à manche,Nettoyage,6
+540,HYG-0030,Lubrifiant multifonction 150 ml,Lubrification et collage,6
+541,HYG-0031,Lubrifiant multifonction 400 ml,Lubrification et collage,6
+542,HYG-0032,Lubrifiant multifonction 500 ml,Lubrification et collage,6
+543,HYG-0033,Dégrippant 300 ml,Lubrification et collage,6
+544,HYG-0034,Dégrippant 500 ml,Lubrification et collage,6
+545,HYG-0035,Graisse lithium 400 g,Lubrification et collage,6
+546,HYG-0036,Graisse lithium 1000 g,Lubrification et collage,6
+547,HYG-0037,Graisse cuivre 300 g,Lubrification et collage,6
+548,HYG-0038,Graisse cuivre 500 g,Lubrification et collage,6
+549,HYG-0039,Huile de coupe 1 L,Lubrification et collage,6
+550,HYG-0040,Huile de coupe 5 L,Lubrification et collage,6
+551,HYG-0041,Spray silicone 400 ml,Lubrification et collage,6
+552,HYG-0042,Colle cyanoacrylate 20 g,Lubrification et collage,6
+553,HYG-0043,Colle cyanoacrylate 50 g,Lubrification et collage,6
+554,HYG-0044,Mastic silicone blanc,Lubrification et collage,6
+555,HYG-0045,Mastic silicone transparent,Lubrification et collage,6
+556,HYG-0046,Mastic silicone gris,Lubrification et collage,6
+557,HYG-0047,Mousse expansive 500 ml,Lubrification et collage,6
+558,HYG-0048,Mousse expansive 750 ml,Lubrification et collage,6
+559,HYG-0049,"Essuie-mains plié, colis 6",Essuyage et absorption,6
+560,HYG-0050,"Essuie-mains plié, colis 12",Essuyage et absorption,6
+561,HYG-0051,Bobine d'essuyage 500 formats,Essuyage et absorption,6
+562,HYG-0052,Bobine d'essuyage 1000 formats,Essuyage et absorption,6
+563,HYG-0053,Bobine d'essuyage 1500 formats,Essuyage et absorption,6
+564,HYG-0054,Chiffons coton 5 kg,Essuyage et absorption,6
+565,HYG-0055,Chiffons coton 10 kg,Essuyage et absorption,6
+566,HYG-0056,"Papier toilette, colis de 48",Essuyage et absorption,6
+567,HYG-0057,"Papier toilette, colis de 96",Essuyage et absorption,6
+568,HYG-0058,Absorbant granulés 10 kg,Essuyage et absorption,6
+569,HYG-0059,Absorbant granulés 20 kg,Essuyage et absorption,6
+570,HYG-0060,"Feuilles absorbantes, x100",Essuyage et absorption,6
+571,HYG-0061,"Feuilles absorbantes, x200",Essuyage et absorption,6
+572,HYG-0062,"Sacs poubelle 30 L, x50",Entretien et déchets,6
+573,HYG-0063,"Sacs poubelle 50 L, x50",Entretien et déchets,6
+574,HYG-0064,"Sacs poubelle 100 L, x25",Entretien et déchets,6
+575,HYG-0065,"Sacs poubelle 130 L, x25",Entretien et déchets,6
+576,HYG-0066,"Sacs poubelle 160 L, x20",Entretien et déchets,6
+577,HYG-0067,Balai-brosse 30 cm,Entretien et déchets,6
+578,HYG-0068,Balai-brosse 40 cm,Entretien et déchets,6
+579,HYG-0069,Balai-brosse 60 cm,Entretien et déchets,6
+580,HYG-0070,Seau 10 L,Entretien et déchets,6
+581,HYG-0071,Seau 15 L,Entretien et déchets,6
+582,HYG-0072,Raclette sol 45 cm,Entretien et déchets,6
+583,HYG-0073,Raclette sol 60 cm,Entretien et déchets,6
+584,HYG-0074,Bac de rétention 20 L,Entretien et déchets,6
+585,HYG-0075,Bac de rétention 60 L,Entretien et déchets,6
+586,HYG-0076,Bac de rétention 220 L,Entretien et déchets,6
+587,HYG-0077,Kit antipollution 50 L,Entretien et déchets,6
+588,HYG-0078,Kit antipollution 120 L,Entretien et déchets,6
+589,HYG-0079,Kit antipollution 240 L,Entretien et déchets,6
+590,HYG-0080,Distributeur de savon 1 L,Entretien et déchets,6
+591,HYG-0081,Ruban adhésif toilé 38 mm,Entretien et déchets,6
+592,HYG-0082,Ruban adhésif toilé 50 mm,Entretien et déchets,6
+593,HYG-0083,Ruban de signalisation 100 m,Entretien et déchets,6
+594,HYG-0084,Ruban de signalisation 500 m,Entretien et déchets,6
+595,HYG-0085,"Film étirable 450 mm, x6",Entretien et déchets,6
+596,HYG-0086,"Film étirable 500 mm, x6",Entretien et déchets,6
+597,HYG-0087,"Adhésif d'emballage 48 mm, x6",Entretien et déchets,6
+598,HYG-0088,"Adhésif d'emballage 75 mm, x6",Entretien et déchets,6
+599,HYG-0089,Chariot de ménage 1 seaux,Entretien et déchets,6
+600,HYG-0090,Chariot de ménage 2 seaux,Entretien et déchets,6

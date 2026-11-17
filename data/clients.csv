@@ -1,0 +1,901 @@
+cle_client,client,segment,cle_region,cle_commercial
+1,Régie Talarmat,Collectivités,2,3
+2,Brearlia Ferronnerie,Artisans et TPE,1,2
+3,Lanellia Mécanique,PME industrielles,2,3
+4,Palanrac Chaudronnerie,PME industrielles,4,8
+5,Falontec Métallerie,PME industrielles,1,1
+6,Valarvia Ferronnerie,Artisans et TPE,1,2
+7,Morontis Tôlerie,PME industrielles,2,3
+8,Viletec Métallerie,PME industrielles,1,1
+9,Verarlor Plasturgie,PME industrielles,1,2
+10,Lanavia Ferronnerie,Artisans et TPE,3,5
+11,Dalonvia Métallerie,PME industrielles,5,10
+12,Mororga Maintenance,PME industrielles,1,2
+13,Vilelvia Agencement,Artisans et TPE,2,4
+14,Duraga Hydraulique,PME industrielles,1,1
+15,Services techniques Sarondex,Collectivités,3,6
+16,Veronzan Chaudronnerie,PME industrielles,1,1
+17,Gararin Chaudronnerie,PME industrielles,1,1
+18,Kerarrin Menuiserie,Artisans et TPE,2,4
+19,Valorga Tôlerie,PME industrielles,3,5
+20,Valemat Usinage,PME industrielles,5,10
+21,Duravia Aéronautique,Grands comptes,1,2
+22,Valatec Usinage,PME industrielles,3,5
+23,Palilia Serrurerie,Artisans et TPE,2,3
+24,Lanorrin Serrurerie,Artisans et TPE,3,5
+25,Raletis Maintenance,PME industrielles,3,5
+26,Valandex Plomberie,Artisans et TPE,1,2
+27,Talandex Agencement,Artisans et TPE,4,8
+28,Talovia Usinage,PME industrielles,4,7
+29,Vilendex Métallerie,PME industrielles,1,2
+30,Services techniques Veradex,Collectivités,2,3
+31,Braartis Menuiserie,Artisans et TPE,5,10
+32,Verormat Maintenance,PME industrielles,2,4
+33,Paleldex Tôlerie,PME industrielles,4,7
+34,Palanvel Métallerie,PME industrielles,4,7
+35,Taleltec Ferronnerie,Artisans et TPE,4,8
+36,Talardex Métallerie,PME industrielles,1,2
+37,Coranzan Plomberie,Artisans et TPE,4,7
+38,Talandex Carrosserie,Artisans et TPE,5,9
+39,Syndicat Palonlor,Collectivités,4,8
+40,Marardex Chaudronnerie,PME industrielles,3,6
+41,Braitis Ferronnerie,Artisans et TPE,2,4
+42,Régie Duradex,Collectivités,1,2
+43,Services techniques Dalelia,Collectivités,5,10
+44,Sarelmat Automobile,Grands comptes,2,4
+45,Vililor Carrosserie,Artisans et TPE,1,2
+46,Palenzan Hydraulique,PME industrielles,1,1
+47,Ralarga Maintenance,PME industrielles,2,3
+48,Cororga Chaudronnerie,PME industrielles,4,7
+49,Brearvel Usinage,PME industrielles,1,2
+50,Morarvel Plasturgie,PME industrielles,4,8
+51,Maronvia Automatismes,PME industrielles,1,2
+52,Kereltec Plasturgie,PME industrielles,4,8
+53,Breiga Mécanique,PME industrielles,3,5
+54,Noranlor Serrurerie,Artisans et TPE,4,7
+55,Valarga Chaudronnerie,PME industrielles,2,3
+56,Kerilor Métallerie,PME industrielles,4,7
+57,Norordex Ferronnerie,Artisans et TPE,2,3
+58,Nororga Métallerie,PME industrielles,4,7
+59,Ralevia Usinage,PME industrielles,4,7
+60,Régie Kerilor,Collectivités,4,7
+61,Kerozan Plasturgie,PME industrielles,1,1
+62,Sarelrac Usinage,PME industrielles,2,3
+63,Syndicat Noradex,Collectivités,4,8
+64,Services techniques Dalonvia,Collectivités,4,7
+65,Kerorzan Serrurerie,Artisans et TPE,5,10
+66,Coravel Tôlerie,PME industrielles,4,8
+67,Garenrac Plomberie,Artisans et TPE,5,9
+68,Duranga Menuiserie,Artisans et TPE,5,10
+69,Brearlor Carrosserie,Artisans et TPE,2,4
+70,Duranrin Serrurerie,Artisans et TPE,3,6
+71,Kerolor Métallerie,PME industrielles,1,2
+72,Durardex Hydraulique,PME industrielles,1,2
+73,Verovel Agencement,Artisans et TPE,2,3
+74,Palemat Hydraulique,PME industrielles,4,7
+75,Dalonex Plasturgie,PME industrielles,2,4
+76,Calelga Usinage,PME industrielles,2,4
+77,Valarin Chaudronnerie,PME industrielles,4,7
+78,Lananex Tôlerie,PME industrielles,1,2
+79,Palomat Agencement,Artisans et TPE,5,10
+80,Calavia Hydraulique,PME industrielles,1,1
+81,Lanega Ferronnerie,Artisans et TPE,3,6
+82,Daleltis Maintenance,PME industrielles,1,2
+83,Talelor Énergie,Grands comptes,4,8
+84,Falanvia Maintenance,PME industrielles,4,8
+85,Corartis Menuiserie,Artisans et TPE,1,2
+86,Noronlia Électricité,Artisans et TPE,1,1
+87,Services techniques Calalor,Collectivités,3,5
+88,Talenrin Métallerie,PME industrielles,4,7
+89,Marerac Carrosserie,Artisans et TPE,3,5
+90,Braenzan Tôlerie,PME industrielles,2,3
+91,Coronnex Mécanique,PME industrielles,4,8
+92,Kerorzan Industries,Grands comptes,5,9
+93,Marondex Hydraulique,PME industrielles,1,2
+94,Régie Noretec,Collectivités,1,1
+95,Garelga Électricité,Artisans et TPE,5,9
+96,Garenlor Menuiserie,Artisans et TPE,1,1
+97,Breilia Métallerie,PME industrielles,1,1
+98,Marorlor Mécanique,PME industrielles,1,1
+99,Dalelga Agencement,Artisans et TPE,2,3
+100,Coranrin Usinage,PME industrielles,4,8
+101,Lanormat Mécanique,PME industrielles,2,4
+102,Sarilor Métallerie,PME industrielles,1,2
+103,Corentec Carrosserie,Artisans et TPE,1,1
+104,Lanerac Usinage,PME industrielles,4,8
+105,Garevia Menuiserie,Artisans et TPE,1,1
+106,Vilelvel Tôlerie,PME industrielles,4,7
+107,Sarellor Carrosserie,Artisans et TPE,4,7
+108,Vilorrac Automatismes,PME industrielles,3,5
+109,Braidex Tôlerie,PME industrielles,2,4
+110,Services techniques Ralonlor,Collectivités,5,10
+111,Dalelzan Électricité,Artisans et TPE,3,5
+112,Dalontis Métallerie,PME industrielles,5,9
+113,Verarrac Plomberie,Artisans et TPE,5,9
+114,Calelor Tôlerie,PME industrielles,2,4
+115,Kerovia Mécanique,PME industrielles,1,2
+116,Talantec Agencement,Artisans et TPE,2,4
+117,Talolia Chaudronnerie,PME industrielles,2,3
+118,Palitis Menuiserie,Artisans et TPE,1,2
+119,Veririn Plasturgie,PME industrielles,3,6
+120,Noranvia Agencement,Artisans et TPE,3,5
+121,Veravia Chaudronnerie,PME industrielles,4,7
+122,Régie Calonlia,Collectivités,4,8
+123,Talanzan Tôlerie,PME industrielles,5,9
+124,Talanlor Ferronnerie,Artisans et TPE,5,10
+125,Kerotis Agencement,Artisans et TPE,3,6
+126,Services techniques Falotec,Collectivités,4,7
+127,Morarvia Carrosserie,Artisans et TPE,4,7
+128,Corinex Usinage,PME industrielles,3,6
+129,Kerendex Menuiserie,Artisans et TPE,1,2
+130,Services techniques Sarolor,Collectivités,3,6
+131,Daleltis Usinage,PME industrielles,4,8
+132,Coremat Métallerie,PME industrielles,4,8
+133,Norelrin Plomberie,Artisans et TPE,3,5
+134,Lanonga Tôlerie,PME industrielles,5,9
+135,Palomat Automatismes,PME industrielles,4,7
+136,Verelga Hydraulique,PME industrielles,2,4
+137,Maromat Électricité,Artisans et TPE,5,9
+138,Ralantis Automatismes,PME industrielles,3,6
+139,Dalalor Plasturgie,PME industrielles,4,8
+140,Dalonex Agencement,Artisans et TPE,5,9
+141,Talanzan Ferronnerie,Artisans et TPE,4,8
+142,Valotis Carrosserie,Artisans et TPE,5,10
+143,Syndicat Dalornex,Collectivités,5,10
+144,Talamat Carrosserie,Artisans et TPE,1,1
+145,Breenrin Plomberie,Artisans et TPE,2,4
+146,Régie Calenlia,Collectivités,2,4
+147,Caleltis Ferronnerie,Artisans et TPE,1,1
+148,Calanmat Automatismes,PME industrielles,2,3
+149,Dalerac Tôlerie,PME industrielles,5,10
+150,Garanrin Chaudronnerie,PME industrielles,3,6
+151,Moranlor Maintenance,PME industrielles,1,1
+152,Braonex Métallerie,PME industrielles,4,7
+153,Valanex Tôlerie,PME industrielles,2,3
+154,Sarontis Agencement,Artisans et TPE,3,6
+155,Kerelvel Mécanique,PME industrielles,4,7
+156,Marelzan Chaudronnerie,PME industrielles,1,2
+157,Services techniques Valetec,Collectivités,3,6
+158,Daleltis Plomberie,Artisans et TPE,1,2
+159,Talonrac Maintenance,PME industrielles,1,1
+160,Maravia Métallerie,PME industrielles,3,6
+161,Ralarrac Électricité,Artisans et TPE,4,7
+162,Calazan Serrurerie,Artisans et TPE,1,1
+163,Verenex Maintenance,PME industrielles,2,4
+164,Durorrac Plomberie,Artisans et TPE,2,3
+165,Sarorrac Maintenance,PME industrielles,4,8
+166,Syndicat Garorvia,Collectivités,2,4
+167,Breirac Ferronnerie,Artisans et TPE,4,8
+168,Norarrac Plasturgie,PME industrielles,1,2
+169,Breanrac Hydraulique,PME industrielles,4,7
+170,Moriga Serrurerie,Artisans et TPE,4,8
+171,Palonnex Agencement,Artisans et TPE,2,4
+172,Vilelzan Métallerie,PME industrielles,3,6
+173,Vererin Plomberie,Artisans et TPE,4,8
+174,Services techniques Calovel,Collectivités,1,2
+175,Falelvia Chaudronnerie,PME industrielles,5,9
+176,Kerendex Tôlerie,PME industrielles,2,3
+177,Talanga Chaudronnerie,PME industrielles,4,7
+178,Calerin Aéronautique,Grands comptes,3,6
+179,Palanga Métallerie,PME industrielles,2,3
+180,Braega Automobile,Grands comptes,5,10
+181,Vilirin Tôlerie,PME industrielles,3,6
+182,Maritec Menuiserie,Artisans et TPE,1,1
+183,Verenzan Usinage,PME industrielles,3,5
+184,Dalorrin Maintenance,PME industrielles,4,7
+185,Valimat Serrurerie,Artisans et TPE,1,2
+186,Garorac Aéronautique,Grands comptes,1,1
+187,Ralovel Mécanique,PME industrielles,4,8
+188,Moreldex Serrurerie,Artisans et TPE,5,9
+189,Syndicat Dalenlor,Collectivités,2,3
+190,Kerendex Carrosserie,Artisans et TPE,1,1
+191,Calonvel Agencement,Artisans et TPE,3,5
+192,Duranga Hydraulique,PME industrielles,2,4
+193,Garerac Automatismes,PME industrielles,4,7
+194,Dalarzan Chaudronnerie,PME industrielles,1,1
+195,Keraga Mécanique,PME industrielles,3,6
+196,Dalenex Métallerie,PME industrielles,4,8
+197,Braanzan Menuiserie,Artisans et TPE,5,10
+198,Syndicat Morardex,Collectivités,5,9
+199,Durozan Chaudronnerie,PME industrielles,3,6
+200,Corelga Usinage,PME industrielles,5,9
+201,Calalia Plomberie,Artisans et TPE,4,7
+202,Talorvia Agencement,Artisans et TPE,1,2
+203,Braorvia Maintenance,PME industrielles,2,4
+204,Talelnex Plasturgie,PME industrielles,1,2
+205,Syndicat Falorrin,Collectivités,3,5
+206,Taliga Carrosserie,Artisans et TPE,1,1
+207,Palomat Métallerie,PME industrielles,5,10
+208,Breenrin Mécanique,PME industrielles,2,3
+209,Duronmat Menuiserie,Artisans et TPE,2,3
+210,Keranvia Automatismes,PME industrielles,3,5
+211,Falonex Plomberie,Artisans et TPE,1,2
+212,Talonrac Plomberie,Artisans et TPE,2,3
+213,Valazan Chaudronnerie,PME industrielles,5,10
+214,Durortis Carrosserie,Artisans et TPE,3,6
+215,Garazan Automatismes,PME industrielles,3,5
+216,Corentis Serrurerie,Artisans et TPE,1,2
+217,Mareldex Tôlerie,PME industrielles,3,6
+218,Ralornex Serrurerie,Artisans et TPE,4,8
+219,Verarvel Maintenance,PME industrielles,2,4
+220,Lanelor Maintenance,PME industrielles,4,8
+221,Keronrac Automatismes,PME industrielles,4,8
+222,Kerellor Maintenance,PME industrielles,2,3
+223,Marorzan Ferronnerie,Artisans et TPE,1,2
+224,Calellor Usinage,PME industrielles,3,6
+225,Calarrin Plomberie,Artisans et TPE,4,7
+226,Brearnex Chaudronnerie,PME industrielles,4,7
+227,Morartec Maintenance,PME industrielles,4,8
+228,Ralanmat Chaudronnerie,PME industrielles,3,5
+229,Talentec Usinage,PME industrielles,3,5
+230,Brearrac Automatismes,PME industrielles,4,8
+231,Syndicat Sarodex,Collectivités,2,4
+232,Garatis Plasturgie,PME industrielles,3,5
+233,Breeltec Hydraulique,PME industrielles,1,1
+234,Morelrac Métallerie,PME industrielles,1,1
+235,Sararzan Métallerie,PME industrielles,4,8
+236,Falivel Usinage,PME industrielles,1,1
+237,Veradex Électricité,Artisans et TPE,2,4
+238,Noredex Hydraulique,PME industrielles,3,5
+239,Cororvia Automatismes,PME industrielles,1,2
+240,Lanotis Serrurerie,Artisans et TPE,2,3
+241,Verolia Automatismes,PME industrielles,5,9
+242,Régie Maredex,Collectivités,4,7
+243,Corenvel Tôlerie,PME industrielles,4,8
+244,Palanga Hydraulique,PME industrielles,4,7
+245,Mororvel Mécanique,PME industrielles,4,8
+246,Services techniques Calelor,Collectivités,2,3
+247,Falarnex Plasturgie,PME industrielles,2,3
+248,Ralalor Plomberie,Artisans et TPE,5,10
+249,Morormat Ferronnerie,Artisans et TPE,4,7
+250,Dalevel Serrurerie,Artisans et TPE,4,7
+251,Corenlor Serrurerie,Artisans et TPE,3,6
+252,Breannex Plomberie,Artisans et TPE,1,1
+253,Duretec Énergie,Grands comptes,3,5
+254,Talidex Carrosserie,Artisans et TPE,1,2
+255,Ralitec Électricité,Artisans et TPE,3,6
+256,Palitec Métallerie,PME industrielles,2,3
+257,Vilotis Usinage,PME industrielles,4,8
+258,Garetec Électricité,Artisans et TPE,1,1
+259,Ralordex Plasturgie,PME industrielles,1,2
+260,Sarenvel Hydraulique,PME industrielles,4,8
+261,Dalelzan Métallerie,PME industrielles,2,4
+262,Talelnex Usinage,PME industrielles,3,6
+263,Falenex Ferronnerie,Artisans et TPE,3,6
+264,Mararlor Plomberie,Artisans et TPE,2,4
+265,Palitec Ferronnerie,Artisans et TPE,1,2
+266,Noranex Agencement,Artisans et TPE,5,9
+267,Breenga Plasturgie,PME industrielles,2,4
+268,Syndicat Calorrac,Collectivités,2,3
+269,Sarovia Tôlerie,PME industrielles,3,6
+270,Kerarvia Carrosserie,Artisans et TPE,4,7
+271,Ralezan Hydraulique,PME industrielles,4,7
+272,Saretec Automatismes,PME industrielles,5,9
+273,Marorin Électricité,Artisans et TPE,1,1
+274,Talerac Automatismes,PME industrielles,1,1
+275,Services techniques Garortec,Collectivités,3,6
+276,Kerarnex Ferronnerie,Artisans et TPE,1,2
+277,Keronlia Ferronnerie,Artisans et TPE,4,7
+278,Breavia Carrosserie,Artisans et TPE,5,9
+279,Falelor Plasturgie,PME industrielles,1,1
+280,Verondex Énergie,Grands comptes,5,10
+281,Dalirin Tôlerie,PME industrielles,1,2
+282,Breovia Maintenance,PME industrielles,2,4
+283,Services techniques Mororrin,Collectivités,5,9
+284,Norentec Ferronnerie,Artisans et TPE,1,2
+285,Noraga Agencement,Artisans et TPE,2,4
+286,Services techniques Noravia,Collectivités,3,5
+287,Services techniques Palorzan,Collectivités,2,4
+288,Norega Électricité,Artisans et TPE,4,8
+289,Coronnex Industries,Grands comptes,4,8
+290,Veradex Hydraulique,PME industrielles,3,6
+291,Falimat Plomberie,Artisans et TPE,4,7
+292,Saramat Automatismes,PME industrielles,3,6
+293,Breoga Plasturgie,PME industrielles,4,7
+294,Keronmat Agencement,Artisans et TPE,3,6
+295,Talorlor Ferronnerie,Artisans et TPE,3,6
+296,Régie Valelga,Collectivités,1,2
+297,Maronvia Agencement,Artisans et TPE,3,6
+298,Garonga Ferronnerie,Artisans et TPE,4,7
+299,Ralanlia Électricité,Artisans et TPE,1,1
+300,Corarlor Plomberie,Artisans et TPE,3,6
+301,Services techniques Dalorvel,Collectivités,5,10
+302,Sarorrin Mécanique,PME industrielles,4,7
+303,Braotec Ferronnerie,Artisans et TPE,4,7
+304,Durenmat Usinage,PME industrielles,3,5
+305,Régie Falarvia,Collectivités,5,10
+306,Mororlor Électricité,Artisans et TPE,5,9
+307,Dalovel Mécanique,PME industrielles,2,3
+308,Breovel Usinage,PME industrielles,4,8
+309,Morarin Hydraulique,PME industrielles,1,2
+310,Sareltis Menuiserie,Artisans et TPE,3,6
+311,Braonlia Ferronnerie,Artisans et TPE,4,7
+312,Taliga Ferronnerie,Artisans et TPE,4,8
+313,Falarac Menuiserie,Artisans et TPE,1,1
+314,Vilelrin Serrurerie,Artisans et TPE,4,7
+315,Sarazan Hydraulique,PME industrielles,4,8
+316,Durimat Agencement,Artisans et TPE,1,1
+317,Kerondex Menuiserie,Artisans et TPE,4,8
+318,Durevia Ferronnerie,Artisans et TPE,1,2
+319,Breenrac Agencement,Artisans et TPE,5,9
+320,Syndicat Ralantec,Collectivités,1,1
+321,Dalortis Maintenance,PME industrielles,1,2
+322,Braonrin Automatismes,PME industrielles,1,1
+323,Syndicat Caledex,Collectivités,4,8
+324,Breenlor Ferronnerie,Artisans et TPE,1,1
+325,Lanenrin Menuiserie,Artisans et TPE,5,10
+326,Lanarga Hydraulique,PME industrielles,1,1
+327,Palelga Industries,Grands comptes,4,7
+328,Keronvel Menuiserie,Artisans et TPE,3,6
+329,Braanex Automobile,Grands comptes,3,6
+330,Breellia Ferronnerie,Artisans et TPE,3,6
+331,Calorvel Menuiserie,Artisans et TPE,1,2
+332,Kerardex Tôlerie,PME industrielles,5,10
+333,Syndicat Sarandex,Collectivités,4,7
+334,Durevia Maintenance,PME industrielles,2,3
+335,Valodex Carrosserie,Artisans et TPE,2,4
+336,Morega Ferronnerie,Artisans et TPE,3,5
+337,Calenlor Électricité,Artisans et TPE,1,1
+338,Syndicat Palorrin,Collectivités,5,10
+339,Ralorvel Plomberie,Artisans et TPE,3,5
+340,Palega Carrosserie,Artisans et TPE,1,1
+341,Kerentec Mécanique,PME industrielles,1,2
+342,Valenlia Chaudronnerie,PME industrielles,2,3
+343,Valarvel Automatismes,PME industrielles,2,4
+344,Marelvel Automatismes,PME industrielles,3,6
+345,Syndicat Verarac,Collectivités,3,5
+346,Moramat Automatismes,PME industrielles,4,8
+347,Lananrac Hydraulique,PME industrielles,3,5
+348,Calanrin Tôlerie,PME industrielles,5,9
+349,Breamat Carrosserie,Artisans et TPE,1,1
+350,Palanzan Automatismes,PME industrielles,2,3
+351,Braentis Menuiserie,Artisans et TPE,4,7
+352,Kerimat Maintenance,PME industrielles,1,1
+353,Vilellia Électricité,Artisans et TPE,2,4
+354,Syndicat Kerilor,Collectivités,3,6
+355,Braelzan Carrosserie,Artisans et TPE,3,5
+356,Calarrin Menuiserie,Artisans et TPE,5,9
+357,Palenvel Mécanique,PME industrielles,5,10
+358,Verantec Menuiserie,Artisans et TPE,1,1
+359,Falenex Plasturgie,PME industrielles,3,5
+360,Brairac Carrosserie,Artisans et TPE,3,6
+361,Norenzan Ferronnerie,Artisans et TPE,1,2
+362,Palenga Tôlerie,PME industrielles,3,5
+363,Valarvia Serrurerie,Artisans et TPE,4,7
+364,Ralordex Électricité,Artisans et TPE,2,3
+365,Kererin Menuiserie,Artisans et TPE,4,8
+366,Syndicat Verelga,Collectivités,3,5
+367,Braelzan Électricité,Artisans et TPE,1,1
+368,Falonrin Mécanique,PME industrielles,2,4
+369,Falerin Chaudronnerie,PME industrielles,2,3
+370,Garelnex Métallerie,PME industrielles,5,10
+371,Breellor Chaudronnerie,PME industrielles,5,10
+372,Dalilia Automatismes,PME industrielles,3,5
+373,Breenrac Ferronnerie,Artisans et TPE,1,2
+374,Durellia Menuiserie,Artisans et TPE,3,5
+375,Verenlia Agencement,Artisans et TPE,1,2
+376,Falelrin Chaudronnerie,PME industrielles,1,1
+377,Dalorlia Tôlerie,PME industrielles,1,1
+378,Syndicat Sarelvel,Collectivités,5,10
+379,Garanvel Chaudronnerie,PME industrielles,3,6
+380,Syndicat Ralarmat,Collectivités,3,6
+381,Vilandex Serrurerie,Artisans et TPE,2,4
+382,Raleldex Tôlerie,PME industrielles,2,4
+383,Verolor Chaudronnerie,PME industrielles,2,3
+384,Palilor Agencement,Artisans et TPE,3,6
+385,Palorrin Usinage,PME industrielles,3,6
+386,Durorvia Ferronnerie,Artisans et TPE,1,2
+387,Durelnex Électricité,Artisans et TPE,2,3
+388,Durentis Hydraulique,PME industrielles,3,5
+389,Noronnex Automobile,Grands comptes,1,2
+390,Coroga Serrurerie,Artisans et TPE,4,7
+391,Durolor Automatismes,PME industrielles,3,5
+392,Braelnex Mécanique,PME industrielles,2,3
+393,Palarin Plasturgie,PME industrielles,3,5
+394,Garonnex Tôlerie,PME industrielles,3,6
+395,Dalonnex Chaudronnerie,PME industrielles,2,3
+396,Gararrin Agencement,Artisans et TPE,4,7
+397,Mararvia Chaudronnerie,PME industrielles,3,5
+398,Taloga Usinage,PME industrielles,4,7
+399,Garandex Électricité,Artisans et TPE,4,7
+400,Corezan Mécanique,PME industrielles,3,5
+401,Lanarin Mécanique,PME industrielles,3,6
+402,Ralarzan Serrurerie,Artisans et TPE,1,1
+403,Syndicat Corodex,Collectivités,3,6
+404,Lanovia Mécanique,PME industrielles,2,3
+405,Régie Dalodex,Collectivités,4,8
+406,Valonvel Ferronnerie,Artisans et TPE,2,3
+407,Noremat Plasturgie,PME industrielles,3,6
+408,Kerarmat Serrurerie,Artisans et TPE,4,7
+409,Durovel Menuiserie,Artisans et TPE,5,9
+410,Talilor Hydraulique,PME industrielles,3,6
+411,Brearvia Électricité,Artisans et TPE,3,6
+412,Régie Calorga,Collectivités,1,1
+413,Calentec Menuiserie,Artisans et TPE,2,3
+414,Marartec Plomberie,Artisans et TPE,3,6
+415,Valivel Électricité,Artisans et TPE,4,7
+416,Dalivia Plasturgie,PME industrielles,3,5
+417,Verilia Chaudronnerie,PME industrielles,1,2
+418,Régie Palotec,Collectivités,1,1
+419,Ralotis Automatismes,PME industrielles,3,5
+420,Breilor Tôlerie,PME industrielles,1,2
+421,Ralorga Plasturgie,PME industrielles,1,2
+422,Régie Dalenga,Collectivités,4,8
+423,Calitec Hydraulique,PME industrielles,2,3
+424,Valevel Automatismes,PME industrielles,3,5
+425,Maranrin Menuiserie,Artisans et TPE,3,5
+426,Vereltec Électricité,Artisans et TPE,2,3
+427,Breenzan Électricité,Artisans et TPE,4,7
+428,Falortec Usinage,PME industrielles,2,4
+429,Noravia Carrosserie,Artisans et TPE,4,7
+430,Breitec Chaudronnerie,PME industrielles,1,2
+431,Falenex Agencement,Artisans et TPE,5,10
+432,Talortis Usinage,PME industrielles,5,9
+433,Lanenrac Usinage,PME industrielles,4,7
+434,Maranrin Carrosserie,Artisans et TPE,4,7
+435,Falelga Ferronnerie,Artisans et TPE,4,7
+436,Breanga Agencement,Artisans et TPE,2,4
+437,Vilalor Hydraulique,PME industrielles,3,6
+438,Corimat Agencement,Artisans et TPE,4,7
+439,Verorga Carrosserie,Artisans et TPE,1,2
+440,Raloga Usinage,PME industrielles,1,1
+441,Falivel Serrurerie,Artisans et TPE,3,6
+442,Lanodex Plomberie,Artisans et TPE,1,2
+443,Falanvel Agencement,Artisans et TPE,5,9
+444,Kereltis Plomberie,Artisans et TPE,4,7
+445,Breedex Métallerie,PME industrielles,4,8
+446,Norarlia Usinage,PME industrielles,4,8
+447,Marenzan Chaudronnerie,PME industrielles,1,1
+448,Breilor Mécanique,PME industrielles,1,1
+449,Falorin Électricité,Artisans et TPE,4,7
+450,Durornex Mécanique,PME industrielles,1,1
+451,Valentec Ferronnerie,Artisans et TPE,3,5
+452,Noralor Électricité,Artisans et TPE,5,9
+453,Verormat Ferronnerie,Artisans et TPE,3,5
+454,Durarrin Plomberie,Artisans et TPE,3,5
+455,Moritec Agencement,Artisans et TPE,4,8
+456,Sarenrac Serrurerie,Artisans et TPE,3,5
+457,Dalotis Mécanique,PME industrielles,2,3
+458,Gararac Électricité,Artisans et TPE,5,10
+459,Morordex Agencement,Artisans et TPE,5,10
+460,Verennex Chaudronnerie,PME industrielles,2,3
+461,Lanorzan Ferronnerie,Artisans et TPE,1,1
+462,Garenmat Plomberie,Artisans et TPE,2,4
+463,Lanerac Mécanique,PME industrielles,3,5
+464,Durolor Mécanique,PME industrielles,4,7
+465,Régie Coronlor,Collectivités,1,1
+466,Falontis Usinage,PME industrielles,2,4
+467,Norevia Plomberie,Artisans et TPE,5,9
+468,Coririn Maintenance,PME industrielles,1,1
+469,Breizan Tôlerie,PME industrielles,3,6
+470,Dalatis Maintenance,PME industrielles,2,4
+471,Calevel Plomberie,Artisans et TPE,1,2
+472,Sarovia Carrosserie,Artisans et TPE,2,3
+473,Dalantis Usinage,PME industrielles,3,5
+474,Vilozan Électricité,Artisans et TPE,1,1
+475,Verarnex Automatismes,PME industrielles,5,9
+476,Valentec Automatismes,PME industrielles,3,5
+477,Norendex Hydraulique,PME industrielles,2,3
+478,Ralonrin Agencement,Artisans et TPE,1,1
+479,Kerega Chaudronnerie,PME industrielles,2,4
+480,Marenzan Plasturgie,PME industrielles,3,6
+481,Paleltec Carrosserie,Artisans et TPE,3,5
+482,Ralelmat Tôlerie,PME industrielles,2,3
+483,Saronlia Plasturgie,PME industrielles,5,9
+484,Calennex Agencement,Artisans et TPE,1,1
+485,Syndicat Falorlia,Collectivités,5,10
+486,Mororlia Carrosserie,Artisans et TPE,3,5
+487,Kerenlia Industries,Grands comptes,3,5
+488,Valontec Électricité,Artisans et TPE,1,1
+489,Duranvia Agencement,Artisans et TPE,2,4
+490,Valarzan Tôlerie,PME industrielles,2,3
+491,Valonga Métallerie,PME industrielles,2,4
+492,Veronvel Métallerie,PME industrielles,1,1
+493,Ralotec Usinage,PME industrielles,5,10
+494,Braitec Serrurerie,Artisans et TPE,2,4
+495,Calonrac Hydraulique,PME industrielles,2,3
+496,Braerac Carrosserie,Artisans et TPE,1,2
+497,Dalartec Carrosserie,Artisans et TPE,1,1
+498,Falotis Mécanique,PME industrielles,1,1
+499,Veravia Mécanique,PME industrielles,1,1
+500,Braenzan Plasturgie,PME industrielles,3,5
+501,Braonlor Automobile,Grands comptes,3,5
+502,Ralortis Menuiserie,Artisans et TPE,3,6
+503,Régie Mararrac,Collectivités,2,3
+504,Valatec Menuiserie,Artisans et TPE,4,8
+505,Durenvia Mécanique,PME industrielles,5,10
+506,Talenvel Serrurerie,Artisans et TPE,3,5
+507,Valolor Chaudronnerie,PME industrielles,1,2
+508,Talanrac Agencement,Artisans et TPE,1,2
+509,Taleltec Mécanique,PME industrielles,2,3
+510,Services techniques Duronrac,Collectivités,5,9
+511,Ralelnex Métallerie,PME industrielles,4,8
+512,Régie Kerannex,Collectivités,1,1
+513,Calemat Agencement,Artisans et TPE,4,7
+514,Morentis Mécanique,PME industrielles,5,10
+515,Dalardex Agencement,Artisans et TPE,5,10
+516,Falelnex Chaudronnerie,PME industrielles,4,8
+517,Braenlor Carrosserie,Artisans et TPE,3,6
+518,Norarga Menuiserie,Artisans et TPE,5,10
+519,Ralarmat Carrosserie,Artisans et TPE,5,9
+520,Norenex Carrosserie,Artisans et TPE,1,1
+521,Talemat Industries,Grands comptes,4,7
+522,Veronmat Carrosserie,Artisans et TPE,4,8
+523,Moronex Ferronnerie,Artisans et TPE,3,6
+524,Lanadex Ferronnerie,Artisans et TPE,3,6
+525,Norandex Usinage,PME industrielles,5,9
+526,Maronvia Menuiserie,Artisans et TPE,1,1
+527,Duririn Tôlerie,PME industrielles,1,2
+528,Talanzan Agencement,Artisans et TPE,3,5
+529,Régie Brailor,Collectivités,4,7
+530,Services techniques Vilortis,Collectivités,4,7
+531,Lanenvel Mécanique,PME industrielles,3,5
+532,Falonnex Industries,Grands comptes,5,10
+533,Braamat Agencement,Artisans et TPE,4,7
+534,Dalortis Tôlerie,PME industrielles,4,8
+535,Vilonvia Plomberie,Artisans et TPE,3,5
+536,Falorvia Plasturgie,PME industrielles,2,4
+537,Services techniques Palanvel,Collectivités,3,5
+538,Cororvia Automobile,Grands comptes,5,10
+539,Falotec Maintenance,PME industrielles,2,4
+540,Ralevia Menuiserie,Artisans et TPE,1,1
+541,Faleltis Automatismes,PME industrielles,4,7
+542,Garanga Serrurerie,Artisans et TPE,1,1
+543,Durorga Maintenance,PME industrielles,1,1
+544,Régie Lanellor,Collectivités,1,2
+545,Services techniques Marenga,Collectivités,5,9
+546,Duronlia Métallerie,PME industrielles,2,3
+547,Norartec Usinage,PME industrielles,2,4
+548,Lanovel Automatismes,PME industrielles,5,9
+549,Durivel Usinage,PME industrielles,2,4
+550,Kerorlia Chaudronnerie,PME industrielles,5,9
+551,Calorga Agencement,Artisans et TPE,4,7
+552,Dalarzan Électricité,Artisans et TPE,5,9
+553,Calanlor Ferronnerie,Artisans et TPE,3,5
+554,Corarvel Hydraulique,PME industrielles,5,10
+555,Raloga Métallerie,PME industrielles,1,2
+556,Verizan Ferronnerie,Artisans et TPE,3,5
+557,Duranga Carrosserie,Artisans et TPE,3,6
+558,Breivia Métallerie,PME industrielles,1,2
+559,Verantis Menuiserie,Artisans et TPE,4,8
+560,Garanvia Carrosserie,Artisans et TPE,3,5
+561,Durenvia Maintenance,PME industrielles,4,7
+562,Veretec Électricité,Artisans et TPE,2,3
+563,Lanerin Métallurgie,Grands comptes,3,5
+564,Garatis Usinage,PME industrielles,5,9
+565,Régie Norartis,Collectivités,4,8
+566,Talelvia Hydraulique,PME industrielles,2,4
+567,Braedex Usinage,PME industrielles,3,6
+568,Marilor Serrurerie,Artisans et TPE,2,4
+569,Kerenga Mécanique,PME industrielles,1,1
+570,Verorlor Aéronautique,Grands comptes,1,2
+571,Vilerin Plomberie,Artisans et TPE,4,8
+572,Valevia Aéronautique,Grands comptes,1,2
+573,Valorrin Maintenance,PME industrielles,5,9
+574,Services techniques Mararrin,Collectivités,4,7
+575,Lanenzan Automatismes,PME industrielles,3,6
+576,Corarrac Agencement,Artisans et TPE,4,8
+577,Coronex Mécanique,PME industrielles,4,8
+578,Palodex Plomberie,Artisans et TPE,1,1
+579,Palilor Tôlerie,PME industrielles,2,3
+580,Valelvel Plomberie,Artisans et TPE,5,10
+581,Marezan Tôlerie,PME industrielles,3,5
+582,Marazan Plomberie,Artisans et TPE,3,5
+583,Keratec Métallerie,PME industrielles,2,4
+584,Ralirac Ferronnerie,Artisans et TPE,4,8
+585,Valorga Agencement,Artisans et TPE,2,4
+586,Faleltec Hydraulique,PME industrielles,3,6
+587,Régie Braetis,Collectivités,2,3
+588,Syndicat Falelvel,Collectivités,2,4
+589,Vilorac Plasturgie,PME industrielles,1,2
+590,Calarrin Carrosserie,Artisans et TPE,5,9
+591,Morenlor Énergie,Grands comptes,1,2
+592,Talazan Plomberie,Artisans et TPE,1,1
+593,Services techniques Palelmat,Collectivités,2,3
+594,Dalalia Menuiserie,Artisans et TPE,4,7
+595,Lananmat Menuiserie,Artisans et TPE,2,4
+596,Valardex Chaudronnerie,PME industrielles,2,3
+597,Sarodex Carrosserie,Artisans et TPE,4,7
+598,Dalenvel Carrosserie,Artisans et TPE,1,1
+599,Keretec Automatismes,PME industrielles,4,7
+600,Lanalia Ferronnerie,Artisans et TPE,4,7
+601,Moreltec Carrosserie,Artisans et TPE,2,4
+602,Norimat Menuiserie,Artisans et TPE,3,6
+603,Talelmat Serrurerie,Artisans et TPE,2,4
+604,Veridex Électricité,Artisans et TPE,3,6
+605,Ralarrac Menuiserie,Artisans et TPE,2,4
+606,Palidex Hydraulique,PME industrielles,3,5
+607,Moredex Plasturgie,PME industrielles,3,6
+608,Paletec Usinage,PME industrielles,2,4
+609,Vilentis Tôlerie,PME industrielles,1,1
+610,Services techniques Dalardex,Collectivités,3,6
+611,Régie Braamat,Collectivités,1,1
+612,Moratis Tôlerie,PME industrielles,4,7
+613,Régie Saranzan,Collectivités,3,5
+614,Lanidex Électricité,Artisans et TPE,5,10
+615,Morarvel Serrurerie,Artisans et TPE,1,2
+616,Lanenrin Automatismes,PME industrielles,1,1
+617,Garenrac Mécanique,PME industrielles,4,7
+618,Talartec Carrosserie,Artisans et TPE,1,1
+619,Vilirin Menuiserie,Artisans et TPE,1,1
+620,Dalarrin Menuiserie,Artisans et TPE,3,5
+621,Syndicat Calelvia,Collectivités,5,9
+622,Dalalia Usinage,PME industrielles,2,3
+623,Palorac Serrurerie,Artisans et TPE,4,8
+624,Maranlia Carrosserie,Artisans et TPE,5,10
+625,Talanlia Chaudronnerie,PME industrielles,1,1
+626,Lanelrac Plomberie,Artisans et TPE,1,2
+627,Calatec Agencement,Artisans et TPE,2,3
+628,Dalirin Menuiserie,Artisans et TPE,1,1
+629,Mororlia Électricité,Artisans et TPE,2,3
+630,Calizan Serrurerie,Artisans et TPE,4,8
+631,Vilenex Métallerie,PME industrielles,1,2
+632,Corellia Agencement,Artisans et TPE,1,2
+633,Breerac Métallerie,PME industrielles,1,1
+634,Kerinex Plomberie,Artisans et TPE,1,1
+635,Breornex Agencement,Artisans et TPE,1,1
+636,Régie Palivel,Collectivités,3,5
+637,Valotec Mécanique,PME industrielles,4,7
+638,Coralia Menuiserie,Artisans et TPE,1,1
+639,Maronrac Menuiserie,Artisans et TPE,5,9
+640,Sarevia Carrosserie,Artisans et TPE,4,7
+641,Ralennex Automobile,Grands comptes,4,8
+642,Dalanex Serrurerie,Artisans et TPE,5,9
+643,Kerivel Hydraulique,PME industrielles,2,4
+644,Brearzan Plasturgie,PME industrielles,2,4
+645,Marorlia Électricité,Artisans et TPE,3,6
+646,Talorrac Carrosserie,Artisans et TPE,1,1
+647,Falimat Automatismes,PME industrielles,4,8
+648,Garazan Maintenance,PME industrielles,4,8
+649,Viledex Maintenance,PME industrielles,3,6
+650,Calarvia Agencement,Artisans et TPE,3,6
+651,Breilia Chaudronnerie,PME industrielles,3,6
+652,Syndicat Ralarrin,Collectivités,3,5
+653,Lanorzan Serrurerie,Artisans et TPE,3,5
+654,Talartis Serrurerie,Artisans et TPE,4,8
+655,Noranlia Serrurerie,Artisans et TPE,5,10
+656,Keronrin Automatismes,PME industrielles,3,5
+657,Garordex Serrurerie,Artisans et TPE,2,4
+658,Calartis Plasturgie,PME industrielles,3,6
+659,Coranmat Tôlerie,PME industrielles,4,7
+660,Services techniques Falelga,Collectivités,5,9
+661,Valonga Métallurgie,Grands comptes,3,6
+662,Vilorlia Métallerie,PME industrielles,3,5
+663,Breonlor Hydraulique,PME industrielles,3,6
+664,Moranga Aéronautique,Grands comptes,3,5
+665,Régie Talorzan,Collectivités,3,5
+666,Durelrin Métallerie,PME industrielles,4,7
+667,Ralilor Usinage,PME industrielles,1,2
+668,Ralelvia Menuiserie,Artisans et TPE,1,1
+669,Palelvel Serrurerie,Artisans et TPE,3,5
+670,Raledex Métallerie,PME industrielles,2,4
+671,Braarga Plomberie,Artisans et TPE,3,5
+672,Valornex Serrurerie,Artisans et TPE,5,9
+673,Régie Veritis,Collectivités,5,9
+674,Valonlia Industries,Grands comptes,1,2
+675,Talartis Usinage,PME industrielles,3,5
+676,Garellia Automobile,Grands comptes,5,9
+677,Dalanmat Usinage,PME industrielles,5,10
+678,Régie Norenlia,Collectivités,3,6
+679,Braenlor Mécanique,PME industrielles,1,1
+680,Régie Breizan,Collectivités,1,1
+681,Durilia Menuiserie,Artisans et TPE,1,1
+682,Morelor Agencement,Artisans et TPE,3,5
+683,Norarvia Carrosserie,Artisans et TPE,5,10
+684,Talezan Électricité,Artisans et TPE,3,6
+685,Braeltec Ferronnerie,Artisans et TPE,5,9
+686,Falarmat Métallerie,PME industrielles,3,5
+687,Palarzan Hydraulique,PME industrielles,4,7
+688,Corenrac Électricité,Artisans et TPE,4,7
+689,Durartis Automatismes,PME industrielles,2,4
+690,Verellor Plasturgie,PME industrielles,4,8
+691,Valozan Électricité,Artisans et TPE,1,2
+692,Vilarrin Énergie,Grands comptes,2,3
+693,Falarin Plomberie,Artisans et TPE,2,3
+694,Services techniques Palortec,Collectivités,4,8
+695,Palarga Plomberie,Artisans et TPE,1,1
+696,Braelia Agencement,Artisans et TPE,1,1
+697,Maronlia Carrosserie,Artisans et TPE,4,8
+698,Palatec Carrosserie,Artisans et TPE,3,5
+699,Noratec Ferronnerie,Artisans et TPE,1,2
+700,Noredex Serrurerie,Artisans et TPE,3,5
+701,Dalanvel Chaudronnerie,PME industrielles,5,10
+702,Sarerin Plomberie,Artisans et TPE,4,7
+703,Corezan Serrurerie,Artisans et TPE,4,7
+704,Corarvia Plasturgie,PME industrielles,1,1
+705,Talonzan Serrurerie,Artisans et TPE,5,9
+706,Dalanrin Aéronautique,Grands comptes,1,2
+707,Valarin Plomberie,Artisans et TPE,1,1
+708,Ralaga Électricité,Artisans et TPE,1,1
+709,Norenvel Hydraulique,PME industrielles,1,2
+710,Durendex Usinage,PME industrielles,1,1
+711,Braanrin Mécanique,PME industrielles,1,1
+712,Régie Noradex,Collectivités,3,6
+713,Veronmat Plasturgie,PME industrielles,3,6
+714,Braornex Mécanique,PME industrielles,1,1
+715,Talorvel Usinage,PME industrielles,3,5
+716,Dalenmat Ferronnerie,Artisans et TPE,1,1
+717,Syndicat Garenvel,Collectivités,4,8
+718,Mororrin Plomberie,Artisans et TPE,5,10
+719,Keronnex Chaudronnerie,PME industrielles,4,7
+720,Régie Talilor,Collectivités,2,4
+721,Lanivia Automatismes,PME industrielles,1,2
+722,Corelzan Mécanique,PME industrielles,1,2
+723,Valomat Chaudronnerie,PME industrielles,5,10
+724,Verirac Hydraulique,PME industrielles,3,6
+725,Dalirin Chaudronnerie,PME industrielles,1,1
+726,Vilendex Ferronnerie,Artisans et TPE,1,1
+727,Dalodex Hydraulique,PME industrielles,3,6
+728,Falanvia Mécanique,PME industrielles,3,5
+729,Verilia Agencement,Artisans et TPE,2,4
+730,Sarartec Usinage,PME industrielles,1,1
+731,Calontec Mécanique,PME industrielles,3,6
+732,Vilondex Métallerie,PME industrielles,1,1
+733,Mororlor Serrurerie,Artisans et TPE,1,2
+734,Morendex Serrurerie,Artisans et TPE,2,4
+735,Syndicat Dureltis,Collectivités,3,6
+736,Braonga Mécanique,PME industrielles,1,1
+737,Breirin Agencement,Artisans et TPE,2,3
+738,Talellor Plasturgie,PME industrielles,2,3
+739,Ralenga Agencement,Artisans et TPE,5,9
+740,Garenvel Automatismes,PME industrielles,5,9
+741,Lanenmat Métallerie,PME industrielles,2,4
+742,Vilandex Carrosserie,Artisans et TPE,4,8
+743,Syndicat Maronzan,Collectivités,4,7
+744,Vilodex Automatismes,PME industrielles,1,1
+745,Services techniques Coronlia,Collectivités,1,1
+746,Valirac Ferronnerie,Artisans et TPE,4,7
+747,Falonnex Carrosserie,Artisans et TPE,3,6
+748,Noranlor Métallerie,PME industrielles,2,4
+749,Ralorzan Plomberie,Artisans et TPE,3,6
+750,Breennex Mécanique,PME industrielles,2,4
+751,Falovel Carrosserie,Artisans et TPE,3,5
+752,Ralamat Ferronnerie,Artisans et TPE,4,7
+753,Coreltec Électricité,Artisans et TPE,1,2
+754,Services techniques Dalorzan,Collectivités,4,8
+755,Talolor Menuiserie,Artisans et TPE,4,8
+756,Corarrac Électricité,Artisans et TPE,2,3
+757,Brearzan Plomberie,Artisans et TPE,2,4
+758,Calozan Plomberie,Artisans et TPE,5,10
+759,Valilor Carrosserie,Artisans et TPE,1,2
+760,Services techniques Corelvia,Collectivités,1,2
+761,Palelmat Ferronnerie,Artisans et TPE,1,2
+762,Noriga Plomberie,Artisans et TPE,2,3
+763,Services techniques Braarvel,Collectivités,3,5
+764,Dalemat Maintenance,PME industrielles,4,8
+765,Moranzan Ferronnerie,Artisans et TPE,2,4
+766,Sarentis Menuiserie,Artisans et TPE,1,2
+767,Calerac Hydraulique,PME industrielles,1,2
+768,Kerarvel Automobile,Grands comptes,5,10
+769,Falormat Chaudronnerie,PME industrielles,1,2
+770,Syndicat Durelor,Collectivités,4,8
+771,Talarzan Carrosserie,Artisans et TPE,4,7
+772,Noreltis Serrurerie,Artisans et TPE,3,6
+773,Régie Palenex,Collectivités,4,8
+774,Syndicat Valorrac,Collectivités,1,2
+775,Brearga Ferronnerie,Artisans et TPE,5,9
+776,Mareltis Plomberie,Artisans et TPE,1,2
+777,Syndicat Palotis,Collectivités,1,2
+778,Braelnex Automatismes,PME industrielles,1,2
+779,Braitis Automatismes,PME industrielles,2,3
+780,Lananex Mécanique,PME industrielles,1,2
+781,Sarerac Plasturgie,PME industrielles,1,1
+782,Corennex Hydraulique,PME industrielles,1,2
+783,Norolia Chaudronnerie,PME industrielles,3,6
+784,Dalelzan Hydraulique,PME industrielles,4,8
+785,Gararmat Plasturgie,PME industrielles,4,7
+786,Noronvia Menuiserie,Artisans et TPE,2,4
+787,Norizan Électricité,Artisans et TPE,1,2
+788,Duradex Hydraulique,PME industrielles,4,8
+789,Daleltis Mécanique,PME industrielles,5,9
+790,Calanmat Ferronnerie,Artisans et TPE,1,2
+791,Verotec Mécanique,PME industrielles,1,1
+792,Syndicat Noronvel,Collectivités,3,6
+793,Marondex Tôlerie,PME industrielles,4,8
+794,Falelga Industries,Grands comptes,4,7
+795,Keronmat Métallerie,PME industrielles,1,2
+796,Verelrac Chaudronnerie,PME industrielles,4,7
+797,Dalenex Agencement,Artisans et TPE,1,1
+798,Lanolor Serrurerie,Artisans et TPE,3,6
+799,Valonzan Carrosserie,Artisans et TPE,1,2
+800,Norelnex Électricité,Artisans et TPE,1,1
+801,Durardex Aéronautique,Grands comptes,2,3
+802,Valenga Agencement,Artisans et TPE,1,2
+803,Corendex Tôlerie,PME industrielles,5,9
+804,Verelrac Automatismes,PME industrielles,3,5
+805,Norenvia Aéronautique,Grands comptes,1,2
+806,Braennex Automatismes,PME industrielles,3,6
+807,Corelga Mécanique,PME industrielles,5,9
+808,Durenga Métallerie,PME industrielles,4,8
+809,Durortec Usinage,PME industrielles,5,10
+810,Morerin Hydraulique,PME industrielles,3,5
+811,Valanvel Agencement,Artisans et TPE,5,10
+812,Kerardex Mécanique,PME industrielles,1,2
+813,Vilavel Automatismes,PME industrielles,4,7
+814,Breonrac Carrosserie,Artisans et TPE,2,4
+815,Marorzan Agencement,Artisans et TPE,2,4
+816,Noronrin Chaudronnerie,PME industrielles,3,5
+817,Garonrac Automobile,Grands comptes,3,5
+818,Garolor Carrosserie,Artisans et TPE,5,9
+819,Kerelvel Métallerie,PME industrielles,3,5
+820,Garoga Aéronautique,Grands comptes,5,10
+821,Moranrin Ferronnerie,Artisans et TPE,4,7
+822,Calannex Agencement,Artisans et TPE,2,4
+823,Régie Marelzan,Collectivités,5,10
+824,Talorrin Plomberie,Artisans et TPE,5,10
+825,Kerelrac Électricité,Artisans et TPE,4,7
+826,Morimat Maintenance,PME industrielles,2,4
+827,Braonlor Métallerie,PME industrielles,3,5
+828,Sarelrac Ferronnerie,Artisans et TPE,1,2
+829,Sarelvel Agencement,Artisans et TPE,3,6
+830,Coranmat Maintenance,PME industrielles,1,1
+831,Noronrin Usinage,PME industrielles,1,2
+832,Corarmat Automatismes,PME industrielles,3,5
+833,Calortec Serrurerie,Artisans et TPE,2,4
+834,Keronrin Industries,Grands comptes,4,7
+835,Breorvia Chaudronnerie,PME industrielles,1,1
+836,Durega Plomberie,Artisans et TPE,3,6
+837,Calonex Menuiserie,Artisans et TPE,4,7
+838,Verarin Métallerie,PME industrielles,5,9
+839,Lanonlor Serrurerie,Artisans et TPE,5,9
+840,Sarorrin Électricité,Artisans et TPE,3,5
+841,Dalivia Ferronnerie,Artisans et TPE,1,1
+842,Palitec Automatismes,PME industrielles,2,4
+843,Falolia Hydraulique,PME industrielles,4,8
+844,Morenlia Carrosserie,Artisans et TPE,2,3
+845,Coramat Métallerie,PME industrielles,3,6
+846,Vililor Ferronnerie,Artisans et TPE,2,3
+847,Régie Saririn,Collectivités,2,3
+848,Veravel Menuiserie,Artisans et TPE,5,9
+849,Gariga Menuiserie,Artisans et TPE,2,4
+850,Durorac Plasturgie,PME industrielles,2,4
+851,Talortec Métallerie,PME industrielles,5,10
+852,Talenmat Agencement,Artisans et TPE,3,5
+853,Braarvel Agencement,Artisans et TPE,3,6
+854,Ralidex Usinage,PME industrielles,2,3
+855,Garelrac Menuiserie,Artisans et TPE,4,7
+856,Syndicat Moreltec,Collectivités,5,9
+857,Sarordex Mécanique,PME industrielles,4,8
+858,Vilatis Menuiserie,Artisans et TPE,3,5
+859,Morelrin Ferronnerie,Artisans et TPE,2,4
+860,Dalomat Agencement,Artisans et TPE,2,3
+861,Régie Braimat,Collectivités,5,9
+862,Moronrin Mécanique,PME industrielles,3,6
+863,Services techniques Breonmat,Collectivités,4,8
+864,Norelor Tôlerie,PME industrielles,2,4
+865,Falanzan Usinage,PME industrielles,3,6
+866,Garanrin Tôlerie,PME industrielles,2,4
+867,Valilor Plomberie,Artisans et TPE,3,5
+868,Falarin Hydraulique,PME industrielles,5,9
+869,Valarlia Plasturgie,PME industrielles,3,5
+870,Verantec Mécanique,PME industrielles,5,10
+871,Sarortec Aéronautique,Grands comptes,2,4
+872,Valenzan Électricité,Artisans et TPE,5,10
+873,Braanvel Menuiserie,Artisans et TPE,1,1
+874,Sarordex Agencement,Artisans et TPE,1,1
+875,Services techniques Valitis,Collectivités,2,3
+876,Services techniques Garonrin,Collectivités,2,4
+877,Breirac Plomberie,Artisans et TPE,2,3
+878,Validex Usinage,PME industrielles,5,9
+879,Dalardex Usinage,PME industrielles,4,7
+880,Breorrac Chaudronnerie,PME industrielles,1,2
+881,Noreltec Électricité,Artisans et TPE,3,5
+882,Calardex Agencement,Artisans et TPE,1,1
+883,Morivel Plasturgie,PME industrielles,4,8
+884,Lanivel Hydraulique,PME industrielles,1,2
+885,Breavel Chaudronnerie,PME industrielles,4,8
+886,Services techniques Maranrac,Collectivités,2,3
+887,Sarelvel Métallerie,PME industrielles,2,3
+888,Palaga Ferronnerie,Artisans et TPE,2,4
+889,Syndicat Palodex,Collectivités,5,9
+890,Palarlor Menuiserie,Artisans et TPE,1,2
+891,Garatis Menuiserie,Artisans et TPE,4,8
+892,Lanevel Menuiserie,Artisans et TPE,1,2
+893,Kerivel Menuiserie,Artisans et TPE,2,4
+894,Palelga Agencement,Artisans et TPE,3,6
+895,Talonex Industries,Grands comptes,4,8
+896,Services techniques Coronlor,Collectivités,2,3
+897,Falortec Carrosserie,Artisans et TPE,4,8
+898,Saravel Serrurerie,Artisans et TPE,3,5
+899,Lanentec Menuiserie,Artisans et TPE,4,7
+900,Sarartis Agencement,Artisans et TPE,3,5
