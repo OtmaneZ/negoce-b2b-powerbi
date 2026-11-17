@@ -1,0 +1,81 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.1.0/schema.json",
+  "name": "4d6e4ce4a96be3f34a61",
+  "displayName": "Marge",
+  "displayOption": "FitToPage",
+  "height": 720,
+  "width": 1280,
+  "objects": {
+    "background": [
+      {
+        "properties": {
+          "color": {
+            "solid": {
+              "color": {
+                "expr": {
+                  "Literal": {
+                    "Value": "'#F3F2F1'"
+                  }
+                }
+              }
+            }
+          },
+          "transparency": {
+            "expr": {
+              "Literal": {
+                "Value": "0D"
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  "visualInteractions": [
+    {
+      "source": "5e29fc43f3c92cf63c09",
+      "target": "1add3d76122599166168",
+      "type": "NoFilter"
+    },
+    {
+      "source": "5e29fc43f3c92cf63c09",
+      "target": "c39b7e2a275be6cee742",
+      "type": "NoFilter"
+    },
+    {
+      "source": "5e29fc43f3c92cf63c09",
+      "target": "c5c7913531f723c9fa93",
+      "type": "NoFilter"
+    },
+    {
+      "source": "5e29fc43f3c92cf63c09",
+      "target": "5fe6fb001a59a98889d1",
+      "type": "NoFilter"
+    },
+    {
+      "source": "5e29fc43f3c92cf63c09",
+      "target": "be728e5d2eb096f7cc94",
+      "type": "NoFilter"
+    },
+    {
+      "source": "5e29fc43f3c92cf63c09",
+      "target": "9974a073dd3722f1ff39",
+      "type": "NoFilter"
+    },
+    {
+      "source": "5e29fc43f3c92cf63c09",
+      "target": "9906df5bef0464775672",
+      "type": "NoFilter"
+    },
+    {
+      "source": "5e29fc43f3c92cf63c09",
+      "target": "2776684440f12a1a4f00",
+      "type": "NoFilter"
+    },
+    {
+      "source": "5e29fc43f3c92cf63c09",
+      "target": "448daf00dbc485c27363",
+      "type": "NoFilter"
+    }
+  ]
+}

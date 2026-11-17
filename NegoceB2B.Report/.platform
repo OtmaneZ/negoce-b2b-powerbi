@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.1.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "NegoceB2B"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "e311a9df-5cc8-4ae1-9125-ac641273be40"
+  }
+}

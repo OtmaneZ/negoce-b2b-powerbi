@@ -1,0 +1,120 @@
+{
+  "$schema": "https://raw.githubusercontent.com/microsoft/powerbi-desktop-samples/main/Report%20Theme%20JSON%20Schema/reportThemeSchema-2.159.json",
+  "name": "ArvenorSobre-5d2f8a61.json",
+  "dataColors": [
+    "#1F4E79",
+    "#8A8886",
+    "#252423",
+    "#B42318",
+    "#6F93B8",
+    "#C9D8E8",
+    "#605E5C",
+    "#E1DFDD"
+  ],
+  "foreground": "#252423",
+  "foregroundNeutralSecondary": "#605E5C",
+  "foregroundNeutralTertiary": "#8A8886",
+  "background": "#FFFFFF",
+  "backgroundLight": "#F3F2F1",
+  "backgroundNeutral": "#E1DFDD",
+  "tableAccent": "#1F4E79",
+  "good": "#1F4E79",
+  "neutral": "#605E5C",
+  "bad": "#B42318",
+  "maximum": "#1F4E79",
+  "center": "#FFFFFF",
+  "minimum": "#B42318",
+  "textClasses": {
+    "callout": {
+      "fontSize": 14,
+      "fontFace": "Segoe UI Semibold",
+      "color": "#252423"
+    },
+    "title": {
+      "fontSize": 11,
+      "fontFace": "Segoe UI Semibold",
+      "color": "#252423"
+    },
+    "header": {
+      "fontSize": 10,
+      "fontFace": "Segoe UI Semibold",
+      "color": "#252423"
+    },
+    "label": {
+      "fontSize": 9,
+      "fontFace": "Segoe UI",
+      "color": "#605E5C"
+    }
+  },
+  "visualStyles": {
+    "*": {
+      "*": {
+        "title": [
+          {
+            "show": true,
+            "fontSize": 11,
+            "titleWrap": true,
+            "fontColor": {
+              "solid": {
+                "color": "#252423"
+              }
+            }
+          }
+        ],
+        "subTitle": [
+          {
+            "show": false
+          }
+        ],
+        "padding": [
+          {
+            "left": 12,
+            "top": 8,
+            "right": 12,
+            "bottom": 8
+          }
+        ],
+        "background": [
+          {
+            "show": true,
+            "transparency": 0,
+            "color": {
+              "solid": {
+                "color": "#FFFFFF"
+              }
+            }
+          }
+        ],
+        "border": [
+          {
+            "show": false
+          }
+        ],
+        "dropShadow": [
+          {
+            "show": false
+          }
+        ],
+        "visualHeader": [
+          {
+            "show": false
+          }
+        ]
+      }
+    },
+    "page": {
+      "*": {
+        "background": [
+          {
+            "color": {
+              "solid": {
+                "color": "#F3F2F1"
+              }
+            },
+            "transparency": 0
+          }
+        ]
+      }
+    }
+  }
+}
