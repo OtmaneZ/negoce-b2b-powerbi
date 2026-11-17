@@ -74,26 +74,29 @@ def format_fr(valeur: float, format_dax: str) -> str:
     return signe + _chiffres(nombre, decimales, milliers) + (" %" if pourcentage else "")
 
 
-def signe(valeur: float) -> str:
-    """IF(valeur < 0, "-", "+")."""
-    return "-" if valeur < 0 else "+"
+def signe(valeur) -> str:
+    """IF(valeur < 0, "-", "+") : une valeur vide n'est pas négative."""
+    return "-" if valeur is not None and valeur < 0 else "+"
+
+
+def _format_absolu(valeur, format_dax: str, diviseur: int = 1) -> str:
+    """FORMAT(ABS(valeur) / diviseur, format_dax, "fr-FR") ; vide pour une valeur vide."""
+    return "" if valeur is None else format_fr(abs(valeur) / diviseur, format_dax)
 
 
 def pct(valeur) -> str:
-    """FORMAT(valeur, "0.0 %", "fr-FR") ; vide pour une valeur vide."""
+    """FORMAT(valeur, "0.0 %", "fr-FR")."""
     return "" if valeur is None else format_fr(valeur, "0.0 %")
 
 
 def pct_signe(valeur) -> str:
     """Pourcentage signé : signe explicite puis FORMAT(ABS(valeur), "0.0 %")."""
-    return "" if valeur is None else signe(valeur) + format_fr(abs(valeur), "0.0 %")
+    return signe(valeur) + _format_absolu(valeur, "0.0 %")
 
 
 def milliers(valeur) -> str:
     """Milliers d'euros signés : signe explicite puis FORMAT(ABS(valeur) / 1000, "#,0")."""
-    if valeur is None:
-        return " k€"
-    return signe(valeur) + format_fr(abs(valeur) / 1000, "#,0") + " k€"
+    return signe(valeur) + _format_absolu(valeur, "#,0", 1000) + " k€"
 
 
 def millions(valeur) -> str:
@@ -103,9 +106,7 @@ def millions(valeur) -> str:
 
 def points(valeur) -> str:
     """Points signés : signe explicite puis FORMAT(ABS(valeur), "0.0")."""
-    if valeur is None:
-        return " pts"
-    return signe(valeur) + format_fr(abs(valeur), "0.0") + " pts"
+    return signe(valeur) + _format_absolu(valeur, "0.0") + " pts"
 
 
 def normaliser_espaces(texte: str) -> str:
@@ -373,10 +374,13 @@ class Moteur:
         if termes is not None:
             resultat["CA net N au prix N-1"] = float((termes["q"] * termes["net_n1"]).sum())
         # Garde commune aux cinq effets : une seule année et un CA N-1 non vide.
-        calculable = termes is not None and ctx.annee is not None and ca_n1 is not None
-        if not calculable:
-            for _, nom in EFFETS:
-                resultat[nom] = None
+        for _, nom in EFFETS:
+            resultat[nom] = None
+        if ctx.annee is None or ca_n1 is None:
+            return resultat
+        if termes is None:
+            # Aucune vente en N : seul l'effet volume est défini, il annule la marge N-1.
+            resultat["Effet volume"] = -marge_n1
             return resultat
         volume_a_prix_n1 = resultat["CA net N au prix N-1"]
         marge_volume = marge_n1 * volume_a_prix_n1 / ca_n1
