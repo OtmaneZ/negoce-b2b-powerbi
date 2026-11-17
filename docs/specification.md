@@ -22,7 +22,7 @@ Ce document fixe ce qui est construit : l'entreprise et son histoire, les donné
 | Nom | **Arvenor** (raison sociale fictive : Arvenor SAS) |
 | Activité | Négoce B2B de fournitures industrielles : visserie, outillage, abrasifs, équipements de protection, produits de maintenance |
 | Implantation | Siège et entrepôt central en région lyonnaise, livraisons dans toute la France métropolitaine |
-| Taille | Environ 90 salariés, dont 10 commerciaux terrain ; CA net cible d'environ 18 M€ en 2024 |
+| Taille | Environ 90 salariés, dont 10 commerciaux terrain ; CA net d'environ 21 M€ en 2024 |
 | Clientèle | Environ 900 clients professionnels : industriels, artisans, sociétés de maintenance, collectivités |
 | Historique couvert | Exercices 2024 et 2025 (années civiles complètes) |
 
@@ -60,23 +60,23 @@ Deux commerciaux par région, adresses en `@example.com`.
 | Nicolas Hervé | Ouest | |
 | Sophie Vernet | Rhône-Alpes | |
 | Romain Chabert | Rhône-Alpes | |
-| Damien Revol | Sud | **Dérive des remises** : taux moyen d'environ 9 % en 2024, montée progressive vers environ 16 % en 2025 |
+| Damien Revol | Sud | **Dérive des remises** : taux moyen d'environ 11 % en 2024, montée progressive tout au long de 2025, environ 19 % sur l'année |
 | Inès Fabre | Sud | |
 
 Adresses : `prenom.nom@example.com` sans accents ni espaces (par exemple `gaelle.leguen@example.com`). Une adresse supplémentaire, `direction.commerciale@example.com`, a accès aux cinq régions pour tester une habilitation multirégion.
 
 ### Familles de produits
 
-| Famille | Nombre de références | Prix catalogue unitaire 2024 | Taux de marge commerciale cible 2024 | Évolution des volumes 2025 (cible) |
+| Famille | Nombre de références | Prix catalogue unitaire 2024 | Taux de marge commerciale cible 2024 | Pondération des volumes 2025 (paramètre) |
 |---|---|---|---|---|
 | Visserie et fixations | 140 | 3 à 60 € | 38 % | +2 % |
-| Outillage à main | 110 | 8 à 150 € | 35 % | -4 % |
+| Outillage à main | 110 | 8 à 150 € | 35 % | -10 % |
 | Outillage électroportatif | 70 | 60 à 900 € | 24 % | +12 % |
 | Abrasifs et coupe | 90 | 2 à 40 € | 40 % | +5 % |
 | Équipements de protection | 100 | 3 à 120 € | 33 % | +16 % |
 | Hygiène et maintenance | 90 | 4 à 80 € | 30 % | +7 % |
 
-Total : 600 références. Libellés produits génériques et descriptifs, sans marque, 32 caractères au plus (par exemple « Vis TH M8x40 zinguée, boîte 100 »).
+La pondération des volumes déplace le mix de 2025 entre familles ; elle s'ajoute à l'évolution régionale. Total : 600 références. Libellés produits génériques et descriptifs, sans marque, 32 caractères au plus (par exemple « Vis TH M8x40 zinguée, boîte 100 »).
 
 ### Segments clients
 
@@ -94,8 +94,8 @@ Noms de clients : pseudo-raisons sociales construites à partir de racines inven
 1. **Croissance inégale.** Le CA net progresse d'environ 8 % en 2025, mais la croissance vient surtout des équipements de protection, de l'électroportatif et de Rhône-Alpes ; l'outillage à main et le Nord-Est reculent.
 2. **Saisonnalité.** Creux marqué en août (environ -45 % par rapport à un mois moyen) et en décembre (environ -20 %), pics en mars-juin et septembre-octobre ; les jours fériés et les week-ends n'ont pas de ventes.
 3. **Hausse des coûts d'achat sur la visserie.** À partir du 1er mars 2025, le coût d'achat de la visserie et des fixations augmente d'environ 11 % (acier), alors que son prix catalogue n'a augmenté que de 3 % au 1er janvier (2,5 % pour les autres familles). Le taux de marge de la famille perd plusieurs points.
-4. **Dérive des remises chez Damien Revol (Sud).** Son taux de remise moyen passe d'environ 9 % à environ 16 %. Le CA de la région Sud progresse, sa marge non.
-5. **Clients et produits déficitaires.** En 2025, au moins 8 clients ont une marge contributive négative : petits clients éloignés aux commandes fréquentes et de faible montant (transport supérieur à la marge) et quelques clients surremisés de Damien Revol. Au moins 5 références sont vendues sous leur coût d'achat : fins de série d'outillage à main en déstockage.
+4. **Dérive des remises chez Damien Revol (Sud).** Son taux de remise moyen passe d'environ 11 % à environ 19 %. Le volume de ses clients augmente, le CA de la région Sud progresse, sa marge recule.
+5. **Clients et produits déficitaires.** En 2025, au moins 8 clients ont une marge contributive négative : petits clients éloignés aux commandes fréquentes et de faible montant (transport supérieur à la marge) et des clients surremisés de Damien Revol. Au moins 5 références sont vendues sous leur coût d'achat : fins de série d'outillage à main en déstockage.
 
 ## 2. Données
 
@@ -108,7 +108,7 @@ Noms de clients : pseudo-raisons sociales construites à partir de racines inven
 
 ### Tables et colonnes
 
-**`ventes.csv`** (fait, grain : ligne de commande ; environ 70 000 lignes sur deux ans, environ 22 000 commandes)
+**`ventes.csv`** (fait, grain : ligne de commande ; environ 63 500 lignes sur deux ans, environ 22 300 commandes)
 
 | Colonne | Type | Règle |
 |---|---|---|
@@ -153,13 +153,13 @@ Les colonnes `clients.cle_region`, `clients.cle_commercial`, `produits.cle_famil
 ### Règles de génération
 
 1. **Calendrier.** Jours ouvrés 2024-2025 ; poids mensuels de saisonnalité : janvier 0,90 ; février 0,95 ; mars 1,10 ; avril 1,05 ; mai 0,95 ; juin 1,10 ; juillet 0,95 ; août 0,55 ; septembre 1,10 ; octobre 1,15 ; novembre 1,05 ; décembre 0,80.
-2. **Clients.** Région tirée selon les poids régionaux, segment selon les parts ci-dessus, commercial tiré parmi les deux de sa région. Environ 5 % des clients sont perdus fin 2024 et environ 7 % sont nouveaux en 2025 (le nombre de clients actifs bouge).
-3. **Commandes.** Fréquence annuelle par client selon le segment (loi de Poisson), modulée par la saisonnalité, l'évolution de la région et l'évolution de la famille. 1 à 8 lignes par commande.
+2. **Clients.** Région tirée selon les poids régionaux, segment selon les parts ci-dessus, commercial tiré parmi les deux de sa région. Hors grands comptes, 5 % des clients sont perdus fin 2024 et 7 % sont nouveaux en 2025, à partir d'un mois tiré entre janvier et octobre (le nombre de clients actifs bouge).
+3. **Commandes.** Fréquence annuelle par client selon le segment et un niveau d'activité propre au client, avec une dispersion de 5 % d'une année sur l'autre ; en 2025, elle suit l'évolution de la région (+15 % de volume en plus pour les clients de Damien Revol). Dates tirées selon la saisonnalité. 1 à 8 lignes par commande, montant brut visé par ligne selon le segment.
 4. **Produits.** Choix pondéré par les préférences de famille du segment et une popularité de type Zipf à l'intérieur de chaque famille. Toutes les références sont vendues au moins une fois chaque année (contrôlé par test).
-5. **Prix et coûts.** Prix catalogue 2024 tiré dans la fourchette de la famille ; coût d'achat = prix × (1 - taux de marge cible de la famille ± bruit). Au 1er janvier 2025 : prix catalogue +2,5 %, +3 % pour la visserie. Au 1er mars 2025 : coût d'achat de la visserie +11 %. Huit références d'outillage à main passent en fin de série en 2025, prix catalogue réduit de 40 %, sous leur coût d'achat.
-6. **Remises.** Remise de base du segment + effet commercial + bruit, bornée à [0 %, 40 %]. Damien Revol : supplément croissant tout au long de 2025, jusqu'à environ +10 points en fin d'année, et quelques clients au-delà de 30 %.
-7. **Transport.** Par commande : forfait selon la région (Rhône-Alpes le moins cher, Nord-Est et Ouest les plus chers) plus une part variable du montant ; environ 3 % du CA en moyenne, bien plus sur les petites commandes. Une dizaine de petits clients éloignés commandent souvent pour de faibles montants.
-8. **Budget.** 2024 : CA annuel attendu par famille × région selon les paramètres du générateur, ±3 % d'erreur de prévision, réparti par mois selon la saisonnalité. 2025 : CA net réel 2024 par famille × région × 1,06, réparti par mois selon la saisonnalité. Budget de marge = budget de CA × taux de marge commerciale réel 2024 de la famille × région : le budget 2025 n'anticipe ni la hausse des coûts de la visserie ni la dérive des remises.
+5. **Prix et coûts.** Prix catalogue 2024 tiré dans la fourchette de la sous-famille ; coût d'achat = prix × (1 - 10 % de remise moyenne attendue) × (1 - taux de marge cible de la famille ± bruit), pour que le taux cible s'entende après remises. Au 1er janvier 2025 : prix catalogue +2,5 %, +3 % pour la visserie, coûts d'achat +1,5 %. Au 1er mars 2025 : coût d'achat de la visserie +11 % supplémentaires. Huit références d'outillage à main passent en fin de série en 2025, prix catalogue réduit de 45 %, sous leur coût d'achat.
+6. **Remises.** Remise de base du segment + effet commercial + effet client + bruit, bornée à [0 %, 40 %]. Damien Revol : supplément croissant tout au long de 2025, jusqu'à +10 points en fin d'année, et cinq clients remisés entre 37 % et 40 %.
+7. **Transport.** Par commande : forfait selon la région (9 € en Rhône-Alpes, 14 € en Île-de-France, 15 € dans le Sud, 17 € dans l'Ouest, 18 € dans le Nord-Est) plus 1,5 % du montant net ; un peu plus de 2 % du CA en moyenne, bien plus sur les petites commandes. Dix petits clients du Nord-Est et de l'Ouest commandent une quarantaine de fois par an pour de faibles montants, en consommables.
+8. **Budget.** 2024 : CA net réel 2024 par famille × région, avec une erreur de prévision tirée entre -3 % et +3 %, réparti par mois selon la saisonnalité et le nombre de jours ouvrés. 2025 : CA net réel 2024 par famille × région × 1,06, réparti de la même façon. Budget de marge = budget de CA × taux de marge commerciale réel 2024 de la famille × région : le budget 2025 n'anticipe ni la hausse des coûts de la visserie ni la dérive des remises.
 
 ## 3. Modèle sémantique
 
@@ -467,7 +467,7 @@ RETURN
 
 Les mesures texte suivent des règles communes, appliquées à l'identique par le DAX et par `scripts/expected_values.py` :
 
-- **Formats.** Tous les nombres passent par `FORMAT(valeur, format, "fr-FR")`, indépendant du poste. Pourcentage : `0.0 %` (« 8,4 % ») ; pourcentage signé : `+0.0 %;-0.0 %;0.0 %` ; millions : `#,0.0` puis « M€ » ; milliers signés : `+#,0;-#,0;0` puis « k€ » ; points signés : `+0.0;-0.0;0.0` puis « pts ». Arrondi au plus proche, demi s'éloignant de zéro.
+- **Formats.** Tous les nombres passent par `FORMAT(valeur, format, "fr-FR")`, indépendant du poste, avec des formats à une seule section : pourcentage `0.0 %` (« 8,4 % »), millions `#,0.0` puis « M€ », milliers `#,0` puis « k€ », points `0.0` puis « pts ». Pour les valeurs signées, le signe est ajouté explicitement (`IF(x < 0, "-", "+") & FORMAT(ABS(x), …)`) : une valeur non nulle arrondie à zéro s'écrit ainsi « +0 k€ » quel que soit le moteur. Arrondi au plus proche, demi s'éloignant de zéro.
 - **Comparaison.** Les textes attendus sont comparés après normalisation des espaces : espaces insécables (U+00A0, U+202F) ramenées à une espace simple.
 - **Cas limites.** Aucune année ou plusieurs années : « Sélectionnez une année ». Pas d'exercice N-1 : le texte le dit. Budget vide : la partie budgétaire est omise. Compteurs : singulier pour 0 et 1, pluriel au-delà.
 - **Préfixe et mention.** Les titres de page commencent par le nom de la page (« Vue Direction · », « Marge · ») ; les synthèses se terminent par « Données fictives. ».
