@@ -1,0 +1,22 @@
+# Python
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+
+# Power BI
+**/.pbi/localSettings.json
+**/.pbi/cache.abf
+*.pbix
+*.abf
+
+# macOS
+.DS_Store
+
+# Éditeurs
+.vscode/
+.idea/
+
+# Secrets
+.env
