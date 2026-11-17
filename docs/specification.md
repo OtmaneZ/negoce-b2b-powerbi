@@ -1,16 +1,19 @@
 # Spécification : démo Power BI « Arvenor, négoce B2B »
 
-Version 1, à valider avant la phase 2. Toutes les données sont fictives.
+Version 2, validée le 17 novembre 2026. Toutes les données sont fictives.
 
-Ce document fixe ce qui sera construit : l'entreprise et son histoire, les données générées, le modèle sémantique, les mesures, les deux pages du rapport et le plan de contrôle. Les chiffres cités ici sont des **cibles de génération**, pas des résultats : les valeurs réelles seront calculées par script en phase 2 et vérifiées dans Power BI Desktop.
+Ce document fixe ce qui est construit : l'entreprise et son histoire, les données générées, le modèle sémantique, les mesures, les deux pages du rapport et le plan de contrôle. Les chiffres cités ici sont des **cibles de génération**, pas des résultats : les valeurs réelles sont calculées par script (`scripts/expected_values.py`) et vérifiées dans Power BI Desktop.
 
-## 0. Points à valider en priorité
+## 0. Décisions de conception
 
-1. **Deux dimensions de plus que prévu : Famille et Région.** Le budget est au grain mois × famille × région. Pour le relier au modèle avec des relations 1-* unidirectionnelles uniquement, il faut des dimensions conformes à ce grain, partagées par Ventes et Budget. Sans elles, il faudrait une relation plusieurs-à-plusieurs ou des relations virtuelles (TREATAS) dans chaque mesure de budget. Ventes porte donc directement une clé famille et une clé région (schéma en étoile, pas de flocon).
-2. **Une seule table de mesures**, comme demandé. Une pratique répandue consiste plutôt à répartir les mesures dans les tables de faits ; ici la table unique se justifie : plusieurs mesures croisent Ventes et Budget, et le lecteur trouve tout au même endroit, rangé par dossiers.
+1. **Deux dimensions conformes, Famille et Région.** Le budget est au grain mois × famille × région. Pour le relier au modèle avec des relations 1-* unidirectionnelles uniquement, il faut des dimensions à ce grain, partagées par Ventes et Budget. Sans elles, il faudrait une relation plusieurs-à-plusieurs ou des relations virtuelles (TREATAS) dans chaque mesure de budget. Ventes porte donc directement une clé famille et une clé région (schéma en étoile, pas de flocon).
+2. **Une seule table de mesures.** Une pratique répandue consiste plutôt à répartir les mesures dans les tables de faits ; ici la table unique se justifie : plusieurs mesures croisent Ventes et Budget, et le lecteur trouve tout au même endroit, rangé par dossiers.
 3. **L'effet prix du pont de marge est scindé en deux** : effet prix catalogue et effet remises (leur somme est l'effet prix). C'est ce qui rend visible la dérive des remises dans le pont.
-4. **Taux exprimés en % du CA net.** Pour éviter l'ambiguïté entre « taux de marge » (marge / coût d'achat) et « taux de marque » (marge / prix de vente), les mesures s'appellent « Marge commerciale (% CA) », « Transport (% CA) », etc.
-5. **Année sélectionnée par segment**, 2025 par défaut. Les comparaisons N-1 et le pont de marge n'existent que pour 2025 ; si l'on choisit 2024, les textes le disent explicitement.
+4. **Volume mesuré à prix constants** dans le pont (section 4.5). Le bouclage du pont est testé sur trois cas : total 2025, région Sud 2025, famille Visserie et fixations 2025.
+5. **Taux exprimés en % du CA net.** Pour éviter l'ambiguïté entre « taux de marge » (marge / coût d'achat) et « taux de marque » (marge / prix de vente), les mesures s'appellent « Marge commerciale (% CA) », « Transport (% CA) », etc.
+6. **Année sélectionnée par segment**, 2025 par défaut. Les comparaisons N-1 et le pont de marge n'existent que pour 2025 ; si l'on choisit 2024, les textes le disent explicitement.
+7. **Textes calculés en DAX et vérifiés par script.** `scripts/expected_values.py` calcule le texte attendu de chaque mesure texte avec les mêmes règles d'arrondi et de format fr-FR que le DAX ; `tests/validation.dax` compare tout dans Desktop en une seule requête.
+8. **Budget absent, phrase sans budget.** Toute mesure ou tout texte qui cite le budget gère le cas où le budget est vide (filtre sur Client, Produit ou Commercial) : la phrase omet alors le budget.
 
 ## 1. Entreprise fictive
 
@@ -23,7 +26,15 @@ Ce document fixe ce qui sera construit : l'entreprise et son histoire, les donn�
 | Clientèle | Environ 900 clients professionnels : industriels, artisans, sociétés de maintenance, collectivités |
 | Historique couvert | Exercices 2024 et 2025 (années civiles complètes) |
 
-**Vérification du nom.** Recherches web effectuées le 17 novembre 2026 sur « Arvenor » et « Arvenor » + fournitures industrielles, SIREN, Pappers, societe.com : aucune entreprise de ce nom, dans ce secteur ou ailleurs. La seule occurrence est un monde fictif d'un jeu de rôle. Deux autres candidats ont été écartés : « Valtorne », trop proche de Valtor (robinetterie industrielle), et « Ferandel », nom de famille porté par des dirigeants réels. Une vérification complémentaire sur la base des marques de l'INPI reste possible avant publication.
+**Vérification du nom.**
+
+| Date | Recherche | Résultat |
+|---|---|---|
+| 17 novembre 2026 | « Arvenor » seul | Aucune entreprise ; seule occurrence : un monde fictif d'un jeu de rôle |
+| 17 novembre 2026 | « Arvenor » + fournitures industrielles | Aucune entreprise de ce nom dans le secteur |
+| 17 novembre 2026 | « Arvenor » + SIREN, Pappers, societe.com | Aucune fiche à ce nom |
+
+Deux autres candidats ont été écartés le même jour : « Valtorne », trop proche de Valtor (robinetterie industrielle), et « Ferandel », nom de famille porté par des dirigeants réels. La base des marques de l'INPI est vérifiée par l'auteur avant publication.
 
 ### Régions commerciales
 
@@ -454,30 +465,37 @@ RETURN
 
 ### 6. Textes calculés
 
-Mesures texte en `FORMAT(valeur, format, "fr-FR")` pour un affichage indépendant du poste. Chaque texte gère les cas limites : aucune année ou plusieurs années sélectionnées (« Sélectionnez une année »), pas d'exercice N-1, contexte vide. Les montants des textes sont en k€ ou M€ arrondis.
+Les mesures texte suivent des règles communes, appliquées à l'identique par le DAX et par `scripts/expected_values.py` :
 
-| Mesure | Où | Modèle de texte (exemple sur des valeurs fictives) |
+- **Formats.** Tous les nombres passent par `FORMAT(valeur, format, "fr-FR")`, indépendant du poste. Pourcentage : `0.0 %` (« 8,4 % ») ; pourcentage signé : `+0.0 %;-0.0 %;0.0 %` ; millions : `#,0.0` puis « M€ » ; milliers signés : `+#,0;-#,0;0` puis « k€ » ; points signés : `+0.0;-0.0;0.0` puis « pts ». Arrondi au plus proche, demi s'éloignant de zéro.
+- **Comparaison.** Les textes attendus sont comparés après normalisation des espaces : espaces insécables (U+00A0, U+202F) ramenées à une espace simple.
+- **Cas limites.** Aucune année ou plusieurs années : « Sélectionnez une année ». Pas d'exercice N-1 : le texte le dit. Budget vide : la partie budgétaire est omise. Compteurs : singulier pour 0 et 1, pluriel au-delà.
+- **Préfixe et mention.** Les titres de page commencent par le nom de la page (« Vue Direction · », « Marge · ») ; les synthèses se terminent par « Données fictives. ».
+- **Meilleur et pire.** Les classements utilisent `TOPN` sur les membres dont la valeur n'est pas vide.
+
+| Mesure | Où | Texte (exemple sur des valeurs fictives) et variantes |
 |---|---|---|
-| Titre Direction | Titre de page Vue Direction | « En 2025, le CA net progresse de 8,4 % sur un an et dépasse le budget de 1,2 % » |
-| Synthèse Direction | Sous-titre Vue Direction | « Meilleure contribution : famille Équipements de protection (+640 k€), région Rhône-Alpes (+590 k€). Clients actifs +2,1 %, commandes par client +1,8 %, panier moyen +4,3 %. » |
-| Titre tendance CA | Courbe mensuelle | « CA net mensuel : au-dessus de 2024 sur 10 mois sur 12 » |
-| Titre écart par famille | Barres familles | « Équipements de protection apporte la plus forte hausse de CA net (+640 k€) » ; si tout recule : « Toutes les familles reculent ; Visserie et fixations résiste le mieux (-20 k€) » |
-| Titre écart par région | Barres régions | Même modèle, par région |
-| Titre écart par segment | Barres segments | Même modèle, par segment |
-| Titre écart budget par famille | Barres budget | « 4 familles sur 6 au-dessus de leur budget de CA net » |
-| Titre Marge | Titre de page Marge | « En 2025, la marge commerciale recule de 1,5 % et représente 30,1 % du CA net (-2,6 pts) » |
-| Synthèse Marge | Sous-titre Marge | « Principal frein : coût d'achat (-310 k€). Marge commerciale 4,2 % sous le budget. 11 clients à marge contributive négative, 9 produits vendus sous leur coût. » |
-| Titre pont de marge | Cascade | « Pont de marge 2024 → 2025 : le coût d'achat pèse le plus (-310 k€) » |
-| Titre remises par commercial | Barres commerciaux | « Damien Revol : taux de remise de 9,1 % à 15,8 % (+6,7 pts) » (commercial à la plus forte hausse) |
-| Titre marge par famille | Barres familles | « Visserie et fixations perd le plus de taux de marge (-5,2 pts) » |
-| Titre clients déficitaires | Tableau clients | « 11 clients à marge contributive négative » (singulier et cas zéro gérés) |
-| Titre produits déficitaires | Tableau produits | « 9 produits vendus sous leur coût d'achat » |
+| Titre Direction | Titre de page Vue Direction | « Vue Direction · En 2025, le CA net progresse de 8,4 % sur un an et dépasse le budget de 1,2 % ». Variantes : « recule », « reste sous le budget de » ; sans N-1 : « En 2024, le CA net atteint 18,2 M€ et reste sous le budget de 0,8 % (pas d'exercice précédent à comparer) » ; sans budget, la partie budgétaire disparaît |
+| Synthèse Direction | Sous-titre Vue Direction | « Meilleure contribution : famille Équipements de protection (+640 k€), région Rhône-Alpes (+590 k€). Clients actifs +2,1 %, commandes par client +1,8 %, panier moyen +4,3 %. Données fictives. » Sans N-1 : « Pas d'exercice précédent : contributions à la croissance non calculables. Données fictives. » |
+| Titre tendance CA | Courbe mensuelle | « CA net mensuel : au-dessus de 2024 sur 10 mois sur 12 » ; sans N-1 : « CA net mensuel » |
+| Titre écart par famille | Barres familles | « Plus forte hausse de CA net : famille Équipements de protection (+640 k€) » ; si aucune hausse : « Toutes les familles reculent ; la famille Visserie et fixations résiste le mieux (-20 k€) » ; sans N-1 : « Écart de CA net par famille » |
+| Titre écart par région | Barres régions | Même modèle : « région … », « Toutes les régions reculent ; la région … » |
+| Titre écart par segment | Barres segments | Même modèle : « segment … », « Tous les segments reculent ; le segment … » |
+| Titre écart budget par famille | Barres budget | « 4 familles sur 6 atteignent leur budget de CA net » ; « 1 famille sur 6 atteint son budget de CA net » ; budget vide : « Écart de CA net au budget par famille » |
+| Titre Marge | Titre de page Marge | « Marge · En 2025, la marge commerciale recule de 1,5 % et représente 30,1 % du CA net (-2,6 pts) » ; sans N-1 : « Marge · En 2024, la marge commerciale atteint 5,8 M€, soit 32,0 % du CA net (pas d'exercice précédent à comparer) » |
+| Synthèse Marge | Sous-titre Marge | « Principal frein : coût d'achat (-310 k€). Marge commerciale 4,2 % sous le budget. 11 clients à marge contributive négative, 9 produits vendus sous leur coût. Données fictives. » Variantes : « Aucun effet défavorable dans le pont de marge. » ; sans N-1 : « Pas d'exercice précédent : pont de marge non calculable. » ; budget vide : phrase budgétaire omise |
+| Titre pont de marge | Cascade | « Pont de marge 2024 → 2025 : l'effet coût d'achat pèse le plus (-310 k€) » ; « Pont de marge 2024 → 2025 : aucun effet défavorable » ; sans N-1 : « Pont de marge commerciale : pas d'exercice précédent à comparer » |
+| Titre remises par commercial | Barres commerciaux | « Damien Revol : taux de remise de 9,1 % à 15,8 % (+6,7 pts) » (plus forte hausse) ; « Aucun commercial n'augmente ses remises » ; sans N-1 : « Taux de remise par commercial : écart avec l'exercice précédent » |
+| Titre marge par famille | Barres familles | « Plus forte baisse de taux de marge : famille Visserie et fixations (-5,2 pts) » ; « Toutes les familles maintiennent ou améliorent leur taux de marge » ; sans N-1 : « Taux de marge commerciale par famille : écart avec l'exercice précédent » |
+| Titre clients déficitaires | Tableau clients | « 11 clients à marge contributive négative » ; « 1 client … » ; « Aucun client à marge contributive négative » |
+| Titre produits déficitaires | Tableau produits | « 9 produits vendus sous leur coût d'achat » ; « 1 produit vendu sous son coût d'achat » ; « Aucun produit vendu sous son coût d'achat » |
 
-Exemple complet (les autres suivent la même structure) :
+Exemple complet (le DAX de chaque mesure est dans le modèle et dans `docs/mesures.md`) :
 
 ```dax
 Titre Direction =
 VAR _annee = SELECTEDVALUE('Date'[Année])
+VAR _ca = [CA net]
 VAR _evolution = [CA net évol. N-1 (%)]
 VAR _ecartBudget = [CA net écart budget (%)]
 VAR _texteBudget =
@@ -487,33 +505,20 @@ VAR _texteBudget =
             & FORMAT(ABS(_ecartBudget), "0.0 %", "fr-FR")
     )
 RETURN
-    SWITCH(
-        TRUE(),
-        ISBLANK(_annee), "Sélectionnez une année",
-        ISBLANK(_evolution),
-            "En " & _annee & ", le CA net atteint "
-                & FORMAT([CA net] / 1000000, "#,0.0", "fr-FR")
-                & " M€ (pas d'exercice précédent à comparer)",
-        "En " & _annee & ", le CA net "
-            & IF(_evolution >= 0, "progresse", "recule")
-            & " de " & FORMAT(ABS(_evolution), "0.0 %", "fr-FR")
-            & " sur un an" & _texteBudget
-    )
-
-Titre écart par famille =
-VAR _contributions =
-    ADDCOLUMNS(VALUES('Famille'[Famille]), "@ecart", [CA net écart N-1])
-VAR _meilleure = TOPN(1, FILTER(_contributions, NOT ISBLANK([@ecart])), [@ecart], DESC)
-VAR _famille = MAXX(_meilleure, 'Famille'[Famille])
-VAR _ecart = MAXX(_meilleure, [@ecart])
-VAR _ecartTexte = FORMAT(_ecart / 1000, "+#,0;-#,0;0", "fr-FR") & " k€"
-RETURN
-    SWITCH(
-        TRUE(),
-        ISBLANK(_famille), "Écart de CA net par famille",
-        _ecart > 0, _famille & " apporte la plus forte hausse de CA net (" & _ecartTexte & ")",
-        "Toutes les familles reculent ; " & _famille & " résiste le mieux (" & _ecartTexte & ")"
-    )
+    "Vue Direction · "
+        & SWITCH(
+            TRUE(),
+            ISBLANK(_annee), "Sélectionnez une année",
+            ISBLANK(_ca), "Aucune vente sur la sélection",
+            ISBLANK(_evolution),
+                "En " & _annee & ", le CA net atteint "
+                    & FORMAT(_ca / 1000000, "#,0.0", "fr-FR") & " M€"
+                    & _texteBudget & " (pas d'exercice précédent à comparer)",
+            "En " & _annee & ", le CA net "
+                & IF(_evolution >= 0, "progresse", "recule")
+                & " de " & FORMAT(ABS(_evolution), "0.0 %", "fr-FR")
+                & " sur un an" & _texteBudget
+        )
 ```
 
 Récapitulatif des dossiers : 1. Chiffre d'affaires (9 mesures), 2. Marge (9), 3. Comparaison N-1 (19), 4. Budget (5), 5. Pont de marge (10, dont 4 masquées), 6. Textes (14). Total : 66 mesures.
@@ -539,7 +544,7 @@ Récapitulatif des dossiers : 1. Chiffre d'affaires (9 mesures), 2. Marge (9), 3
 | bas_droite | [9, 9, 13, 13] | 856 | 480 | 400 | 208 |
 
 - Deux segments dans la zone filtres, synchronisés entre les pages : **Année** (Date[Année], vignettes, sélection unique, 2025 par défaut ; x 960, y 48, 120 × 56) et **Région** (Région[Région], liste déroulante, sélection multiple avec « Tout sélectionner » ; x 1096, y 48, 160 × 56). Les segments sont centrés verticalement dans la bande de 96 px du titre et de la synthèse.
-- Les titres de page et de visuels sont des mesures texte (section 4.6) : ils répondent à la question métier et restent justes quel que soit le filtre ou le rôle RLS. Le titre de page commence par le nom de la page en gris, suivi de la réponse.
+- Les titres de page et de visuels sont des mesures texte (section 4.6) : ils répondent à la question métier et restent justes quel que soit le filtre ou le rôle RLS. Titre et synthèse de page sont affichés par une carte à valeur unique (`cardVisual`, libellé masqué, retour à la ligne activé, alignement à gauche) ; les titres des graphiques sont des titres de visuel liés à la mesure. Aucune zone de texte à valeur dynamique n'est utilisée : son encodage PBIR n'est pas documenté de façon assez fiable pour être vérifié sans Desktop.
 - Interactions : un clic sur une barre, une ligne ou un tableau **filtre** les autres visuels de la page (pas de surbrillance). Exceptions : la cascade ne filtre rien (sa table d'étapes n'est reliée à rien) ; le graphique des segments clients n'agit pas sur le graphique budgétaire (le budget n'existe pas par segment).
 - Navigation par les onglets natifs des pages ; pas de boutons. Volet de filtres masqué en lecture : tous les filtres utiles sont des segments visibles, les filtres de visuel sont annoncés dans les titres.
 - Ordre de tabulation = ordre de lecture (titre, synthèse, segments, KPI, principal, secondaire, bas gauche, centre, droite). Texte de remplacement sur chaque visuel de données, lié à la même mesure que son titre.
@@ -548,8 +553,8 @@ Récapitulatif des dossiers : 1. Chiffre d'affaires (9 mesures), 2. Marge (9), 3
 
 | Id | Zone | Type | Champs | Question métier |
 |---|---|---|---|---|
-| D1 | titre | textbox | « Vue Direction · » (texte fixe gris) + [Titre Direction] | Le CA progresse-t-il, et par rapport au budget ? |
-| D2 | synthese | textbox | [Synthèse Direction] + « Données fictives. » (gris) | Qu'est-ce qui porte la croissance ? |
+| D1 | titre | cardVisual (valeur unique, 14 pt semi-gras) | [Titre Direction] | Le CA progresse-t-il, et par rapport au budget ? |
+| D2 | synthese | cardVisual (valeur unique, 10 pt) | [Synthèse Direction] | Qu'est-ce qui porte la croissance ? |
 | D3 | filtres | slicer (vignettes) | Date[Année] | Quel exercice ? |
 | D4 | filtres | slicer (liste déroulante) | Région[Région] | Quelle région ? |
 | D5 | kpis | cardVisual, 5 cartes | CA net (référence : CA net évol. N-1 (%)) · CA net écart budget (%) (référence : CA net budget) · # Clients actifs (référence : évol. N-1) · Commandes par client (référence : évol. N-1) · Panier moyen (référence : évol. N-1) | La croissance vient-elle de plus de clients, de commandes plus fréquentes ou de paniers plus gros ? |
@@ -565,17 +570,17 @@ Infobulles : D7 à D9 ajoutent CA net, CA net N-1 et CA net évol. N-1 (%) ; D10
 
 | Id | Zone | Type | Champs | Question métier |
 |---|---|---|---|---|
-| M1 | titre | textbox | « Marge · » (texte fixe gris) + [Titre Marge] | La marge suit-elle le chiffre d'affaires ? |
-| M2 | synthese | textbox | [Synthèse Marge] + « Données fictives. » (gris) | Qu'est-ce qui fait perdre de la marge ? |
+| M1 | titre | cardVisual (valeur unique, 14 pt semi-gras) | [Titre Marge] | La marge suit-elle le chiffre d'affaires ? |
+| M2 | synthese | cardVisual (valeur unique, 10 pt) | [Synthèse Marge] | Qu'est-ce qui fait perdre de la marge ? |
 | M3, M4 | filtres | slicers | Identiques à D3 et D4, synchronisés | |
 | M5 | kpis | cardVisual, 5 cartes | Marge commerciale (référence : évol. N-1) · Marge commerciale (% CA) (référence : écart N-1 en pts) · Taux de remise (%) (référence : écart N-1 en pts) · Transport (% CA) (référence : écart N-1 en pts) · Marge contributive (référence : évol. N-1) | Où se situe la perte : prix, remises, coûts, transport ? |
-| M6 | principal | waterfallChart | Catégorie : 'Étape du pont'[Étape] ; valeur : [Pont de marge] ; total automatique = marge N ; titre : [Titre pont de marge] | Pourquoi la marge a-t-elle changé depuis N-1 ? |
+| M6 | principal | waterfallChart | Catégorie : 'Étape du pont'[Étape], triée par 'Étape du pont'[Ordre] (jamais par valeur) ; valeur : [Pont de marge] ; total automatique = marge N ; titre : [Titre pont de marge] | Pourquoi la marge a-t-elle changé depuis N-1 ? |
 | M7 | secondaire | clusteredBarChart | Commercial[Commercial] ; Taux de remise écart N-1 (pts) ; tri décroissant ; infobulles : Taux de remise (%), Taux de remise N-1 (%) ; titre : [Titre remises par commercial] | Qui accorde plus de remises qu'avant ? |
 | M8 | bas_gauche | clusteredBarChart | Famille[Famille] ; Marge commerciale écart N-1 (pts) ; tri croissant ; titre : [Titre marge par famille] | Quelle famille perd du taux de marge ? |
 | M9 | bas_centre | tableEx | Client[Client], CA net, Marge contributive, Marge contributive (% CA) ; filtre de visuel : Marge contributive < 0 ; tri croissant sur la marge ; titre : [Titre clients déficitaires] | Quels clients coûtent plus qu'ils ne rapportent ? |
 | M10 | bas_droite | tableEx | Produit[Produit], CA net, Marge commerciale, Marge commerciale (% CA) ; filtre de visuel : Marge commerciale < 0 ; tri croissant ; titre : [Titre produits déficitaires] | Quels produits sont vendus à perte ? |
 
-La cascade M6 affiche : Marge N-1, Volume, Mix, Prix catalogue, Remises, Coût d'achat, puis la barre de total (marge N). Point à contrôler dans Desktop : le libellé de la barre de total (« Total » par défaut) et la couleur de la première barre, que le visuel traite comme une hausse.
+La cascade M6 affiche : Marge N-1, Volume, Mix, Prix catalogue, Remises, Coût d'achat, puis la barre de total. Le total automatique égale la marge N, ce que garantit le test de bouclage. Le format PBIR du graphique en cascade n'offre aucune propriété pour renommer la barre de total : son libellé « Total » et la couleur de la première barre (traitée comme une hausse) restent à contrôler dans Desktop.
 
 ### Thème « Arvenor sobre »
 
@@ -586,7 +591,7 @@ Une seule couleur d'accent ; le rouge est réservé au défavorable ; le reste e
 | Accent | `#1F4E79` | 8,66 | Série de l'année N, écarts favorables, hausses de la cascade |
 | Alerte | `#B42318` | 6,57 | Écarts défavorables uniquement, baisses de la cascade |
 | Texte principal | `#252423` | 15,49 | Titres, valeurs, étiquettes de données, ligne de budget (pointillés) |
-| Texte secondaire | `#605E5C` | 6,46 | Libellés d'axe, préfixes de titre, barre de total de la cascade |
+| Texte secondaire | `#605E5C` | 6,46 | Libellés d'axe, barre de total de la cascade |
 | Gris N-1 | `#8A8886` | 3,53 | Série de l'année N-1 |
 | Quadrillage | `#E1DFDD` | | Quadrillage, séparateurs |
 | Fond de page | `#F3F2F1` | | Fond du canevas |
@@ -598,33 +603,53 @@ Une seule couleur d'accent ; le rouge est réservé au défavorable ; le reste e
 
 ## 6. Plan de contrôle
 
-### Contrôles automatiques (`make check`, et CI sur ubuntu-latest)
+### Cas de validation
 
-| Contrôle | Outil | Phase |
+Chaque mesure affichée sur les deux pages est calculée en pandas, indépendamment du DAX, pour chaque cas ; les résultats sont dans `tests/expected/*.json`.
+
+| Cas | Filtre | Ce qu'il vérifie |
 |---|---|---|
-| Style et qualité du code Python | ruff (lint et format) | 0 |
-| Clés uniques dans chaque table ; aucune clé étrangère orpheline | pytest | 2 |
-| Montants cohérents : net = brut - remise au centime, remise entre 0 et 40 % du brut, coûts strictement positifs, transport positif ou nul et identique au total de la commande | pytest | 2 |
-| Dates comprises entre le 1er janvier 2024 et le 31 décembre 2025, jours ouvrés uniquement | pytest | 2 |
-| Cohérence des clés redondantes : région et commercial de la ligne = ceux du client, famille de la ligne = celle du produit | pytest | 2 |
-| Histoire présente : Rhône-Alpes en plus forte hausse et Nord-Est en recul ; Équipements de protection en tête et Outillage à main en recul ; coût unitaire de la visserie en hausse d'au moins 8 % à référence égale ; taux de remise de Damien Revol en hausse d'au moins 5 points, celui des autres stable à ±1,5 point ; au moins 8 clients à marge contributive négative et 5 produits sous le coût en 2025 ; août est le mois le plus faible chaque année | pytest | 2 |
-| Régénération identique : le générateur relancé dans un dossier temporaire produit des fichiers identiques à ceux de `data/` | pytest | 2 |
-| Valeurs attendues calculées en pandas, indépendamment du DAX, pour chaque mesure affichée : total 2025, total 2024, région Sud 2025, famille Visserie et fixations 2025 ; bouclage du pont à moins d'un centime ; identité clients × fréquence × panier | `scripts/expected_values.py`, pytest | 2 |
-| Chaque fichier JSON du projet (pbip, pbir, pbism, report, pages, visuels, thème) valide contre son `$schema`, schémas en cache dans `tools/schemas/` pour fonctionner hors ligne | jsonschema | 5 |
-| Liaisons : chaque table, colonne et mesure citée par un visuel existe dans le TMDL | script | 5 |
-| Règles de modèle : aucune relation bidirectionnelle, date/heure automatique désactivée, description, format et dossier sur chaque mesure, format sur chaque colonne visible, clés masquées | script | 5 |
-| Mise en page : visuels dans le canevas, coordonnées multiples de 8, aucun chevauchement, mêmes zones sur les deux pages | script | 5 |
-| Textes : aucun tiret cadratin dans les fichiers du dépôt | script | 5 |
+| 2025 total | Année 2025 | Valeurs de référence de la démo |
+| 2024 total | Année 2024 | Mesures N-1 vides, pont vide, textes en mode « pas d'exercice précédent » |
+| 2025 région Sud | Année 2025, Région Sud | Filtre de dimension conforme ; mêmes chiffres que le rôle RLS de Damien Revol |
+| 2025 famille Visserie et fixations | Année 2025, Famille Visserie et fixations | Hausse des coûts d'achat |
+| Février 2025 | Année 2025, Numéro mois 2 | Comparaison avec février 2024, mois de 29 jours |
 
-### Contrôles dans Power BI Desktop (procédure détaillée en phase 6)
+S'y ajoutent, pour le cas 2025 total, les valeurs par catégorie de chaque graphique : par mois (CA net, CA net N-1, CA net budget), par famille, par région et par segment (écart N-1), par famille (écart au budget, écart de taux de marge), par commercial (écart de taux de remise).
 
-1. Ouverture du `.pbip` sans erreur ni avertissement de schéma (Desktop à jour).
-2. Renseignement de `DossierDonnees`, actualisation sans erreur ; nombre de lignes de chaque table conforme aux valeurs attendues.
-3. Vue Modèle : neuf relations un-à-plusieurs à sens unique, table Date marquée, aucune table `LocalDateTable`.
-4. Exécution de `tests/validation.dax` dans la vue Requête DAX ; comparaison avec `tests/expected/*.json` (écart toléré : 1 € sur les montants, 0,05 point sur les taux).
-5. Pages : rendu des deux pages, segments synchronisés avec 2025 par défaut, titres dynamiques lisibles en entier, cascade lisible (libellé du total, couleur de la première barre), aucun visuel en erreur.
-6. RLS : « Afficher en tant que », rôle Commercial, `damien.revol@example.com` (les chiffres doivent égaler le cas « région Sud ») puis `direction.commerciale@example.com` (les chiffres doivent égaler le total).
-7. Enregistrement puis commit : seuls des fichiers attendus changent (`.pbi/localSettings.json` et `cache.abf` sont ignorés).
+Tolérances : 1 € sur les montants, 0,05 point sur les taux, égalité exacte sur les nombres entiers et sur les textes après normalisation des espaces.
+
+### Contrôles automatiques (`make check`, et CI sur ubuntu-latest en Python 3.12 et 3.14)
+
+| Contrôle | Outil |
+|---|---|
+| Style et qualité du code Python | ruff (lint et format) |
+| Clés uniques dans chaque table ; aucune clé étrangère orpheline | pytest |
+| Montants cohérents : net = brut - remise au centime, remise entre 0 et 40 % du brut, coûts strictement positifs, transport positif ou nul et identique pour toute la commande | pytest |
+| Dates comprises entre le 1er janvier 2024 et le 31 décembre 2025, jours ouvrés uniquement | pytest |
+| Cohérence des clés redondantes : région et commercial de la ligne = ceux du client, famille de la ligne = celle du produit | pytest |
+| Histoire présente : Rhône-Alpes en plus forte hausse et Nord-Est en recul ; Équipements de protection en tête et Outillage à main en recul ; coût unitaire de la visserie en hausse d'au moins 8 % à référence égale ; taux de remise de Damien Revol en hausse d'au moins 5 points, celui des autres stable à ±1,5 point ; au moins 8 clients à marge contributive négative et 5 produits sous le coût en 2025 ; août est le mois le plus faible chaque année | pytest |
+| Régénération identique : le générateur relancé dans un dossier temporaire produit des fichiers identiques à ceux de `data/` | pytest |
+| Valeurs attendues à jour : `tests/expected/*.json` et `tests/validation.dax` identiques à ce que produisent les scripts | pytest |
+| Bouclage du pont à moins d'un centime sur trois cas : total 2025, région Sud 2025, famille Visserie et fixations 2025 ; identité clients × fréquence × panier | pytest |
+| Chaque fichier JSON du projet (pbip, pbir, pbism, report, pages, visuels, thème) valide contre son `$schema`, schémas en cache dans `tools/schemas/` pour fonctionner hors ligne | jsonschema |
+| Liaisons : chaque table, colonne et mesure citée par un visuel existe dans le TMDL | script |
+| Règles de modèle : aucune relation bidirectionnelle, date/heure automatique désactivée, description, format et dossier sur chaque mesure, format sur chaque colonne visible, clés masquées | script |
+| Mise en page : visuels dans le canevas, coordonnées multiples de 8, aucun chevauchement, mêmes zones sur les deux pages | script |
+| Textes : aucun tiret cadratin dans les fichiers du dépôt | script |
+
+### Requête de validation dans Desktop
+
+`tests/validation.dax` est généré depuis `tests/expected/*.json` par `scripts/build_validation_dax.py`. C'est une seule requête à coller dans la vue Requête DAX :
+
+- les valeurs attendues sont embarquées dans la requête (`DATATABLE`, un bloc pour les nombres, un pour les textes) ;
+- chaque mesure est recalculée par le modèle pour chaque cas ;
+- un premier résultat donne le nombre de contrôles et le nombre de KO ;
+- un second résultat liste une ligne par cas et par mesure, avec les colonnes Cas, Mesure, Attendu, Obtenu, Écart, Statut (OK ou KO), lignes KO en premier.
+
+### Contrôles dans Power BI Desktop
+
+La procédure pas à pas est dans `docs/test-windows.md` : mise à jour de Desktop, ouverture et actualisation, requête de validation (« 0 KO » attendu), parcours des deux pages, test des deux comptes RLS, enregistrement et commit. Points qui ne se vérifient que dans Desktop : rendu des visuels, lisibilité des titres longs, libellé « Total » et couleur de la première barre de la cascade, comportement des segments synchronisés, RLS.
 
 ## Annexe : contrat de mise en page
 
@@ -677,13 +702,13 @@ Design Brief:
         placements:
           - id: page_title
             region: titre
-            kind: textbox
-            text: "Vue Direction · [Titre Direction]"
+            kind: cardVisual
+            text: "[Titre Direction]"
             purpose: "Dire si le CA progresse et où il se situe par rapport au budget."
           - id: synthese
             region: synthese
-            kind: textbox
-            text: "[Synthèse Direction] Données fictives."
+            kind: cardVisual
+            text: "[Synthèse Direction]"
             insight_basis: "Meilleures contributions à l'écart N-1 et décomposition clients, fréquence, panier."
           - id: annee
             region: filtres
@@ -772,13 +797,13 @@ Design Brief:
         placements:
           - id: page_title
             region: titre
-            kind: textbox
-            text: "Marge · [Titre Marge]"
+            kind: cardVisual
+            text: "[Titre Marge]"
             purpose: "Dire si la marge suit le CA et quel est son taux."
           - id: synthese
             region: synthese
-            kind: textbox
-            text: "[Synthèse Marge] Données fictives."
+            kind: cardVisual
+            text: "[Synthèse Marge]"
             insight_basis: "Effet le plus défavorable du pont, écart au budget de marge, nombre de clients et de produits déficitaires."
           - id: annee
             region: filtres
@@ -804,7 +829,8 @@ Design Brief:
             kind: waterfallChart
             purpose: "Pourquoi la marge a-t-elle changé depuis N-1 ?"
             field_bindings: { Category: "Étape du pont[Étape]", Y: "Mesures[Pont de marge]" }
-            sort_policy: natural_order
+            sort_policy: category_asc
+            sort_column: "Étape du pont[Ordre]"
             color_strategy: semantic
           - id: remises_commercial
             region: secondaire
