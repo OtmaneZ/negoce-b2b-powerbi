@@ -13,7 +13,7 @@ import sys
 from pathlib import Path
 
 RACINE = Path(__file__).resolve().parent.parent
-TIRETS = {"—": "tiret cadratin", "–": "tiret demi-cadratin"}
+TIRETS = {chr(0x2014): "tiret cadratin", chr(0x2013): "tiret demi-cadratin"}
 EXCLUS = ("tools/schemas/", "NegoceB2B.Report/StaticResources/SharedResources/")
 
 

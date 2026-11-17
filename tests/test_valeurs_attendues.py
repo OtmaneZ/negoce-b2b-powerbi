@@ -121,4 +121,4 @@ def test_textes_signes():
     assert ev.pct_signe(0.0213) == "+2,1 %"
     assert ev.points(-1.7245) == "-1,7 pts"
     assert ev.millions(20_910_165.84) == "20,9 M€"
-    assert ev.normaliser_espaces("1 234 €") == "1 234 €"
+    assert ev.normaliser_espaces("1\u00a0234\u202f€") == "1 234 €"
