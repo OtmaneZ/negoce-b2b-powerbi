@@ -2,7 +2,7 @@ PYTHON ?= python3
 VENV := .venv
 PY := $(VENV)/bin/python
 
-.PHONY: install data test lint check
+.PHONY: install data docs test lint check
 
 install: ## Crée l'environnement virtuel et installe les dépendances épinglées
 	@$(PYTHON) -c "import sys; sys.exit(0 if sys.version_info >= (3, 12) else 'Python 3.12 minimum requis')"
@@ -11,9 +11,13 @@ install: ## Crée l'environnement virtuel et installe les dépendances épinglé
 	$(PY) -m pip install -r requirements-dev.txt
 	$(VENV)/bin/pre-commit install
 
-data: ## Régénère les CSV de data/ puis les valeurs attendues de tests/expected/
+data: ## Régénère data/, tests/expected/ et tests/validation.dax
 	$(PY) scripts/generate_data.py
 	$(PY) scripts/expected_values.py
+	$(PY) scripts/build_validation_dax.py
+
+docs: ## Régénère docs/mesures.md depuis le modèle TMDL
+	$(PY) scripts/generate_docs.py
 
 test: ## Lance les tests pytest
 	$(PY) -m pytest
