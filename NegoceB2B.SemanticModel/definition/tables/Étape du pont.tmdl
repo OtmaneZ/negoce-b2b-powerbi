@@ -1,0 +1,25 @@
+/// Étapes du pont de marge commerciale, de la marge N-1 aux cinq effets. Table utilitaire sans relation, lue par la mesure Pont de marge.
+table 'Étape du pont'
+
+	/// Étape du pont de marge, dans l'ordre de lecture du graphique en cascade.
+	column 'Étape'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: Étape
+		sortByColumn: Ordre
+
+	/// Ordre d'affichage des étapes, de 1 à 6.
+	column Ordre
+		dataType: int64
+		isHidden
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: Ordre
+
+	partition 'Étape du pont' = m
+		mode: import
+		source =
+				let
+					Source = #table(type table [Ordre = Int64.Type, #"Étape" = text], {{1, "Marge N-1"}, {2, "Volume"}, {3, "Mix"}, {4, "Prix catalogue"}, {5, "Remises"}, {6, "Coût d'achat"}})
+				in
+					Source

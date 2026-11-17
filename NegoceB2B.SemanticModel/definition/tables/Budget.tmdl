@@ -1,0 +1,50 @@
+/// Fait du budget, au grain mois × famille × région. Rattaché au premier jour du mois : il se lit au mois, au trimestre ou à l'année.
+table Budget
+	isHidden
+
+	/// Premier jour du mois budgété, relié à la table Date.
+	column Mois
+		dataType: dateTime
+		isHidden
+		formatString: dd/MM/yyyy
+		summarizeBy: none
+		sourceColumn: Mois
+
+	column 'Clé famille'
+		dataType: int64
+		isHidden
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: Clé famille
+
+	column 'Clé région'
+		dataType: int64
+		isHidden
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: Clé région
+
+	column 'Budget CA net'
+		dataType: decimal
+		isHidden
+		formatString: #,0.00 €
+		summarizeBy: none
+		sourceColumn: Budget CA net
+
+	column 'Budget marge commerciale'
+		dataType: decimal
+		isHidden
+		formatString: #,0.00 €
+		summarizeBy: none
+		sourceColumn: Budget marge commerciale
+
+	partition Budget = m
+		mode: import
+		source =
+				let
+					Source = Csv.Document(File.Contents(DossierDonnees & "budget.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+					#"En-têtes promus" = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+					#"Colonnes renommées" = Table.RenameColumns(#"En-têtes promus", {{"mois", "Mois"}, {"cle_famille", "Clé famille"}, {"cle_region", "Clé région"}, {"budget_ca_net", "Budget CA net"}, {"budget_marge_commerciale", "Budget marge commerciale"}}),
+					#"Types appliqués" = Table.TransformColumnTypes(#"Colonnes renommées", {{"Mois", type date}, {"Clé famille", Int64.Type}, {"Clé région", Int64.Type}, {"Budget CA net", Currency.Type}, {"Budget marge commerciale", Currency.Type}}, "en-US")
+				in
+					#"Types appliqués"

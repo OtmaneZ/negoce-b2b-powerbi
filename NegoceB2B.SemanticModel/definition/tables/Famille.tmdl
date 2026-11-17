@@ -1,0 +1,26 @@
+/// Familles de produits. Dimension partagée par les ventes et le budget : c'est elle qui filtre les deux.
+table Famille
+
+	column 'Clé famille'
+		dataType: int64
+		isHidden
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: Clé famille
+
+	/// Famille de produits ; à utiliser pour comparer ventes et budget.
+	column Famille
+		dataType: string
+		summarizeBy: none
+		sourceColumn: Famille
+
+	partition Famille = m
+		mode: import
+		source =
+				let
+					Source = Csv.Document(File.Contents(DossierDonnees & "familles.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+					#"En-têtes promus" = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+					#"Colonnes renommées" = Table.RenameColumns(#"En-têtes promus", {{"cle_famille", "Clé famille"}, {"famille", "Famille"}}),
+					#"Types appliqués" = Table.TransformColumnTypes(#"Colonnes renommées", {{"Clé famille", Int64.Type}, {"Famille", type text}}, "en-US")
+				in
+					#"Types appliqués"

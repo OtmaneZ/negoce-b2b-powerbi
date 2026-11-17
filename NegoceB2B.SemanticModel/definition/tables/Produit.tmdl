@@ -1,0 +1,33 @@
+/// Catalogue des 600 références, sans marque. La famille se lit dans la table Famille.
+table Produit
+
+	column 'Clé produit'
+		dataType: int64
+		isHidden
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: Clé produit
+
+	/// Libellé court de la référence.
+	column Produit
+		dataType: string
+		summarizeBy: none
+		sourceColumn: Produit
+
+	/// Sous-famille de la référence, à l'intérieur de sa famille.
+	column 'Sous-famille'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: Sous-famille
+
+	partition Produit = m
+		mode: import
+		source =
+				let
+					Source = Csv.Document(File.Contents(DossierDonnees & "produits.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+					#"En-têtes promus" = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+					#"Colonnes sélectionnées" = Table.SelectColumns(#"En-têtes promus", {"cle_produit", "produit", "sous_famille"}),
+					#"Colonnes renommées" = Table.RenameColumns(#"Colonnes sélectionnées", {{"cle_produit", "Clé produit"}, {"produit", "Produit"}, {"sous_famille", "Sous-famille"}}),
+					#"Types appliqués" = Table.TransformColumnTypes(#"Colonnes renommées", {{"Clé produit", Int64.Type}, {"Produit", type text}, {"Sous-famille", type text}}, "en-US")
+				in
+					#"Types appliqués"

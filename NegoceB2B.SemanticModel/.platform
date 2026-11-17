@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.1.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "NegoceB2B"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "2730462e-a101-456d-b88f-8d2bbdc3f3d2"
+  }
+}

@@ -1,0 +1,27 @@
+/// Commerciaux terrain, deux par région. Chaque client est suivi par un commercial de sa région.
+table Commercial
+
+	column 'Clé commercial'
+		dataType: int64
+		isHidden
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: Clé commercial
+
+	/// Prénom et nom du commercial (personnes fictives).
+	column Commercial
+		dataType: string
+		summarizeBy: none
+		sourceColumn: Commercial
+
+	partition Commercial = m
+		mode: import
+		source =
+				let
+					Source = Csv.Document(File.Contents(DossierDonnees & "commerciaux.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+					#"En-têtes promus" = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+					#"Colonnes sélectionnées" = Table.SelectColumns(#"En-têtes promus", {"cle_commercial", "commercial"}),
+					#"Colonnes renommées" = Table.RenameColumns(#"Colonnes sélectionnées", {{"cle_commercial", "Clé commercial"}, {"commercial", "Commercial"}}),
+					#"Types appliqués" = Table.TransformColumnTypes(#"Colonnes renommées", {{"Clé commercial", Int64.Type}, {"Commercial", type text}}, "en-US")
+				in
+					#"Types appliqués"

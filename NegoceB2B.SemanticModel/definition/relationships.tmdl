@@ -1,0 +1,35 @@
+relationship 'Ventes vers Date'
+	fromColumn: Ventes.'Date commande'
+	toColumn: Date.Date
+
+relationship 'Budget vers Date'
+	fromColumn: Budget.Mois
+	toColumn: Date.Date
+
+relationship 'Ventes vers Client'
+	fromColumn: Ventes.'Clé client'
+	toColumn: Client.'Clé client'
+
+relationship 'Ventes vers Produit'
+	fromColumn: Ventes.'Clé produit'
+	toColumn: Produit.'Clé produit'
+
+relationship 'Ventes vers Commercial'
+	fromColumn: Ventes.'Clé commercial'
+	toColumn: Commercial.'Clé commercial'
+
+relationship 'Ventes vers Famille'
+	fromColumn: Ventes.'Clé famille'
+	toColumn: Famille.'Clé famille'
+
+relationship 'Budget vers Famille'
+	fromColumn: Budget.'Clé famille'
+	toColumn: Famille.'Clé famille'
+
+relationship 'Ventes vers Région'
+	fromColumn: Ventes.'Clé région'
+	toColumn: 'Région'.'Clé région'
+
+relationship 'Budget vers Région'
+	fromColumn: Budget.'Clé région'
+	toColumn: 'Région'.'Clé région'

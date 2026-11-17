@@ -1,0 +1,84 @@
+/// Calendrier continu du 1er janvier 2024 au 31 décembre 2025, généré dans Power Query et marqué comme table de dates.
+table Date
+	dataCategory: Time
+
+	/// Jour calendaire. Clé de la table de dates.
+	column Date
+		dataType: dateTime
+		isKey
+		formatString: dd/MM/yyyy
+		summarizeBy: none
+		sourceColumn: Date
+
+	/// Année civile, qui correspond à l'exercice.
+	column 'Année'
+		dataType: int64
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: Année
+
+	/// Trimestre civil, de T1 à T4.
+	column Trimestre
+		dataType: string
+		summarizeBy: none
+		sourceColumn: Trimestre
+
+	/// Numéro du mois, de 1 à 12 ; sert au tri des libellés de mois.
+	column 'Numéro mois'
+		dataType: int64
+		isHidden
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: Numéro mois
+
+	/// Libellé court du mois, de « janv. » à « déc. », trié dans l'ordre du calendrier.
+	column Mois
+		dataType: string
+		summarizeBy: none
+		sourceColumn: Mois
+		sortByColumn: 'Numéro mois'
+
+	/// Clé AAAAMM ; sert au tri des libellés mois année.
+	column 'Clé mois année'
+		dataType: int64
+		isHidden
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: Clé mois année
+
+	/// Libellé mois année, par exemple « janv. 2024 », trié dans l'ordre du calendrier.
+	column 'Mois année'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: Mois année
+		sortByColumn: 'Clé mois année'
+
+	/// Exploration de l'année vers le mois.
+	hierarchy Calendrier
+
+		level 'Année'
+			column: 'Année'
+
+		level Trimestre
+			column: Trimestre
+
+		level Mois
+			column: Mois
+
+	partition Date = m
+		mode: import
+		source =
+				let
+					NomsMois = {"janv.", "févr.", "mars", "avr.", "mai", "juin", "juil.", "août", "sept.", "oct.", "nov.", "déc."},
+					Debut = #date(2024, 1, 1),
+					Fin = #date(2025, 12, 31),
+					#"Dates générées" = List.Dates(Debut, Duration.Days(Fin - Debut) + 1, #duration(1, 0, 0, 0)),
+					#"Table créée" = Table.FromList(#"Dates générées", Splitter.SplitByNothing(), type table [Date = date]),
+					#"Année ajoutée" = Table.AddColumn(#"Table créée", "Année", each Date.Year([Date]), Int64.Type),
+					#"Trimestre ajouté" = Table.AddColumn(#"Année ajoutée", "Trimestre", each "T" & Text.From(Date.QuarterOfYear([Date])), type text),
+					#"Numéro mois ajouté" = Table.AddColumn(#"Trimestre ajouté", "Numéro mois", each Date.Month([Date]), Int64.Type),
+					#"Mois ajouté" = Table.AddColumn(#"Numéro mois ajouté", "Mois", each NomsMois{[Numéro mois] - 1}, type text),
+					#"Clé mois année ajoutée" = Table.AddColumn(#"Mois ajouté", "Clé mois année", each [Année] * 100 + [Numéro mois], Int64.Type),
+					#"Mois année ajouté" = Table.AddColumn(#"Clé mois année ajoutée", "Mois année", each [Mois] & " " & Text.From([Année]), type text)
+				in
+					#"Mois année ajouté"

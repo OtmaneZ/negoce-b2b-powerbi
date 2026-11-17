@@ -1,0 +1,28 @@
+/// Correspondance entre une adresse de connexion et les régions qu'elle peut voir. Lue par le rôle Commercial ; sans relation avec le reste du modèle.
+table 'Accès régional'
+	isHidden
+
+	/// Adresse de connexion, comparée à USERPRINCIPALNAME().
+	column 'E-mail'
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: E-mail
+
+	column 'Clé région'
+		dataType: int64
+		isHidden
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: Clé région
+
+	partition 'Accès régional' = m
+		mode: import
+		source =
+				let
+					Source = Csv.Document(File.Contents(DossierDonnees & "acces_regional.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+					#"En-têtes promus" = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+					#"Colonnes renommées" = Table.RenameColumns(#"En-têtes promus", {{"email", "E-mail"}, {"cle_region", "Clé région"}}),
+					#"Types appliqués" = Table.TransformColumnTypes(#"Colonnes renommées", {{"E-mail", type text}, {"Clé région", Int64.Type}}, "en-US")
+				in
+					#"Types appliqués"

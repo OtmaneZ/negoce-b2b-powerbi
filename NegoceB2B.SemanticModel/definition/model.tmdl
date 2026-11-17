@@ -1,0 +1,26 @@
+model Model
+	culture: fr-FR
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	discourageImplicitMeasures
+	sourceQueryCulture: fr-FR
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+	annotation __PBI_TimeIntelligenceEnabled = 0
+
+ref table Ventes
+ref table Budget
+ref table Date
+ref table Client
+ref table Produit
+ref table Commercial
+ref table Famille
+ref table 'Région'
+ref table 'Accès régional'
+ref table 'Étape du pont'
+ref table Mesures
+
+ref role Commercial
+
+ref cultureInfo fr-FR

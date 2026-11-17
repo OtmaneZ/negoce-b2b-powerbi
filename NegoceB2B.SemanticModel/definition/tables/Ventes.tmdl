@@ -1,0 +1,113 @@
+/// Fait des ventes, au grain de la ligne de commande. Toutes les colonnes sont techniques ou agrégées par les mesures de la table Mesures.
+table Ventes
+	isHidden
+
+	/// Numéro de la commande : AAAA suivi d'un numéro sur cinq chiffres. Sert au comptage des commandes.
+	column 'Numéro commande'
+		dataType: int64
+		isHidden
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: Numéro commande
+
+	/// Date de la commande, reliée à la table Date.
+	column 'Date commande'
+		dataType: dateTime
+		isHidden
+		formatString: dd/MM/yyyy
+		summarizeBy: none
+		sourceColumn: Date commande
+
+	column 'Clé client'
+		dataType: int64
+		isHidden
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: Clé client
+
+	column 'Clé produit'
+		dataType: int64
+		isHidden
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: Clé produit
+
+	column 'Clé commercial'
+		dataType: int64
+		isHidden
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: Clé commercial
+
+	/// Région du client à la date de la vente.
+	column 'Clé région'
+		dataType: int64
+		isHidden
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: Clé région
+
+	/// Famille du produit vendu.
+	column 'Clé famille'
+		dataType: int64
+		isHidden
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: Clé famille
+
+	column 'Quantité'
+		dataType: int64
+		isHidden
+		formatString: #,0
+		summarizeBy: none
+		sourceColumn: Quantité
+
+	/// Quantité × prix catalogue unitaire, avant remise.
+	column 'Montant brut'
+		dataType: decimal
+		isHidden
+		formatString: #,0.00 €
+		summarizeBy: none
+		sourceColumn: Montant brut
+
+	column 'Montant remise'
+		dataType: decimal
+		isHidden
+		formatString: #,0.00 €
+		summarizeBy: none
+		sourceColumn: Montant remise
+
+	/// Montant brut - montant remise : chiffre d'affaires hors taxes facturé.
+	column 'Montant net'
+		dataType: decimal
+		isHidden
+		formatString: #,0.00 €
+		summarizeBy: none
+		sourceColumn: Montant net
+
+	column 'Coût d''achat'
+		dataType: decimal
+		isHidden
+		formatString: #,0.00 €
+		summarizeBy: none
+		sourceColumn: Coût d'achat
+
+	/// Coût de livraison supporté par Arvenor, réparti sur les lignes au prorata du montant net.
+	column 'Coût transport'
+		dataType: decimal
+		isHidden
+		formatString: #,0.00 €
+		summarizeBy: none
+		sourceColumn: Coût transport
+
+	partition Ventes = m
+		mode: import
+		source =
+				let
+					Source = Csv.Document(File.Contents(DossierDonnees & "ventes.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+					#"En-têtes promus" = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+					#"Colonnes sélectionnées" = Table.SelectColumns(#"En-têtes promus", {"numero_commande", "date_commande", "cle_client", "cle_produit", "cle_commercial", "cle_region", "cle_famille", "quantite", "montant_brut", "montant_remise", "montant_net", "cout_achat", "cout_transport"}),
+					#"Colonnes renommées" = Table.RenameColumns(#"Colonnes sélectionnées", {{"numero_commande", "Numéro commande"}, {"date_commande", "Date commande"}, {"cle_client", "Clé client"}, {"cle_produit", "Clé produit"}, {"cle_commercial", "Clé commercial"}, {"cle_region", "Clé région"}, {"cle_famille", "Clé famille"}, {"quantite", "Quantité"}, {"montant_brut", "Montant brut"}, {"montant_remise", "Montant remise"}, {"montant_net", "Montant net"}, {"cout_achat", "Coût d'achat"}, {"cout_transport", "Coût transport"}}),
+					#"Types appliqués" = Table.TransformColumnTypes(#"Colonnes renommées", {{"Numéro commande", Int64.Type}, {"Date commande", type date}, {"Clé client", Int64.Type}, {"Clé produit", Int64.Type}, {"Clé commercial", Int64.Type}, {"Clé région", Int64.Type}, {"Clé famille", Int64.Type}, {"Quantité", Int64.Type}, {"Montant brut", Currency.Type}, {"Montant remise", Currency.Type}, {"Montant net", Currency.Type}, {"Coût d'achat", Currency.Type}, {"Coût transport", Currency.Type}}, "en-US")
+				in
+					#"Types appliqués"

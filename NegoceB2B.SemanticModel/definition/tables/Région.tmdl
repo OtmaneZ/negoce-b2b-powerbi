@@ -1,0 +1,26 @@
+/// Régions commerciales. Dimension partagée par les ventes et le budget ; la sécurité au niveau des lignes s'applique ici.
+table 'Région'
+
+	column 'Clé région'
+		dataType: int64
+		isHidden
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: Clé région
+
+	/// Région commerciale du client ; à utiliser pour comparer ventes et budget.
+	column 'Région'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: Région
+
+	partition 'Région' = m
+		mode: import
+		source =
+				let
+					Source = Csv.Document(File.Contents(DossierDonnees & "regions.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+					#"En-têtes promus" = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+					#"Colonnes renommées" = Table.RenameColumns(#"En-têtes promus", {{"cle_region", "Clé région"}, {"region", "Région"}}),
+					#"Types appliqués" = Table.TransformColumnTypes(#"Colonnes renommées", {{"Clé région", Int64.Type}, {"Région", type text}}, "en-US")
+				in
+					#"Types appliqués"

@@ -1,0 +1,15 @@
+/// Un commercial ne voit que les régions associées à son adresse de connexion dans la table Accès régional.
+role Commercial
+	modelPermission: read
+
+	tablePermission 'Région' = ```
+			VAR _regionsAutorisees =
+				CALCULATETABLE(
+					VALUES('Accès régional'[Clé région]),
+					'Accès régional'[E-mail] = USERPRINCIPALNAME()
+				)
+			RETURN
+				'Région'[Clé région] IN _regionsAutorisees
+			```
+
+	tablePermission 'Accès régional' = 'Accès régional'[E-mail] = USERPRINCIPALNAME()

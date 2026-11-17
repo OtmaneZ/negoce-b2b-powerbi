@@ -1,0 +1,33 @@
+/// Clients professionnels d'Arvenor (raisons sociales fictives).
+table Client
+
+	column 'Clé client'
+		dataType: int64
+		isHidden
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: Clé client
+
+	/// Raison sociale du client.
+	column Client
+		dataType: string
+		summarizeBy: none
+		sourceColumn: Client
+
+	/// Segment du client : Grands comptes, PME industrielles, Artisans et TPE, Collectivités. Le budget n'existe pas par segment.
+	column Segment
+		dataType: string
+		summarizeBy: none
+		sourceColumn: Segment
+
+	partition Client = m
+		mode: import
+		source =
+				let
+					Source = Csv.Document(File.Contents(DossierDonnees & "clients.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+					#"En-têtes promus" = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+					#"Colonnes sélectionnées" = Table.SelectColumns(#"En-têtes promus", {"cle_client", "client", "segment"}),
+					#"Colonnes renommées" = Table.RenameColumns(#"Colonnes sélectionnées", {{"cle_client", "Clé client"}, {"client", "Client"}, {"segment", "Segment"}}),
+					#"Types appliqués" = Table.TransformColumnTypes(#"Colonnes renommées", {{"Clé client", Int64.Type}, {"Client", type text}, {"Segment", type text}}, "en-US")
+				in
+					#"Types appliqués"

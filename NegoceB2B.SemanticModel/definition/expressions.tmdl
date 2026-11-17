@@ -1,0 +1,2 @@
+/// Chemin complet du dossier data/ du dépôt, terminé par une barre oblique inverse. À renseigner sur chaque poste avant l'actualisation.
+expression DossierDonnees = "C:\negoce-b2b-powerbi\data\" meta [IsParameterQuery = true, Type = "Text", IsParameterQueryRequired = true]
