@@ -543,10 +543,10 @@ Récapitulatif des dossiers : 1. Chiffre d'affaires (9 mesures), 2. Marge (9), 3
 | bas_centre | [5, 9, 9, 13] | 440 | 480 | 400 | 208 |
 | bas_droite | [9, 9, 13, 13] | 856 | 480 | 400 | 208 |
 
-- Deux segments dans la zone filtres, synchronisés entre les pages : **Année** (Date[Année], vignettes, sélection unique, 2025 par défaut ; x 960, y 48, 120 × 56) et **Région** (Région[Région], liste déroulante, sélection multiple avec « Tout sélectionner » ; x 1096, y 48, 160 × 56). Les segments sont centrés verticalement dans la bande de 96 px du titre et de la synthèse.
+- Deux segments dans la zone filtres, synchronisés entre les pages : **Année** (Date[Année], liste horizontale affichée en vignettes, sélection unique, 2025 par défaut ; x 960, y 32, 120 × 96) et **Région** (Région[Région], liste déroulante, sélection multiple avec « Tout sélectionner » ; x 1096, y 32, 160 × 96). Les segments occupent toute la hauteur de la bande du titre et de la synthèse : un segment en liste déroulante avec en-tête demande au moins 80 px avec des marges de 8 px.
 - Les titres de page et de visuels sont des mesures texte (section 4.6) : ils répondent à la question métier et restent justes quel que soit le filtre ou le rôle RLS. Titre et synthèse de page sont affichés par une carte à valeur unique (`cardVisual`, libellé masqué, retour à la ligne activé, alignement à gauche) ; les titres des graphiques sont des titres de visuel liés à la mesure. Aucune zone de texte à valeur dynamique n'est utilisée : son encodage PBIR n'est pas documenté de façon assez fiable pour être vérifié sans Desktop.
-- Interactions : un clic sur une barre, une ligne ou un tableau **filtre** les autres visuels de la page (pas de surbrillance). Exceptions : la cascade ne filtre rien (sa table d'étapes n'est reliée à rien) ; le graphique des segments clients n'agit pas sur le graphique budgétaire (le budget n'existe pas par segment).
-- Navigation par les onglets natifs des pages ; pas de boutons. Volet de filtres masqué en lecture : tous les filtres utiles sont des segments visibles, les filtres de visuel sont annoncés dans les titres.
+- Interactions : un clic sur une barre, une ligne ou un tableau **filtre** les autres visuels de la page (paramètre du rapport « filtrer plutôt que mettre en surbrillance »). Exceptions déclarées dans la page : la cascade ne filtre rien (sa table d'étapes n'est reliée à rien) ; le graphique des segments clients n'agit pas sur le graphique budgétaire (le budget n'existe pas par segment).
+- Navigation par les onglets natifs des pages ; pas de boutons. Le volet de filtres reste visible : il montre le filtre de visuel des deux tableaux, également annoncé dans leurs titres.
 - Ordre de tabulation = ordre de lecture (titre, synthèse, segments, KPI, principal, secondaire, bas gauche, centre, droite). Texte de remplacement sur chaque visuel de données, lié à la même mesure que son titre.
 
 ### Page 1 : « Vue Direction » (d'où vient la croissance)
@@ -557,7 +557,7 @@ Récapitulatif des dossiers : 1. Chiffre d'affaires (9 mesures), 2. Marge (9), 3
 | D2 | synthese | cardVisual (valeur unique, 10 pt) | [Synthèse Direction] | Qu'est-ce qui porte la croissance ? |
 | D3 | filtres | slicer (vignettes) | Date[Année] | Quel exercice ? |
 | D4 | filtres | slicer (liste déroulante) | Région[Région] | Quelle région ? |
-| D5 | kpis | cardVisual, 5 cartes | CA net (référence : CA net évol. N-1 (%)) · CA net écart budget (%) (référence : CA net budget) · # Clients actifs (référence : évol. N-1) · Commandes par client (référence : évol. N-1) · Panier moyen (référence : évol. N-1) | La croissance vient-elle de plus de clients, de commandes plus fréquentes ou de paniers plus gros ? |
+| D5 | kpis | cardVisual, 10 valeurs sur 2 rangées de 5 | Première rangée : CA net · CA net écart budget (%) · # Clients actifs · Commandes par client · Panier moyen. Seconde rangée, sous chaque valeur : CA net évol. N-1 (%) · CA net budget · # Clients actifs évol. N-1 (%) · Commandes par client évol. N-1 (%) · Panier moyen évol. N-1 (%) | La croissance vient-elle de plus de clients, de commandes plus fréquentes ou de paniers plus gros ? |
 | D6 | principal | lineChart | Axe : Date[Mois] ; valeurs : CA net, CA net N-1, CA net budget ; titre : [Titre tendance CA] | Quand la croissance se produit-elle, et suit-elle le budget ? |
 | D7 | secondaire | clusteredBarChart (horizontal) | Axe : Famille[Famille] ; valeur : CA net écart N-1 ; tri décroissant ; titre : [Titre écart par famille] | Quelles familles apportent la croissance ? |
 | D8 | bas_gauche | clusteredBarChart | Région[Région] ; CA net écart N-1 ; tri décroissant ; titre : [Titre écart par région] | Quelles régions apportent la croissance ? |
@@ -566,6 +566,8 @@ Récapitulatif des dossiers : 1. Chiffre d'affaires (9 mesures), 2. Marge (9), 3
 
 Infobulles : D7 à D9 ajoutent CA net, CA net N-1 et CA net évol. N-1 (%) ; D10 ajoute CA net budget et CA net écart budget (%).
 
+Les deux bandes de KPI affichent l'évolution de chaque indicateur juste sous sa valeur, dans la même carte. Les étiquettes de référence de la carte n'ont pas été retenues : leur encodage PBIR n'est pas documenté de façon vérifiable sans Desktop. Une valeur vide s'affiche « n.d. ».
+
 ### Page 2 : « Marge » (où part la marge)
 
 | Id | Zone | Type | Champs | Question métier |
@@ -573,7 +575,7 @@ Infobulles : D7 à D9 ajoutent CA net, CA net N-1 et CA net évol. N-1 (%) ; D10
 | M1 | titre | cardVisual (valeur unique, 14 pt semi-gras) | [Titre Marge] | La marge suit-elle le chiffre d'affaires ? |
 | M2 | synthese | cardVisual (valeur unique, 10 pt) | [Synthèse Marge] | Qu'est-ce qui fait perdre de la marge ? |
 | M3, M4 | filtres | slicers | Identiques à D3 et D4, synchronisés | |
-| M5 | kpis | cardVisual, 5 cartes | Marge commerciale (référence : évol. N-1) · Marge commerciale (% CA) (référence : écart N-1 en pts) · Taux de remise (%) (référence : écart N-1 en pts) · Transport (% CA) (référence : écart N-1 en pts) · Marge contributive (référence : évol. N-1) | Où se situe la perte : prix, remises, coûts, transport ? |
+| M5 | kpis | cardVisual, 10 valeurs sur 2 rangées de 5 | Première rangée : Marge commerciale · Marge commerciale (% CA) · Taux de remise (%) · Transport (% CA) · Marge contributive. Seconde rangée : Marge commerciale évol. N-1 (%) · Marge commerciale écart N-1 (pts) · Taux de remise écart N-1 (pts) · Transport écart N-1 (pts) · Marge contributive évol. N-1 (%) | Où se situe la perte : prix, remises, coûts, transport ? |
 | M6 | principal | waterfallChart | Catégorie : 'Étape du pont'[Étape], triée par 'Étape du pont'[Ordre] (jamais par valeur) ; valeur : [Pont de marge] ; total automatique = marge N ; titre : [Titre pont de marge] | Pourquoi la marge a-t-elle changé depuis N-1 ? |
 | M7 | secondaire | clusteredBarChart | Commercial[Commercial] ; Taux de remise écart N-1 (pts) ; tri décroissant ; infobulles : Taux de remise (%), Taux de remise N-1 (%) ; titre : [Titre remises par commercial] | Qui accorde plus de remises qu'avant ? |
 | M8 | bas_gauche | clusteredBarChart | Famille[Famille] ; Marge commerciale écart N-1 (pts) ; tri croissant ; titre : [Titre marge par famille] | Quelle famille perd du taux de marge ? |
@@ -714,19 +716,19 @@ Design Brief:
             region: filtres
             kind: slicer
             field_bindings: "Date[Année]"
-            slicer_type: tile
-            position_px: { x: 960, y: 48, width: 120, height: 56 }
+            slicer_type: horizontal_list
+            position_px: { x: 960, y: 32, width: 120, height: 96 }
           - id: region
             region: filtres
             kind: slicer
             field_bindings: "Région[Région]"
             slicer_type: dropdown
-            position_px: { x: 1096, y: 48, width: 160, height: 56 }
+            position_px: { x: 1096, y: 32, width: 160, height: 96 }
           - id: kpi
             region: kpis
             kind: cardVisual
             purpose: "La croissance vient-elle de plus de clients, de commandes plus fréquentes ou de paniers plus gros ?"
-            field_bindings: ["Mesures[CA net]", "Mesures[CA net écart budget (%)]", "Mesures[# Clients actifs]", "Mesures[Commandes par client]", "Mesures[Panier moyen]"]
+            field_bindings: ["Mesures[CA net]", "Mesures[CA net écart budget (%)]", "Mesures[# Clients actifs]", "Mesures[Commandes par client]", "Mesures[Panier moyen]", "Mesures[CA net évol. N-1 (%)]", "Mesures[CA net budget]", "Mesures[# Clients actifs évol. N-1 (%)]", "Mesures[Commandes par client évol. N-1 (%)]", "Mesures[Panier moyen évol. N-1 (%)]"]
             comparison_basis: "N-1 pour quatre cartes, budget pour la deuxième"
             color_strategy: measure_match
           - id: tendance
@@ -809,19 +811,19 @@ Design Brief:
             region: filtres
             kind: slicer
             field_bindings: "Date[Année]"
-            slicer_type: tile
-            position_px: { x: 960, y: 48, width: 120, height: 56 }
+            slicer_type: horizontal_list
+            position_px: { x: 960, y: 32, width: 120, height: 96 }
           - id: region
             region: filtres
             kind: slicer
             field_bindings: "Région[Région]"
             slicer_type: dropdown
-            position_px: { x: 1096, y: 48, width: 160, height: 56 }
+            position_px: { x: 1096, y: 32, width: 160, height: 96 }
           - id: kpi
             region: kpis
             kind: cardVisual
             purpose: "Où se situe la perte : prix, remises, coûts, transport ?"
-            field_bindings: ["Mesures[Marge commerciale]", "Mesures[Marge commerciale (% CA)]", "Mesures[Taux de remise (%)]", "Mesures[Transport (% CA)]", "Mesures[Marge contributive]"]
+            field_bindings: ["Mesures[Marge commerciale]", "Mesures[Marge commerciale (% CA)]", "Mesures[Taux de remise (%)]", "Mesures[Transport (% CA)]", "Mesures[Marge contributive]", "Mesures[Marge commerciale évol. N-1 (%)]", "Mesures[Marge commerciale écart N-1 (pts)]", "Mesures[Taux de remise écart N-1 (pts)]", "Mesures[Transport écart N-1 (pts)]", "Mesures[Marge contributive évol. N-1 (%)]"]
             comparison_basis: "N-1"
             color_strategy: measure_match
           - id: pont
