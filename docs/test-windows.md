@@ -1,0 +1,94 @@
+# Test dans Power BI Desktop (Windows)
+
+Six étapes, à suivre dans l'ordre. Pour chacune : ce qui doit s'afficher, et ce qu'il faut relever si ce n'est pas le cas. Toutes les valeurs attendues ci-dessous sont calculées par `scripts/expected_values.py` ; elles portent sur l'exercice 2025, sans autre filtre, sauf mention contraire.
+
+## 1. Cloner le dépôt et mettre Power BI Desktop à jour
+
+1. Cloner le dépôt avec GitHub Desktop, par exemple dans `C:\Users\<nom>\Documents\GitHub\negoce-b2b-powerbi`.
+2. Installer la dernière version de Power BI Desktop (Microsoft Store ou centre de téléchargement Microsoft). Le projet utilise les versions de schémas PBIR les plus récentes publiées par Microsoft (liste dans le README) : une version ancienne de Desktop refuse de les ouvrir.
+3. Si Desktop propose des fonctionnalités en préversion liées aux projets (format PBIP, rapport PBIR, modèle TMDL), les activer dans Fichier > Options et paramètres > Options > Fonctionnalités en préversion, puis redémarrer Desktop.
+
+**Résultat attendu** : le dossier cloné contient `NegoceB2B.pbip`, `NegoceB2B.Report`, `NegoceB2B.SemanticModel` et `data`.
+
+**À relever sinon** : le numéro de version de Desktop (Aide > À propos).
+
+## 2. Ouvrir le projet, renseigner DossierDonnees, actualiser
+
+1. Ouvrir `NegoceB2B.pbip` (double-clic ou Fichier > Ouvrir).
+2. Accueil > Transformer les données > Modifier les paramètres : renseigner `DossierDonnees` avec le chemin complet du dossier `data` du clone, **terminé par une barre oblique inverse**, par exemple `C:\Users\<nom>\Documents\GitHub\negoce-b2b-powerbi\data\`.
+3. Appliquer les modifications, puis Accueil > Actualiser.
+
+**Résultat attendu** : l'ouverture et l'actualisation se terminent sans message d'erreur. Dans la vue Tableau, le nombre de lignes affiché en bas de l'écran pour chaque table est :
+
+| Table | Lignes |
+|---|---|
+| Ventes | 63 500 |
+| Budget | 720 |
+| Client | 900 |
+| Produit | 600 |
+| Commercial | 10 |
+| Famille | 6 |
+| Région | 5 |
+| Accès régional | 15 |
+| Date | 731 |
+| Étape du pont | 6 |
+
+**À relever sinon** : le texte exact du message d'erreur (ou une capture), l'étape où il apparaît (ouverture, paramètre, actualisation) et la table concernée.
+
+## 3. Exécuter la requête de validation
+
+1. Ouvrir `tests/validation.dax` dans le Bloc-notes, tout sélectionner, copier.
+2. Dans Desktop, vue Requête DAX : coller la requête, puis Exécuter.
+
+**Résultat attendu** : deux résultats.
+
+- Le premier affiche **Contrôles = 409** et **KO = 0**.
+- Le second détaille chaque contrôle (colonnes Cas, Mesure, Attendu, Obtenu, Écart, Statut), lignes KO en premier.
+
+**À relever sinon** : si la requête échoue, le message d'erreur complet ; si KO est supérieur à 0, toutes les lignes KO du second résultat (bouton de copie du tableau de résultats).
+
+## 4. Parcourir les deux pages
+
+Sur chaque page, le segment Année est sur 2025 et le segment Région sur « Tout ».
+
+**Résultat attendu, page Vue Direction** :
+
+- Titre : « Vue Direction · En 2025, le CA net progresse de 8,3 % sur un an et dépasse le budget de 2,1 % ».
+- Synthèse : « Meilleure contribution : famille Équipements de protection (+778 k€), région Rhône-Alpes (+699 k€). Clients actifs +2,2 %, commandes par client +5,0 %, panier moyen +0,9 %. Données fictives. »
+- Bande de KPI sur deux rangées : les cinq indicateurs en haut, leur évolution ou le budget juste en dessous.
+- Courbe mensuelle titrée « CA net mensuel : au-dessus de 2024 sur 10 mois sur 12 », avec trois séries (2025 en bleu, 2024 en gris, budget en pointillés).
+- Quatre graphiques en barres : barres bleues pour les hausses, rouges pour les baisses ; titres lisibles en entier.
+
+**Résultat attendu, page Marge** :
+
+- Titre : « Marge · En 2025, la marge commerciale progresse de 2,6 % et représente 31,4 % du CA net (-1,7 pts) ».
+- Synthèse : « Principal frein : coût d'achat (-504 k€). Marge commerciale 3,2 % sous le budget. 12 clients à marge contributive négative, 8 produits vendus sous leur coût. Données fictives. »
+- Graphique en cascade titré « Pont de marge 2024 → 2025 : l'effet coût d'achat pèse le plus (-504 k€) », dans l'ordre Marge N-1, Volume, Mix, Prix catalogue, Remises, Coût d'achat, puis la barre de total.
+- Barres des commerciaux titrées « Damien Revol : taux de remise de 10,9 % à 19,2 % (+8,3 pts) ».
+- Tableau de 12 clients et tableau de 8 produits, triés par marge croissante.
+
+**Points à observer en particulier** : libellé de la barre de total de la cascade (« Total » par défaut) et couleur de sa première barre ; titres et synthèses affichés en entier, sans coupure ; aucun visuel en erreur.
+
+**À relever sinon** : une capture de chaque page et, pour chaque visuel en erreur, le message affiché par « Afficher les détails ».
+
+## 5. Tester les deux comptes RLS
+
+Modélisation > Afficher en tant que : cocher **Autre utilisateur**, saisir l'adresse, cocher le rôle **Commercial**, puis OK.
+
+| Adresse | Résultat attendu |
+|---|---|
+| `damien.revol@example.com` | Le segment Région ne propose que Sud. Titre de la Vue Direction : « Vue Direction · En 2025, le CA net progresse de 9,9 % sur un an et dépasse le budget de 3,7 % ». |
+| `direction.commerciale@example.com` | Les cinq régions sont visibles. Titre de la Vue Direction identique à celui de l'étape 4. |
+
+Revenir ensuite à l'affichage normal (Arrêter l'affichage).
+
+**À relever sinon** : pour chaque adresse, une capture de la page Vue Direction.
+
+## 6. Enregistrer et faire un commit
+
+1. Fichier > Enregistrer.
+2. Dans GitHub Desktop, relire la liste des fichiers modifiés, puis faire un commit (par exemple « Enregistrement du projet dans Power BI Desktop »).
+
+**Résultat attendu** : seuls des fichiers de `NegoceB2B.Report` et de `NegoceB2B.SemanticModel` sont modifiés (Desktop peut, par exemple, ajouter des identifiants `lineageTag` au modèle ou réécrire la mise en forme des fichiers). Aucun fichier de `data` ni de `tests` n'est modifié. Les fichiers `.pbi/localSettings.json` et `cache.abf` n'apparaissent pas : ils sont exclus par `.gitignore`.
+
+**À relever sinon** : la liste des fichiers modifiés affichée par GitHub Desktop.
