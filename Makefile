@@ -11,8 +11,9 @@ install: ## Crée l'environnement virtuel et installe les dépendances épinglé
 	$(PY) -m pip install -r requirements-dev.txt
 	$(VENV)/bin/pre-commit install
 
-data: ## Génère les fichiers CSV de data/
+data: ## Régénère les CSV de data/ puis les valeurs attendues de tests/expected/
 	$(PY) scripts/generate_data.py
+	$(PY) scripts/expected_values.py
 
 test: ## Lance les tests pytest
 	$(PY) -m pytest
@@ -21,4 +22,4 @@ lint: ## Vérifie le style et la qualité du code Python
 	$(VENV)/bin/ruff check .
 	$(VENV)/bin/ruff format --check .
 
-check: lint ## Enchaîne tous les contrôles automatiques
+check: lint test ## Enchaîne tous les contrôles automatiques
