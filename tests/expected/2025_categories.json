@@ -1,0 +1,795 @@
+{
+  "cas": "2025 total, par catégorie",
+  "lignes": [
+    {
+      "cas": "2025 total, mois 01",
+      "filtres": {
+        "annee": 2025,
+        "mois": 1
+      },
+      "mesure": "CA net",
+      "type": "montant",
+      "attendu": 1801874.23
+    },
+    {
+      "cas": "2025 total, mois 01",
+      "filtres": {
+        "annee": 2025,
+        "mois": 1
+      },
+      "mesure": "CA net N-1",
+      "type": "montant",
+      "attendu": 1726274.07
+    },
+    {
+      "cas": "2025 total, mois 01",
+      "filtres": {
+        "annee": 2025,
+        "mois": 1
+      },
+      "mesure": "CA net budget",
+      "type": "montant",
+      "attendu": 1797880.23
+    },
+    {
+      "cas": "2025 total, mois 02",
+      "filtres": {
+        "annee": 2025,
+        "mois": 2
+      },
+      "mesure": "CA net",
+      "type": "montant",
+      "attendu": 1660878.6
+    },
+    {
+      "cas": "2025 total, mois 02",
+      "filtres": {
+        "annee": 2025,
+        "mois": 2
+      },
+      "mesure": "CA net N-1",
+      "type": "montant",
+      "attendu": 1714037.25
+    },
+    {
+      "cas": "2025 total, mois 02",
+      "filtres": {
+        "annee": 2025,
+        "mois": 2
+      },
+      "mesure": "CA net budget",
+      "type": "montant",
+      "attendu": 1725238.59
+    },
+    {
+      "cas": "2025 total, mois 03",
+      "filtres": {
+        "annee": 2025,
+        "mois": 3
+      },
+      "mesure": "CA net",
+      "type": "montant",
+      "attendu": 2196232.41
+    },
+    {
+      "cas": "2025 total, mois 03",
+      "filtres": {
+        "annee": 2025,
+        "mois": 3
+      },
+      "mesure": "CA net N-1",
+      "type": "montant",
+      "attendu": 1896411.36
+    },
+    {
+      "cas": "2025 total, mois 03",
+      "filtres": {
+        "annee": 2025,
+        "mois": 3
+      },
+      "mesure": "CA net budget",
+      "type": "montant",
+      "attendu": 2097526.91
+    },
+    {
+      "cas": "2025 total, mois 04",
+      "filtres": {
+        "annee": 2025,
+        "mois": 4
+      },
+      "mesure": "CA net",
+      "type": "montant",
+      "attendu": 2019884.91
+    },
+    {
+      "cas": "2025 total, mois 04",
+      "filtres": {
+        "annee": 2025,
+        "mois": 4
+      },
+      "mesure": "CA net N-1",
+      "type": "montant",
+      "attendu": 1842819.36
+    },
+    {
+      "cas": "2025 total, mois 04",
+      "filtres": {
+        "annee": 2025,
+        "mois": 4
+      },
+      "mesure": "CA net budget",
+      "type": "montant",
+      "attendu": 2002184.79
+    },
+    {
+      "cas": "2025 total, mois 05",
+      "filtres": {
+        "annee": 2025,
+        "mois": 5
+      },
+      "mesure": "CA net",
+      "type": "montant",
+      "attendu": 1591153.69
+    },
+    {
+      "cas": "2025 total, mois 05",
+      "filtres": {
+        "annee": 2025,
+        "mois": 5
+      },
+      "mesure": "CA net N-1",
+      "type": "montant",
+      "attendu": 1616600.9
+    },
+    {
+      "cas": "2025 total, mois 05",
+      "filtres": {
+        "annee": 2025,
+        "mois": 5
+      },
+      "mesure": "CA net budget",
+      "type": "montant",
+      "attendu": 1638976.67
+    },
+    {
+      "cas": "2025 total, mois 06",
+      "filtres": {
+        "annee": 2025,
+        "mois": 6
+      },
+      "mesure": "CA net",
+      "type": "montant",
+      "attendu": 2064628.22
+    },
+    {
+      "cas": "2025 total, mois 06",
+      "filtres": {
+        "annee": 2025,
+        "mois": 6
+      },
+      "mesure": "CA net N-1",
+      "type": "montant",
+      "attendu": 1823779.56
+    },
+    {
+      "cas": "2025 total, mois 06",
+      "filtres": {
+        "annee": 2025,
+        "mois": 6
+      },
+      "mesure": "CA net budget",
+      "type": "montant",
+      "attendu": 1997644.66
+    },
+    {
+      "cas": "2025 total, mois 07",
+      "filtres": {
+        "annee": 2025,
+        "mois": 7
+      },
+      "mesure": "CA net",
+      "type": "montant",
+      "attendu": 1946481.77
+    },
+    {
+      "cas": "2025 total, mois 07",
+      "filtres": {
+        "annee": 2025,
+        "mois": 7
+      },
+      "mesure": "CA net N-1",
+      "type": "montant",
+      "attendu": 1874679.53
+    },
+    {
+      "cas": "2025 total, mois 07",
+      "filtres": {
+        "annee": 2025,
+        "mois": 7
+      },
+      "mesure": "CA net budget",
+      "type": "montant",
+      "attendu": 1897762.45
+    },
+    {
+      "cas": "2025 total, mois 08",
+      "filtres": {
+        "annee": 2025,
+        "mois": 8
+      },
+      "mesure": "CA net",
+      "type": "montant",
+      "attendu": 1121615.18
+    },
+    {
+      "cas": "2025 total, mois 08",
+      "filtres": {
+        "annee": 2025,
+        "mois": 8
+      },
+      "mesure": "CA net N-1",
+      "type": "montant",
+      "attendu": 969117.31
+    },
+    {
+      "cas": "2025 total, mois 08",
+      "filtres": {
+        "annee": 2025,
+        "mois": 8
+      },
+      "mesure": "CA net budget",
+      "type": "montant",
+      "attendu": 998822.35
+    },
+    {
+      "cas": "2025 total, mois 09",
+      "filtres": {
+        "annee": 2025,
+        "mois": 9
+      },
+      "mesure": "CA net",
+      "type": "montant",
+      "attendu": 2256827.04
+    },
+    {
+      "cas": "2025 total, mois 09",
+      "filtres": {
+        "annee": 2025,
+        "mois": 9
+      },
+      "mesure": "CA net N-1",
+      "type": "montant",
+      "attendu": 2047891.09
+    },
+    {
+      "cas": "2025 total, mois 09",
+      "filtres": {
+        "annee": 2025,
+        "mois": 9
+      },
+      "mesure": "CA net budget",
+      "type": "montant",
+      "attendu": 2197409.16
+    },
+    {
+      "cas": "2025 total, mois 10",
+      "filtres": {
+        "annee": 2025,
+        "mois": 10
+      },
+      "mesure": "CA net",
+      "type": "montant",
+      "attendu": 2459093.74
+    },
+    {
+      "cas": "2025 total, mois 10",
+      "filtres": {
+        "annee": 2025,
+        "mois": 10
+      },
+      "mesure": "CA net N-1",
+      "type": "montant",
+      "attendu": 2306822.95
+    },
+    {
+      "cas": "2025 total, mois 10",
+      "filtres": {
+        "annee": 2025,
+        "mois": 10
+      },
+      "mesure": "CA net budget",
+      "type": "montant",
+      "attendu": 2401713.72
+    },
+    {
+      "cas": "2025 total, mois 11",
+      "filtres": {
+        "annee": 2025,
+        "mois": 11
+      },
+      "mesure": "CA net",
+      "type": "montant",
+      "attendu": 1802799.82
+    },
+    {
+      "cas": "2025 total, mois 11",
+      "filtres": {
+        "annee": 2025,
+        "mois": 11
+      },
+      "mesure": "CA net N-1",
+      "type": "montant",
+      "attendu": 1700800.79
+    },
+    {
+      "cas": "2025 total, mois 11",
+      "filtres": {
+        "annee": 2025,
+        "mois": 11
+      },
+      "mesure": "CA net budget",
+      "type": "montant",
+      "attendu": 1811500.5
+    },
+    {
+      "cas": "2025 total, mois 12",
+      "filtres": {
+        "annee": 2025,
+        "mois": 12
+      },
+      "mesure": "CA net",
+      "type": "montant",
+      "attendu": 1715547.04
+    },
+    {
+      "cas": "2025 total, mois 12",
+      "filtres": {
+        "annee": 2025,
+        "mois": 12
+      },
+      "mesure": "CA net N-1",
+      "type": "montant",
+      "attendu": 1390931.67
+    },
+    {
+      "cas": "2025 total, mois 12",
+      "filtres": {
+        "annee": 2025,
+        "mois": 12
+      },
+      "mesure": "CA net budget",
+      "type": "montant",
+      "attendu": 1598115.78
+    },
+    {
+      "cas": "2025 total, famille Abrasifs et coupe",
+      "filtres": {
+        "annee": 2025,
+        "famille": "Abrasifs et coupe"
+      },
+      "mesure": "CA net écart N-1",
+      "type": "montant",
+      "attendu": 261934.4
+    },
+    {
+      "cas": "2025 total, famille Abrasifs et coupe",
+      "filtres": {
+        "annee": 2025,
+        "famille": "Abrasifs et coupe"
+      },
+      "mesure": "CA net écart budget",
+      "type": "montant",
+      "attendu": 53302.97
+    },
+    {
+      "cas": "2025 total, famille Abrasifs et coupe",
+      "filtres": {
+        "annee": 2025,
+        "famille": "Abrasifs et coupe"
+      },
+      "mesure": "Marge commerciale écart N-1 (pts)",
+      "type": "points",
+      "attendu": 0.2034946257
+    },
+    {
+      "cas": "2025 total, famille Hygiène et maintenance",
+      "filtres": {
+        "annee": 2025,
+        "famille": "Hygiène et maintenance"
+      },
+      "mesure": "CA net écart N-1",
+      "type": "montant",
+      "attendu": 255799.69
+    },
+    {
+      "cas": "2025 total, famille Hygiène et maintenance",
+      "filtres": {
+        "annee": 2025,
+        "famille": "Hygiène et maintenance"
+      },
+      "mesure": "CA net écart budget",
+      "type": "montant",
+      "attendu": 100400.1
+    },
+    {
+      "cas": "2025 total, famille Hygiène et maintenance",
+      "filtres": {
+        "annee": 2025,
+        "famille": "Hygiène et maintenance"
+      },
+      "mesure": "Marge commerciale écart N-1 (pts)",
+      "type": "points",
+      "attendu": 0.255081174
+    },
+    {
+      "cas": "2025 total, famille Outillage à main",
+      "filtres": {
+        "annee": 2025,
+        "famille": "Outillage à main"
+      },
+      "mesure": "CA net écart N-1",
+      "type": "montant",
+      "attendu": -125053.04
+    },
+    {
+      "cas": "2025 total, famille Outillage à main",
+      "filtres": {
+        "annee": 2025,
+        "famille": "Outillage à main"
+      },
+      "mesure": "CA net écart budget",
+      "type": "montant",
+      "attendu": -289681.36
+    },
+    {
+      "cas": "2025 total, famille Outillage à main",
+      "filtres": {
+        "annee": 2025,
+        "famille": "Outillage à main"
+      },
+      "mesure": "Marge commerciale écart N-1 (pts)",
+      "type": "points",
+      "attendu": -4.9438045958
+    },
+    {
+      "cas": "2025 total, famille Outillage électroportatif",
+      "filtres": {
+        "annee": 2025,
+        "famille": "Outillage électroportatif"
+      },
+      "mesure": "CA net écart N-1",
+      "type": "montant",
+      "attendu": 327407.01
+    },
+    {
+      "cas": "2025 total, famille Outillage électroportatif",
+      "filtres": {
+        "annee": 2025,
+        "famille": "Outillage électroportatif"
+      },
+      "mesure": "CA net écart budget",
+      "type": "montant",
+      "attendu": 118912.3
+    },
+    {
+      "cas": "2025 total, famille Outillage électroportatif",
+      "filtres": {
+        "annee": 2025,
+        "famille": "Outillage électroportatif"
+      },
+      "mesure": "Marge commerciale écart N-1 (pts)",
+      "type": "points",
+      "attendu": 0.1837563012
+    },
+    {
+      "cas": "2025 total, famille Visserie et fixations",
+      "filtres": {
+        "annee": 2025,
+        "famille": "Visserie et fixations"
+      },
+      "mesure": "CA net écart N-1",
+      "type": "montant",
+      "attendu": 229191.13
+    },
+    {
+      "cas": "2025 total, famille Visserie et fixations",
+      "filtres": {
+        "annee": 2025,
+        "famille": "Visserie et fixations"
+      },
+      "mesure": "CA net écart budget",
+      "type": "montant",
+      "attendu": -46552.58
+    },
+    {
+      "cas": "2025 total, famille Visserie et fixations",
+      "filtres": {
+        "annee": 2025,
+        "famille": "Visserie et fixations"
+      },
+      "mesure": "Marge commerciale écart N-1 (pts)",
+      "type": "points",
+      "attendu": -5.4091383644
+    },
+    {
+      "cas": "2025 total, famille Équipements de protection",
+      "filtres": {
+        "annee": 2025,
+        "famille": "Équipements de protection"
+      },
+      "mesure": "CA net écart N-1",
+      "type": "montant",
+      "attendu": 777571.62
+    },
+    {
+      "cas": "2025 total, famille Équipements de protection",
+      "filtres": {
+        "annee": 2025,
+        "famille": "Équipements de protection"
+      },
+      "mesure": "CA net écart budget",
+      "type": "montant",
+      "attendu": 535859.41
+    },
+    {
+      "cas": "2025 total, famille Équipements de protection",
+      "filtres": {
+        "annee": 2025,
+        "famille": "Équipements de protection"
+      },
+      "mesure": "Marge commerciale écart N-1 (pts)",
+      "type": "points",
+      "attendu": 0.017246029
+    },
+    {
+      "cas": "2025 total, région Nord-Est",
+      "filtres": {
+        "annee": 2025,
+        "region": "Nord-Est"
+      },
+      "mesure": "CA net écart N-1",
+      "type": "montant",
+      "attendu": -215104.47
+    },
+    {
+      "cas": "2025 total, région Ouest",
+      "filtres": {
+        "annee": 2025,
+        "region": "Ouest"
+      },
+      "mesure": "CA net écart N-1",
+      "type": "montant",
+      "attendu": 633043.88
+    },
+    {
+      "cas": "2025 total, région Rhône-Alpes",
+      "filtres": {
+        "annee": 2025,
+        "region": "Rhône-Alpes"
+      },
+      "mesure": "CA net écart N-1",
+      "type": "montant",
+      "attendu": 699207.47
+    },
+    {
+      "cas": "2025 total, région Sud",
+      "filtres": {
+        "annee": 2025,
+        "region": "Sud"
+      },
+      "mesure": "CA net écart N-1",
+      "type": "montant",
+      "attendu": 360883.83
+    },
+    {
+      "cas": "2025 total, région Île-de-France",
+      "filtres": {
+        "annee": 2025,
+        "region": "Île-de-France"
+      },
+      "mesure": "CA net écart N-1",
+      "type": "montant",
+      "attendu": 248820.1
+    },
+    {
+      "cas": "2025 total, segment Artisans et TPE",
+      "filtres": {
+        "annee": 2025,
+        "segment": "Artisans et TPE"
+      },
+      "mesure": "CA net écart N-1",
+      "type": "montant",
+      "attendu": 99692.07
+    },
+    {
+      "cas": "2025 total, segment Collectivités",
+      "filtres": {
+        "annee": 2025,
+        "segment": "Collectivités"
+      },
+      "mesure": "CA net écart N-1",
+      "type": "montant",
+      "attendu": 57953.67
+    },
+    {
+      "cas": "2025 total, segment Grands comptes",
+      "filtres": {
+        "annee": 2025,
+        "segment": "Grands comptes"
+      },
+      "mesure": "CA net écart N-1",
+      "type": "montant",
+      "attendu": 821067.79
+    },
+    {
+      "cas": "2025 total, segment PME industrielles",
+      "filtres": {
+        "annee": 2025,
+        "segment": "PME industrielles"
+      },
+      "mesure": "CA net écart N-1",
+      "type": "montant",
+      "attendu": 748137.28
+    },
+    {
+      "cas": "2025 total, commercial Camille Roussel",
+      "filtres": {
+        "annee": 2025,
+        "commercial": "Camille Roussel"
+      },
+      "mesure": "Taux de remise écart N-1 (pts)",
+      "type": "points",
+      "attendu": 0.2324293898
+    },
+    {
+      "cas": "2025 total, commercial Damien Revol",
+      "filtres": {
+        "annee": 2025,
+        "commercial": "Damien Revol"
+      },
+      "mesure": "Taux de remise écart N-1 (pts)",
+      "type": "points",
+      "attendu": 8.3002752368
+    },
+    {
+      "cas": "2025 total, commercial Gaëlle Le Guen",
+      "filtres": {
+        "annee": 2025,
+        "commercial": "Gaëlle Le Guen"
+      },
+      "mesure": "Taux de remise écart N-1 (pts)",
+      "type": "points",
+      "attendu": -0.1221123293
+    },
+    {
+      "cas": "2025 total, commercial Inès Fabre",
+      "filtres": {
+        "annee": 2025,
+        "commercial": "Inès Fabre"
+      },
+      "mesure": "Taux de remise écart N-1 (pts)",
+      "type": "points",
+      "attendu": 0.1110530009
+    },
+    {
+      "cas": "2025 total, commercial Laurent Schmitt",
+      "filtres": {
+        "annee": 2025,
+        "commercial": "Laurent Schmitt"
+      },
+      "mesure": "Taux de remise écart N-1 (pts)",
+      "type": "points",
+      "attendu": 0.1833222785
+    },
+    {
+      "cas": "2025 total, commercial Mehdi Haddad",
+      "filtres": {
+        "annee": 2025,
+        "commercial": "Mehdi Haddad"
+      },
+      "mesure": "Taux de remise écart N-1 (pts)",
+      "type": "points",
+      "attendu": 0.0385922954
+    },
+    {
+      "cas": "2025 total, commercial Nicolas Hervé",
+      "filtres": {
+        "annee": 2025,
+        "commercial": "Nicolas Hervé"
+      },
+      "mesure": "Taux de remise écart N-1 (pts)",
+      "type": "points",
+      "attendu": -0.1330573298
+    },
+    {
+      "cas": "2025 total, commercial Pauline Mercier",
+      "filtres": {
+        "annee": 2025,
+        "commercial": "Pauline Mercier"
+      },
+      "mesure": "Taux de remise écart N-1 (pts)",
+      "type": "points",
+      "attendu": 0.1664520524
+    },
+    {
+      "cas": "2025 total, commercial Romain Chabert",
+      "filtres": {
+        "annee": 2025,
+        "commercial": "Romain Chabert"
+      },
+      "mesure": "Taux de remise écart N-1 (pts)",
+      "type": "points",
+      "attendu": -0.0318194937
+    },
+    {
+      "cas": "2025 total, commercial Sophie Vernet",
+      "filtres": {
+        "annee": 2025,
+        "commercial": "Sophie Vernet"
+      },
+      "mesure": "Taux de remise écart N-1 (pts)",
+      "type": "points",
+      "attendu": 0.1623474853
+    },
+    {
+      "cas": "2025 total, étape 1 Marge N-1",
+      "filtres": {
+        "annee": 2025,
+        "etape": 1
+      },
+      "mesure": "Pont de marge",
+      "type": "montant",
+      "attendu": 6918126.09
+    },
+    {
+      "cas": "2025 total, étape 2 Volume",
+      "filtres": {
+        "annee": 2025,
+        "etape": 2
+      },
+      "mesure": "Pont de marge",
+      "type": "montant",
+      "attendu": 504337.06
+    },
+    {
+      "cas": "2025 total, étape 3 Mix",
+      "filtres": {
+        "annee": 2025,
+        "etape": 3
+      },
+      "mesure": "Pont de marge",
+      "type": "montant",
+      "attendu": -21813.98
+    },
+    {
+      "cas": "2025 total, étape 4 Prix catalogue",
+      "filtres": {
+        "annee": 2025,
+        "etape": 4
+      },
+      "mesure": "Pont de marge",
+      "type": "montant",
+      "attendu": 406123.4
+    },
+    {
+      "cas": "2025 total, étape 5 Remises",
+      "filtres": {
+        "annee": 2025,
+        "etape": 5
+      },
+      "mesure": "Pont de marge",
+      "type": "montant",
+      "attendu": -203640.82
+    },
+    {
+      "cas": "2025 total, étape 6 Coût d'achat",
+      "filtres": {
+        "annee": 2025,
+        "etape": 6
+      },
+      "mesure": "Pont de marge",
+      "type": "montant",
+      "attendu": -504061.02
+    }
+  ]
+}

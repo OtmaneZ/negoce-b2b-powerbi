@@ -1,0 +1,338 @@
+{
+  "cas": "2024 total",
+  "filtres": {
+    "annee": 2024
+  },
+  "mesures": [
+    {
+      "mesure": "# Clients actifs",
+      "type": "nombre",
+      "attendu": 837
+    },
+    {
+      "mesure": "# Clients actifs N-1",
+      "type": "nombre",
+      "attendu": null
+    },
+    {
+      "mesure": "# Clients actifs évol. N-1 (%)",
+      "type": "taux",
+      "attendu": null
+    },
+    {
+      "mesure": "# Clients à marge négative",
+      "type": "nombre",
+      "attendu": 9
+    },
+    {
+      "mesure": "# Commandes",
+      "type": "nombre",
+      "attendu": 10750
+    },
+    {
+      "mesure": "# Produits sous le coût",
+      "type": "nombre",
+      "attendu": null
+    },
+    {
+      "mesure": "CA brut",
+      "type": "montant",
+      "attendu": 23485015.19
+    },
+    {
+      "mesure": "CA net",
+      "type": "montant",
+      "attendu": 20910165.84
+    },
+    {
+      "mesure": "CA net N au prix N-1",
+      "type": "montant",
+      "attendu": 20910165.84
+    },
+    {
+      "mesure": "CA net N-1",
+      "type": "montant",
+      "attendu": null
+    },
+    {
+      "mesure": "CA net budget",
+      "type": "montant",
+      "attendu": 20877801.84
+    },
+    {
+      "mesure": "CA net écart N-1",
+      "type": "montant",
+      "attendu": null
+    },
+    {
+      "mesure": "CA net écart budget",
+      "type": "montant",
+      "attendu": 32364.0
+    },
+    {
+      "mesure": "CA net écart budget (%)",
+      "type": "taux",
+      "attendu": 0.0015501632
+    },
+    {
+      "mesure": "CA net évol. N-1 (%)",
+      "type": "taux",
+      "attendu": null
+    },
+    {
+      "mesure": "Commandes par client",
+      "type": "ratio",
+      "attendu": 12.8434886499
+    },
+    {
+      "mesure": "Commandes par client N-1",
+      "type": "ratio",
+      "attendu": null
+    },
+    {
+      "mesure": "Commandes par client évol. N-1 (%)",
+      "type": "taux",
+      "attendu": null
+    },
+    {
+      "mesure": "Coût d'achat",
+      "type": "montant",
+      "attendu": 13992039.75
+    },
+    {
+      "mesure": "Effet coût d'achat",
+      "type": "montant",
+      "attendu": null
+    },
+    {
+      "mesure": "Effet mix",
+      "type": "montant",
+      "attendu": null
+    },
+    {
+      "mesure": "Effet prix catalogue",
+      "type": "montant",
+      "attendu": null
+    },
+    {
+      "mesure": "Effet remises",
+      "type": "montant",
+      "attendu": null
+    },
+    {
+      "mesure": "Effet volume",
+      "type": "montant",
+      "attendu": null
+    },
+    {
+      "mesure": "Frein principal (montant)",
+      "type": "montant",
+      "attendu": null
+    },
+    {
+      "mesure": "Marge commerciale",
+      "type": "montant",
+      "attendu": 6918126.09
+    },
+    {
+      "mesure": "Marge commerciale (% CA)",
+      "type": "taux",
+      "attendu": 0.330849891
+    },
+    {
+      "mesure": "Marge commerciale N-1",
+      "type": "montant",
+      "attendu": null
+    },
+    {
+      "mesure": "Marge commerciale N-1 (% CA)",
+      "type": "taux",
+      "attendu": null
+    },
+    {
+      "mesure": "Marge commerciale budget",
+      "type": "montant",
+      "attendu": 6908669.56
+    },
+    {
+      "mesure": "Marge commerciale écart N-1 (pts)",
+      "type": "points",
+      "attendu": null
+    },
+    {
+      "mesure": "Marge commerciale écart budget (%)",
+      "type": "taux",
+      "attendu": 0.0013687918
+    },
+    {
+      "mesure": "Marge commerciale évol. N-1 (%)",
+      "type": "taux",
+      "attendu": null
+    },
+    {
+      "mesure": "Marge contributive",
+      "type": "montant",
+      "attendu": 6448127.64
+    },
+    {
+      "mesure": "Marge contributive (% CA)",
+      "type": "taux",
+      "attendu": 0.3083728598
+    },
+    {
+      "mesure": "Marge contributive N-1",
+      "type": "montant",
+      "attendu": null
+    },
+    {
+      "mesure": "Marge contributive évol. N-1 (%)",
+      "type": "taux",
+      "attendu": null
+    },
+    {
+      "mesure": "Panier moyen",
+      "type": "montant",
+      "attendu": 1945.13
+    },
+    {
+      "mesure": "Panier moyen N-1",
+      "type": "montant",
+      "attendu": null
+    },
+    {
+      "mesure": "Panier moyen évol. N-1 (%)",
+      "type": "taux",
+      "attendu": null
+    },
+    {
+      "mesure": "Pont de marge",
+      "type": "montant",
+      "attendu": 6918126.09
+    },
+    {
+      "mesure": "Pont de marge écart de bouclage",
+      "type": "bouclage",
+      "attendu": null
+    },
+    {
+      "mesure": "Quantité",
+      "type": "nombre",
+      "attendu": 1754465
+    },
+    {
+      "mesure": "Remises",
+      "type": "montant",
+      "attendu": 2574849.35
+    },
+    {
+      "mesure": "Taux de remise (%)",
+      "type": "taux",
+      "attendu": 0.1096379683
+    },
+    {
+      "mesure": "Taux de remise N-1 (%)",
+      "type": "taux",
+      "attendu": null
+    },
+    {
+      "mesure": "Taux de remise écart N-1 (pts)",
+      "type": "points",
+      "attendu": null
+    },
+    {
+      "mesure": "Transport",
+      "type": "montant",
+      "attendu": 469998.45
+    },
+    {
+      "mesure": "Transport (% CA)",
+      "type": "taux",
+      "attendu": 0.0224770312
+    },
+    {
+      "mesure": "Transport N-1 (% CA)",
+      "type": "taux",
+      "attendu": null
+    },
+    {
+      "mesure": "Transport écart N-1 (pts)",
+      "type": "points",
+      "attendu": null
+    },
+    {
+      "mesure": "Frein principal (libellé)",
+      "type": "texte",
+      "attendu": null
+    },
+    {
+      "mesure": "Synthèse Direction",
+      "type": "texte",
+      "attendu": "Pas d'exercice précédent : contributions à la croissance non calculables. Données fictives."
+    },
+    {
+      "mesure": "Synthèse Marge",
+      "type": "texte",
+      "attendu": "Pas d'exercice précédent : pont de marge non calculable. Marge commerciale 0,1 % au-dessus du budget. 9 clients à marge contributive négative, aucun produit vendu sous son coût. Données fictives."
+    },
+    {
+      "mesure": "Titre Direction",
+      "type": "texte",
+      "attendu": "Vue Direction · En 2024, le CA net atteint 20,9 M€ et dépasse le budget de 0,2 % (pas d'exercice précédent à comparer)"
+    },
+    {
+      "mesure": "Titre Marge",
+      "type": "texte",
+      "attendu": "Marge · En 2024, la marge commerciale atteint 6,9 M€, soit 33,1 % du CA net (pas d'exercice précédent à comparer)"
+    },
+    {
+      "mesure": "Titre clients déficitaires",
+      "type": "texte",
+      "attendu": "9 clients à marge contributive négative"
+    },
+    {
+      "mesure": "Titre marge par famille",
+      "type": "texte",
+      "attendu": "Taux de marge commerciale par famille : écart avec l'exercice précédent"
+    },
+    {
+      "mesure": "Titre pont de marge",
+      "type": "texte",
+      "attendu": "Pont de marge commerciale : pas d'exercice précédent à comparer"
+    },
+    {
+      "mesure": "Titre produits déficitaires",
+      "type": "texte",
+      "attendu": "Aucun produit vendu sous son coût d'achat"
+    },
+    {
+      "mesure": "Titre remises par commercial",
+      "type": "texte",
+      "attendu": "Taux de remise par commercial : écart avec l'exercice précédent"
+    },
+    {
+      "mesure": "Titre tendance CA",
+      "type": "texte",
+      "attendu": "CA net mensuel"
+    },
+    {
+      "mesure": "Titre écart budget par famille",
+      "type": "texte",
+      "attendu": "5 familles sur 6 atteignent leur budget de CA net"
+    },
+    {
+      "mesure": "Titre écart par famille",
+      "type": "texte",
+      "attendu": "Écart de CA net par famille"
+    },
+    {
+      "mesure": "Titre écart par région",
+      "type": "texte",
+      "attendu": "Écart de CA net par région"
+    },
+    {
+      "mesure": "Titre écart par segment",
+      "type": "texte",
+      "attendu": "Écart de CA net par segment"
+    }
+  ]
+}

@@ -1,0 +1,339 @@
+{
+  "cas": "Février 2025",
+  "filtres": {
+    "annee": 2025,
+    "mois": 2
+  },
+  "mesures": [
+    {
+      "mesure": "# Clients actifs",
+      "type": "nombre",
+      "attendu": 489
+    },
+    {
+      "mesure": "# Clients actifs N-1",
+      "type": "nombre",
+      "attendu": 496
+    },
+    {
+      "mesure": "# Clients actifs évol. N-1 (%)",
+      "type": "taux",
+      "attendu": -0.0141129032
+    },
+    {
+      "mesure": "# Clients à marge négative",
+      "type": "nombre",
+      "attendu": 12
+    },
+    {
+      "mesure": "# Commandes",
+      "type": "nombre",
+      "attendu": 882
+    },
+    {
+      "mesure": "# Produits sous le coût",
+      "type": "nombre",
+      "attendu": 8
+    },
+    {
+      "mesure": "CA brut",
+      "type": "montant",
+      "attendu": 1868361.75
+    },
+    {
+      "mesure": "CA net",
+      "type": "montant",
+      "attendu": 1660878.6
+    },
+    {
+      "mesure": "CA net N au prix N-1",
+      "type": "montant",
+      "attendu": 1646488.69
+    },
+    {
+      "mesure": "CA net N-1",
+      "type": "montant",
+      "attendu": 1714037.25
+    },
+    {
+      "mesure": "CA net budget",
+      "type": "montant",
+      "attendu": 1725238.59
+    },
+    {
+      "mesure": "CA net écart N-1",
+      "type": "montant",
+      "attendu": -53158.65
+    },
+    {
+      "mesure": "CA net écart budget",
+      "type": "montant",
+      "attendu": -64359.99
+    },
+    {
+      "mesure": "CA net écart budget (%)",
+      "type": "taux",
+      "attendu": -0.0373049794
+    },
+    {
+      "mesure": "CA net évol. N-1 (%)",
+      "type": "taux",
+      "attendu": -0.0310137075
+    },
+    {
+      "mesure": "Commandes par client",
+      "type": "ratio",
+      "attendu": 1.8036809816
+    },
+    {
+      "mesure": "Commandes par client N-1",
+      "type": "ratio",
+      "attendu": 1.7822580645
+    },
+    {
+      "mesure": "Commandes par client évol. N-1 (%)",
+      "type": "taux",
+      "attendu": 0.0120200983
+    },
+    {
+      "mesure": "Coût d'achat",
+      "type": "montant",
+      "attendu": 1116026.38
+    },
+    {
+      "mesure": "Effet coût d'achat",
+      "type": "montant",
+      "attendu": -15765.25
+    },
+    {
+      "mesure": "Effet mix",
+      "type": "montant",
+      "attendu": 3988.71
+    },
+    {
+      "mesure": "Effet prix catalogue",
+      "type": "montant",
+      "attendu": 29636.24
+    },
+    {
+      "mesure": "Effet remises",
+      "type": "montant",
+      "attendu": -15246.33
+    },
+    {
+      "mesure": "Effet volume",
+      "type": "montant",
+      "attendu": -22245.8
+    },
+    {
+      "mesure": "Frein principal (montant)",
+      "type": "montant",
+      "attendu": -22245.8
+    },
+    {
+      "mesure": "Marge commerciale",
+      "type": "montant",
+      "attendu": 544852.22
+    },
+    {
+      "mesure": "Marge commerciale (% CA)",
+      "type": "taux",
+      "attendu": 0.3280505992
+    },
+    {
+      "mesure": "Marge commerciale N-1",
+      "type": "montant",
+      "attendu": 564484.64
+    },
+    {
+      "mesure": "Marge commerciale N-1 (% CA)",
+      "type": "taux",
+      "attendu": 0.329330439
+    },
+    {
+      "mesure": "Marge commerciale budget",
+      "type": "montant",
+      "attendu": 570794.99
+    },
+    {
+      "mesure": "Marge commerciale écart N-1 (pts)",
+      "type": "points",
+      "attendu": -0.1279839754
+    },
+    {
+      "mesure": "Marge commerciale écart budget (%)",
+      "type": "taux",
+      "attendu": -0.0454502413
+    },
+    {
+      "mesure": "Marge commerciale évol. N-1 (%)",
+      "type": "taux",
+      "attendu": -0.0347793697
+    },
+    {
+      "mesure": "Marge contributive",
+      "type": "montant",
+      "attendu": 507263.13
+    },
+    {
+      "mesure": "Marge contributive (% CA)",
+      "type": "taux",
+      "attendu": 0.3054185477
+    },
+    {
+      "mesure": "Marge contributive N-1",
+      "type": "montant",
+      "attendu": 526027.98
+    },
+    {
+      "mesure": "Marge contributive évol. N-1 (%)",
+      "type": "taux",
+      "attendu": -0.0356727222
+    },
+    {
+      "mesure": "Panier moyen",
+      "type": "montant",
+      "attendu": 1883.08
+    },
+    {
+      "mesure": "Panier moyen N-1",
+      "type": "montant",
+      "attendu": 1938.96
+    },
+    {
+      "mesure": "Panier moyen évol. N-1 (%)",
+      "type": "taux",
+      "attendu": -0.0288164597
+    },
+    {
+      "mesure": "Pont de marge",
+      "type": "montant",
+      "attendu": 544852.22
+    },
+    {
+      "mesure": "Pont de marge écart de bouclage",
+      "type": "bouclage",
+      "attendu": -0.0
+    },
+    {
+      "mesure": "Quantité",
+      "type": "nombre",
+      "attendu": 136225
+    },
+    {
+      "mesure": "Remises",
+      "type": "montant",
+      "attendu": 207483.15
+    },
+    {
+      "mesure": "Taux de remise (%)",
+      "type": "taux",
+      "attendu": 0.1110508444
+    },
+    {
+      "mesure": "Taux de remise N-1 (%)",
+      "type": "taux",
+      "attendu": 0.1067443376
+    },
+    {
+      "mesure": "Taux de remise écart N-1 (pts)",
+      "type": "points",
+      "attendu": 0.4306506838
+    },
+    {
+      "mesure": "Transport",
+      "type": "montant",
+      "attendu": 37589.09
+    },
+    {
+      "mesure": "Transport (% CA)",
+      "type": "taux",
+      "attendu": 0.0226320515
+    },
+    {
+      "mesure": "Transport N-1 (% CA)",
+      "type": "taux",
+      "attendu": 0.0224363035
+    },
+    {
+      "mesure": "Transport écart N-1 (pts)",
+      "type": "points",
+      "attendu": 0.0195747965
+    },
+    {
+      "mesure": "Frein principal (libellé)",
+      "type": "texte",
+      "attendu": "volume"
+    },
+    {
+      "mesure": "Synthèse Direction",
+      "type": "texte",
+      "attendu": "Meilleure contribution : famille Équipements de protection (+45 k€), région Rhône-Alpes (+50 k€). Clients actifs -1,4 %, commandes par client +1,2 %, panier moyen -2,9 %. Données fictives."
+    },
+    {
+      "mesure": "Synthèse Marge",
+      "type": "texte",
+      "attendu": "Principal frein : volume (-22 k€). Marge commerciale 4,5 % sous le budget. 12 clients à marge contributive négative, 8 produits vendus sous leur coût. Données fictives."
+    },
+    {
+      "mesure": "Titre Direction",
+      "type": "texte",
+      "attendu": "Vue Direction · En 2025, le CA net recule de 3,1 % sur un an et reste sous le budget de 3,7 %"
+    },
+    {
+      "mesure": "Titre Marge",
+      "type": "texte",
+      "attendu": "Marge · En 2025, la marge commerciale recule de 3,5 % et représente 32,8 % du CA net (-0,1 pts)"
+    },
+    {
+      "mesure": "Titre clients déficitaires",
+      "type": "texte",
+      "attendu": "12 clients à marge contributive négative"
+    },
+    {
+      "mesure": "Titre marge par famille",
+      "type": "texte",
+      "attendu": "Plus forte baisse de taux de marge : famille Outillage à main (-4,1 pts)"
+    },
+    {
+      "mesure": "Titre pont de marge",
+      "type": "texte",
+      "attendu": "Pont de marge 2024 → 2025 : l'effet volume pèse le plus (-22 k€)"
+    },
+    {
+      "mesure": "Titre produits déficitaires",
+      "type": "texte",
+      "attendu": "8 produits vendus sous leur coût d'achat"
+    },
+    {
+      "mesure": "Titre remises par commercial",
+      "type": "texte",
+      "attendu": "Damien Revol : taux de remise de 10,9 % à 16,3 % (+5,4 pts)"
+    },
+    {
+      "mesure": "Titre tendance CA",
+      "type": "texte",
+      "attendu": "CA net mensuel : au-dessus de 2024 sur 0 mois sur 1"
+    },
+    {
+      "mesure": "Titre écart budget par famille",
+      "type": "texte",
+      "attendu": "3 familles sur 6 atteignent leur budget de CA net"
+    },
+    {
+      "mesure": "Titre écart par famille",
+      "type": "texte",
+      "attendu": "Plus forte hausse de CA net : famille Équipements de protection (+45 k€)"
+    },
+    {
+      "mesure": "Titre écart par région",
+      "type": "texte",
+      "attendu": "Plus forte hausse de CA net : région Rhône-Alpes (+50 k€)"
+    },
+    {
+      "mesure": "Titre écart par segment",
+      "type": "texte",
+      "attendu": "Plus forte hausse de CA net : segment PME industrielles (+0 k€)"
+    }
+  ]
+}
