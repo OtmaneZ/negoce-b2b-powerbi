@@ -35,7 +35,10 @@ FILTRES_DAX = {
     "famille": ("'Famille'[Famille]", True),
     "segment": ("'Client'[Segment]", True),
     "commercial": ("'Commercial'[Commercial]", True),
+    "client": ("'Client'[Client]", True),
+    "produit": ("'Produit'[Produit]", True),
     "etape": ("'Étape du pont'[Ordre]", False),
+    "statut": ("'Statut client'[Ordre]", False),
 }
 
 

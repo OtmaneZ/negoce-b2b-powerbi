@@ -2,13 +2,13 @@
 
 Généré par `scripts/generate_docs.py` depuis le modèle TMDL (`NegoceB2B.SemanticModel/definition/tables/Mesures.tmdl`) ; ne pas modifier à la main.
 
-66 mesures, toutes dans la table Mesures : 62 visibles, 4 masquées. CA : chiffre d'affaires hors taxes. N : période sélectionnée ; N-1 : même période un an plus tôt.
+73 mesures, toutes dans la table Mesures : 67 visibles, 6 masquées. CA : chiffre d'affaires hors taxes. N : période sélectionnée ; N-1 : même période un an plus tôt.
 
 | Dossier | Mesures |
 |---|---|
 | 1. Chiffre d'affaires | 9 |
-| 2. Marge | 9 |
-| 3. Comparaison N-1 | 19 |
+| 2. Marge | 11 |
+| 3. Comparaison N-1 | 24 |
 | 4. Budget | 5 |
 | 5. Pont de marge | 10 |
 | 6. Textes | 14 |
@@ -197,6 +197,53 @@ Format : `#,0`.
 COUNTROWS(FILTER(VALUES('Produit'[Clé produit]), [Marge commerciale] < 0))
 ```
 
+### Rang client en recul de marge
+
+Rang du client parmi les clients actifs sur la période et sur N-1, du plus fort recul de marge contributive au plus faible (1 = plus fort recul). Vide pour un client sans vente sur l'une des deux périodes. Sert à filtrer le tableau des clients en recul.
+
+Format : `0` ; masquée.
+
+```dax
+VAR _ecart = [Marge contributive écart N-1]
+VAR _classement =
+    CALCULATETABLE(
+        FILTER(
+            ADDCOLUMNS(
+                VALUES('Client'[Clé client]),
+                "@actif", NOT ISBLANK([CA net]),
+                "@ecart", [Marge contributive écart N-1]
+            ),
+            [@actif] && NOT ISBLANK([@ecart])
+        ),
+        REMOVEFILTERS('Client')
+    )
+RETURN
+    IF(
+        HASONEVALUE('Client'[Clé client]) && NOT ISBLANK([CA net]) && NOT ISBLANK(_ecart),
+        COUNTROWS(FILTER(_classement, [@ecart] < _ecart)) + 1
+    )
+```
+
+### Rang produit sous le coût
+
+Rang du produit parmi les produits vendus sous leur coût d'achat sur la période, de la plus forte perte à la plus faible (1 = plus forte perte). Vide pour un produit à marge positive ou nulle. Sert à filtrer le tableau des produits.
+
+Format : `0` ; masquée.
+
+```dax
+VAR _marge = [Marge commerciale]
+VAR _classement =
+    CALCULATETABLE(
+        ADDCOLUMNS(VALUES('Produit'[Clé produit]), "@marge", [Marge commerciale]),
+        REMOVEFILTERS('Produit')
+    )
+RETURN
+    IF(
+        HASONEVALUE('Produit'[Clé produit]) && _marge < 0,
+        COUNTROWS(FILTER(_classement, [@marge] < _marge)) + 1
+    )
+```
+
 ## 3. Comparaison N-1
 
 ### CA net N-1
@@ -231,6 +278,53 @@ VAR _n1 = [CA net N-1]
 RETURN DIVIDE([CA net] - _n1, _n1)
 ```
 
+### CA net écart N-1 par statut
+
+Écart de CA net avec N-1 réparti selon le statut du client : clients présents sur les deux périodes (écart de leur CA), nouveaux clients (leur CA N), clients perdus (moins leur CA N-1). Les trois parts s'additionnent en CA net écart N-1, valeur renvoyée sans statut sélectionné.
+
+Format : `+#,0 €;-#,0 €;0 €`.
+
+```dax
+VAR _statut = SELECTEDVALUE('Statut client'[Ordre])
+VAR _clients =
+    ADDCOLUMNS(VALUES('Client'[Clé client]), "@n", [CA net], "@n1", [CA net N-1])
+VAR _existants =
+    SUMX(FILTER(_clients, NOT ISBLANK([@n]) && NOT ISBLANK([@n1])), [@n] - [@n1])
+VAR _nouveaux = SUMX(FILTER(_clients, NOT ISBLANK([@n]) && ISBLANK([@n1])), [@n])
+VAR _perdus = SUMX(FILTER(_clients, ISBLANK([@n]) && NOT ISBLANK([@n1])), -[@n1])
+RETURN
+    IF(
+        NOT ISBLANK([CA net N-1]),
+        SWITCH(_statut, 1, _existants, 2, _nouveaux, 3, _perdus, [CA net écart N-1])
+    )
+```
+
+### # Nouveaux clients
+
+Clients actifs sur la période qui n'avaient rien acheté sur la même période un an plus tôt ; vide sans exercice précédent.
+
+Format : `#,0`.
+
+```dax
+IF(
+    NOT ISBLANK([CA net N-1]),
+    COUNTROWS(FILTER(VALUES('Client'[Clé client]), NOT ISBLANK([CA net]) && ISBLANK([CA net N-1])))
+)
+```
+
+### # Clients perdus
+
+Clients actifs un an plus tôt qui n'ont rien acheté sur la période ; vide sans exercice précédent.
+
+Format : `#,0`.
+
+```dax
+IF(
+    NOT ISBLANK([CA net N-1]),
+    COUNTROWS(FILTER(VALUES('Client'[Clé client]), ISBLANK([CA net]) && NOT ISBLANK([CA net N-1])))
+)
+```
+
 ### Marge commerciale N-1
 
 Marge commerciale de la même période un an plus tôt.
@@ -239,6 +333,17 @@ Format : `#,0 €`.
 
 ```dax
 CALCULATE([Marge commerciale], SAMEPERIODLASTYEAR('Date'[Date]))
+```
+
+### Marge commerciale écart N-1
+
+Marge commerciale - marge commerciale N-1 ; vide sans exercice précédent.
+
+Format : `+#,0 €;-#,0 €;0 €`.
+
+```dax
+VAR _n1 = [Marge commerciale N-1]
+RETURN IF(NOT ISBLANK(_n1), [Marge commerciale] - _n1)
 ```
 
 ### Marge commerciale évol. N-1 (%)
@@ -264,14 +369,14 @@ CALCULATE([Marge commerciale (% CA)], SAMEPERIODLASTYEAR('Date'[Date]))
 
 ### Marge commerciale écart N-1 (pts)
 
-Écart de taux de marge commerciale avec N-1, en points de pourcentage.
+Écart de taux de marge commerciale avec N-1, en points de pourcentage, arrondi au dixième : un écart minime s'affiche 0,0 et non -0,0.
 
 Format : `+0.0 \p\t\s;-0.0 \p\t\s;0.0 \p\t\s`.
 
 ```dax
 VAR _tauxN = [Marge commerciale (% CA)]
 VAR _tauxN1 = [Marge commerciale N-1 (% CA)]
-RETURN IF(NOT ISBLANK(_tauxN) && NOT ISBLANK(_tauxN1), (_tauxN - _tauxN1) * 100)
+RETURN IF(NOT ISBLANK(_tauxN) && NOT ISBLANK(_tauxN1), ROUND((_tauxN - _tauxN1) * 100, 1))
 ```
 
 ### Taux de remise N-1 (%)
@@ -286,14 +391,14 @@ CALCULATE([Taux de remise (%)], SAMEPERIODLASTYEAR('Date'[Date]))
 
 ### Taux de remise écart N-1 (pts)
 
-Écart de taux de remise avec N-1, en points de pourcentage. Une hausse est défavorable.
+Écart de taux de remise avec N-1, en points de pourcentage, arrondi au dixième. Une hausse est défavorable.
 
 Format : `+0.0 \p\t\s;-0.0 \p\t\s;0.0 \p\t\s`.
 
 ```dax
 VAR _tauxN = [Taux de remise (%)]
 VAR _tauxN1 = [Taux de remise N-1 (%)]
-RETURN IF(NOT ISBLANK(_tauxN) && NOT ISBLANK(_tauxN1), (_tauxN - _tauxN1) * 100)
+RETURN IF(NOT ISBLANK(_tauxN) && NOT ISBLANK(_tauxN1), ROUND((_tauxN - _tauxN1) * 100, 1))
 ```
 
 ### Transport N-1 (% CA)
@@ -308,14 +413,14 @@ CALCULATE([Transport (% CA)], SAMEPERIODLASTYEAR('Date'[Date]))
 
 ### Transport écart N-1 (pts)
 
-Écart de poids du transport avec N-1, en points de pourcentage. Une hausse est défavorable.
+Écart de poids du transport avec N-1, en points de pourcentage, arrondi au dixième. Une hausse est défavorable.
 
 Format : `+0.0 \p\t\s;-0.0 \p\t\s;0.0 \p\t\s`.
 
 ```dax
 VAR _tauxN = [Transport (% CA)]
 VAR _tauxN1 = [Transport N-1 (% CA)]
-RETURN IF(NOT ISBLANK(_tauxN) && NOT ISBLANK(_tauxN1), (_tauxN - _tauxN1) * 100)
+RETURN IF(NOT ISBLANK(_tauxN) && NOT ISBLANK(_tauxN1), ROUND((_tauxN - _tauxN1) * 100, 1))
 ```
 
 ### Marge contributive N-1
@@ -326,6 +431,17 @@ Format : `#,0 €`.
 
 ```dax
 CALCULATE([Marge contributive], SAMEPERIODLASTYEAR('Date'[Date]))
+```
+
+### Marge contributive écart N-1
+
+Marge contributive - marge contributive N-1 ; vide sans exercice précédent.
+
+Format : `+#,0 €;-#,0 €;0 €`.
+
+```dax
+VAR _n1 = [Marge contributive N-1]
+RETURN IF(NOT ISBLANK(_n1), [Marge contributive] - _n1)
 ```
 
 ### Marge contributive évol. N-1 (%)
@@ -604,7 +720,7 @@ RETURN
 
 ### Pont de marge
 
-Valeur de chaque étape du graphique en cascade : marge N-1 puis les cinq effets ; marge N au total.
+Valeur de chaque étape du graphique en cascade : les cinq effets du pont ; au total, l'écart de marge commerciale avec N-1, que les effets expliquent exactement.
 
 Format : `+#,0 €;-#,0 €;0 €`.
 
@@ -613,13 +729,15 @@ VAR _ordre = SELECTEDVALUE('Étape du pont'[Ordre])
 RETURN
     SWITCH(
         _ordre,
-        1, [Marge commerciale N-1],
-        2, [Effet volume],
-        3, [Effet mix],
-        4, [Effet prix catalogue],
-        5, [Effet remises],
-        6, [Effet coût d'achat],
-        [Marge commerciale]
+        1, [Effet volume],
+        2, [Effet mix],
+        3, [Effet prix catalogue],
+        4, [Effet remises],
+        5, [Effet coût d'achat],
+        IF(
+            HASONEVALUE('Date'[Année]) && NOT ISBLANK([CA net N-1]),
+            [Marge commerciale écart N-1]
+        )
     )
 ```
 
@@ -696,25 +814,24 @@ VAR _texteBudget =
             & FORMAT(ABS(_ecartBudget), "0.0 %", "fr-FR")
     )
 RETURN
-    "Vue Direction · "
-        & SWITCH(
-            TRUE(),
-            ISBLANK(_annee), "Sélectionnez une année",
-            ISBLANK(_ca), "Aucune vente sur la sélection",
-            ISBLANK(_evolution),
-                "En " & _annee & ", le CA net atteint "
-                    & FORMAT(_ca / 1000000, "#,0.0", "fr-FR") & " M€"
-                    & _texteBudget & " (pas d'exercice précédent à comparer)",
-            "En " & _annee & ", le CA net "
-                & IF(_evolution >= 0, "progresse", "recule")
-                & " de " & FORMAT(ABS(_evolution), "0.0 %", "fr-FR")
-                & " sur un an" & _texteBudget
-        )
+    SWITCH(
+        TRUE(),
+        ISBLANK(_annee), "Sélectionnez une année",
+        ISBLANK(_ca), "Aucune vente sur la sélection",
+        ISBLANK(_evolution),
+            "En " & _annee & ", le CA net atteint "
+                & FORMAT(_ca / 1000000, "#,0.0", "fr-FR") & " M€"
+                & _texteBudget & " (pas d'exercice précédent)",
+        "En " & _annee & ", le CA net "
+            & IF(_evolution >= 0, "progresse", "recule")
+            & " de " & FORMAT(ABS(_evolution), "0.0 %", "fr-FR")
+            & " sur un an" & _texteBudget
+    )
 ```
 
 ### Synthèse Direction
 
-Synthèse de la Vue Direction : meilleures contributions par famille et par région, puis décomposition clients, fréquence, panier.
+Synthèse de la Vue Direction : plus faibles contributions à l'évolution du CA net, par famille et par région, puis nombre de nouveaux clients et de clients perdus.
 
 Format : texte.
 
@@ -725,36 +842,31 @@ VAR _familles =
         ADDCOLUMNS(VALUES('Famille'[Famille]), "@ecart", [CA net écart N-1]),
         NOT ISBLANK([@ecart])
     )
-VAR _meilleureFamille = TOPN(1, _familles, [@ecart], DESC)
-VAR _famille = MAXX(_meilleureFamille, 'Famille'[Famille])
-VAR _ecartFamille = MAXX(_meilleureFamille, [@ecart])
+VAR _derniereFamille = TOPN(1, _familles, [@ecart], ASC)
+VAR _famille = MAXX(_derniereFamille, 'Famille'[Famille])
+VAR _ecartFamille = MAXX(_derniereFamille, [@ecart])
 VAR _regions =
     FILTER(
         ADDCOLUMNS(VALUES('Région'[Région]), "@ecart", [CA net écart N-1]),
         NOT ISBLANK([@ecart])
     )
-VAR _meilleureRegion = TOPN(1, _regions, [@ecart], DESC)
-VAR _region = MAXX(_meilleureRegion, 'Région'[Région])
-VAR _ecartRegion = MAXX(_meilleureRegion, [@ecart])
-VAR _evolClients = [# Clients actifs évol. N-1 (%)]
-VAR _evolFrequence = [Commandes par client évol. N-1 (%)]
-VAR _evolPanier = [Panier moyen évol. N-1 (%)]
+VAR _derniereRegion = TOPN(1, _regions, [@ecart], ASC)
+VAR _region = MAXX(_derniereRegion, 'Région'[Région])
+VAR _ecartRegion = MAXX(_derniereRegion, [@ecart])
+VAR _nouveaux = [# Nouveaux clients] + 0
+VAR _perdus = [# Clients perdus] + 0
 RETURN
     SWITCH(
         TRUE(),
         ISBLANK(_annee), "Sélectionnez une année. Données fictives.",
         ISBLANK([CA net N-1]),
             "Pas d'exercice précédent : contributions à la croissance non calculables. Données fictives.",
-        "Meilleure contribution : famille " & _famille & " ("
+        "Plus faible contribution : famille " & _famille & " ("
             & IF(_ecartFamille < 0, "-", "+") & FORMAT(ABS(_ecartFamille) / 1000, "#,0", "fr-FR")
             & " k€), région " & _region & " ("
             & IF(_ecartRegion < 0, "-", "+") & FORMAT(ABS(_ecartRegion) / 1000, "#,0", "fr-FR")
-            & " k€). Clients actifs "
-            & IF(_evolClients < 0, "-", "+") & FORMAT(ABS(_evolClients), "0.0 %", "fr-FR")
-            & ", commandes par client "
-            & IF(_evolFrequence < 0, "-", "+") & FORMAT(ABS(_evolFrequence), "0.0 %", "fr-FR")
-            & ", panier moyen "
-            & IF(_evolPanier < 0, "-", "+") & FORMAT(ABS(_evolPanier), "0.0 %", "fr-FR")
+            & " k€). " & _nouveaux & IF(_nouveaux <= 1, " nouveau client, ", " nouveaux clients, ")
+            & _perdus & IF(_perdus <= 1, " client perdu", " clients perdus")
             & ". Données fictives."
     )
 ```
@@ -803,8 +915,8 @@ RETURN
     SWITCH(
         TRUE(),
         ISBLANK(_nom), "Écart de CA net par famille",
-        _ecart > 0, "Plus forte hausse de CA net : famille " & _nom & " (" & _ecartTexte & ")",
-        "Toutes les familles reculent ; la famille " & _nom & " résiste le mieux (" & _ecartTexte & ")"
+        _ecart > 0, "Par famille : " & _nom & " en tête (" & _ecartTexte & ")",
+        "Par famille : toutes en recul, " & _nom & " résiste le mieux (" & _ecartTexte & ")"
     )
 ```
 
@@ -829,34 +941,34 @@ RETURN
     SWITCH(
         TRUE(),
         ISBLANK(_nom), "Écart de CA net par région",
-        _ecart > 0, "Plus forte hausse de CA net : région " & _nom & " (" & _ecartTexte & ")",
-        "Toutes les régions reculent ; la région " & _nom & " résiste le mieux (" & _ecartTexte & ")"
+        _ecart > 0, "Par région : " & _nom & " en tête (" & _ecartTexte & ")",
+        "Par région : toutes en recul, " & _nom & " résiste le mieux (" & _ecartTexte & ")"
     )
 ```
 
-### Titre écart par segment
+### Titre écart par statut client
 
-Titre des écarts de CA net par segment : le segment qui apporte la plus forte hausse.
+Titre des écarts de CA net par statut client : le statut qui apporte la plus forte hausse.
 
 Format : texte.
 
 ```dax
-VAR _membres =
+VAR _statuts =
     FILTER(
-        ADDCOLUMNS(VALUES('Client'[Segment]), "@ecart", [CA net écart N-1]),
+        ADDCOLUMNS(VALUES('Statut client'[Statut]), "@ecart", [CA net écart N-1 par statut]),
         NOT ISBLANK([@ecart])
     )
-VAR _meilleur = TOPN(1, _membres, [@ecart], DESC)
-VAR _nom = MAXX(_meilleur, 'Client'[Segment])
+VAR _meilleur = TOPN(1, _statuts, [@ecart], DESC)
+VAR _nom = MAXX(_meilleur, 'Statut client'[Statut])
 VAR _ecart = MAXX(_meilleur, [@ecart])
-VAR _ecartTexte =
-    IF(_ecart < 0, "-", "+") & FORMAT(ABS(_ecart) / 1000, "#,0", "fr-FR") & " k€"
 RETURN
     SWITCH(
         TRUE(),
-        ISBLANK(_nom), "Écart de CA net par segment",
-        _ecart > 0, "Plus forte hausse de CA net : segment " & _nom & " (" & _ecartTexte & ")",
-        "Tous les segments reculent ; le segment " & _nom & " résiste le mieux (" & _ecartTexte & ")"
+        ISBLANK(_nom), "Écart de CA net par statut client",
+        _ecart > 0,
+            "Par statut : " & LOWER(_nom) & " en tête ("
+                & IF(_ecart < 0, "-", "+") & FORMAT(ABS(_ecart) / 1000, "#,0", "fr-FR") & " k€)",
+        "Par statut : aucune hausse"
     )
 ```
 
@@ -896,46 +1008,49 @@ VAR _evolution = [Marge commerciale évol. N-1 (%)]
 VAR _taux = [Marge commerciale (% CA)]
 VAR _ecart = [Marge commerciale écart N-1 (pts)]
 RETURN
-    "Marge · "
-        & SWITCH(
-            TRUE(),
-            ISBLANK(_annee), "Sélectionnez une année",
-            ISBLANK(_marge), "Aucune vente sur la sélection",
-            ISBLANK(_evolution),
-                "En " & _annee & ", la marge commerciale atteint "
-                    & FORMAT(_marge / 1000000, "#,0.0", "fr-FR") & " M€, soit "
-                    & FORMAT(_taux, "0.0 %", "fr-FR")
-                    & " du CA net (pas d'exercice précédent à comparer)",
-            "En " & _annee & ", la marge commerciale "
-                & IF(_evolution >= 0, "progresse", "recule")
-                & " de " & FORMAT(ABS(_evolution), "0.0 %", "fr-FR")
-                & " et représente " & FORMAT(_taux, "0.0 %", "fr-FR") & " du CA net ("
-                & IF(_ecart < 0, "-", "+") & FORMAT(ABS(_ecart), "0.0", "fr-FR") & " pts)"
-        )
+    SWITCH(
+        TRUE(),
+        ISBLANK(_annee), "Sélectionnez une année",
+        ISBLANK(_marge), "Aucune vente sur la sélection",
+        ISBLANK(_evolution),
+            "En " & _annee & ", la marge commerciale atteint "
+                & FORMAT(_marge / 1000000, "#,0.0", "fr-FR") & " M€, soit "
+                & FORMAT(_taux, "0.0 %", "fr-FR")
+                & " du CA net (pas d'exercice précédent)",
+        "En " & _annee & ", la marge commerciale "
+            & IF(_evolution >= 0, "progresse", "recule")
+            & " de " & FORMAT(ABS(_evolution), "0.0 %", "fr-FR")
+            & " et représente " & FORMAT(_taux, "0.0 %", "fr-FR") & " du CA net ("
+            & IF(_ecart < 0, "-", "+") & FORMAT(ABS(_ecart), "0.0", "fr-FR") & " pts)"
+    )
 ```
 
 ### Synthèse Marge
 
-Synthèse de la page Marge : effet le plus défavorable du pont, écart au budget de marge (omis si le budget est vide), clients et produits déficitaires.
+Synthèse de la page Marge : écarts de CA net et de marge commerciale sur un an, taux de marge du CA supplémentaire, écart au budget de marge (omis si le budget est vide).
 
 Format : texte.
 
 ```dax
 VAR _annee = SELECTEDVALUE('Date'[Année])
-VAR _frein = [Frein principal (libellé)]
-VAR _montantFrein = [Frein principal (montant)]
+VAR _ecartCA = [CA net écart N-1]
+VAR _ecartMarge = [Marge commerciale écart N-1]
 VAR _ecartBudget = [Marge commerciale écart budget (%)]
-VAR _nbClients = [# Clients à marge négative] + 0
-VAR _nbProduits = [# Produits sous le coût] + 0
-VAR _texteFrein =
-    SWITCH(
-        TRUE(),
-        ISBLANK(_frein), "Pas d'exercice précédent : pont de marge non calculable. ",
-        _montantFrein < 0,
-            "Principal frein : " & _frein & " ("
-                & IF(_montantFrein < 0, "-", "+") & FORMAT(ABS(_montantFrein) / 1000, "#,0", "fr-FR")
-                & " k€). ",
-        "Aucun effet défavorable dans le pont de marge. "
+VAR _texteEvolution =
+    IF(
+        ISBLANK(_ecartCA),
+        "Pas d'exercice précédent : évolution de la marge non calculable. ",
+        "Sur un an : CA net "
+            & IF(_ecartCA < 0, "-", "+") & FORMAT(ABS(_ecartCA) / 1000, "#,0", "fr-FR")
+            & " k€, marge commerciale "
+            & IF(_ecartMarge < 0, "-", "+") & FORMAT(ABS(_ecartMarge) / 1000, "#,0", "fr-FR")
+            & " k€"
+            & IF(
+                _ecartCA > 0,
+                ", soit une marge de " & FORMAT(DIVIDE(_ecartMarge, _ecartCA), "0.0 %", "fr-FR")
+                    & " sur le CA supplémentaire"
+            )
+            & ". "
     )
 VAR _texteBudget =
     IF(
@@ -943,25 +1058,11 @@ VAR _texteBudget =
         "Marge commerciale " & FORMAT(ABS(_ecartBudget), "0.0 %", "fr-FR")
             & IF(_ecartBudget >= 0, " au-dessus du budget. ", " sous le budget. ")
     )
-VAR _texteClients =
-    SWITCH(
-        TRUE(),
-        _nbClients = 0, "Aucun client à marge contributive négative",
-        _nbClients = 1, "1 client à marge contributive négative",
-        _nbClients & " clients à marge contributive négative"
-    )
-VAR _texteProduits =
-    SWITCH(
-        TRUE(),
-        _nbProduits = 0, "aucun produit vendu sous son coût",
-        _nbProduits = 1, "1 produit vendu sous son coût",
-        _nbProduits & " produits vendus sous leur coût"
-    )
 RETURN
     IF(
         ISBLANK(_annee),
         "Sélectionnez une année. Données fictives.",
-        _texteFrein & _texteBudget & _texteClients & ", " & _texteProduits & ". Données fictives."
+        _texteEvolution & _texteBudget & "Données fictives."
     )
 ```
 
@@ -1039,44 +1140,61 @@ VAR _ecart = MAXX(_pire, [@ecart])
 RETURN
     SWITCH(
         TRUE(),
-        ISBLANK(_nom), "Taux de marge commerciale par famille : écart avec l'exercice précédent",
+        ISBLANK(_nom), "Écart de taux de marge par famille",
         _ecart < 0,
-            "Plus forte baisse de taux de marge : famille " & _nom & " ("
-                & IF(_ecart < 0, "-", "+") & FORMAT(ABS(_ecart), "0.0", "fr-FR") & " pts)",
-        "Toutes les familles maintiennent ou améliorent leur taux de marge"
+            _nom & " : taux de marge "
+                & IF(_ecart < 0, "-", "+") & FORMAT(ABS(_ecart), "0.0", "fr-FR") & " pts",
+        "Taux de marge : aucune famille en recul"
     )
 ```
 
-### Titre clients déficitaires
+### Titre clients en recul
 
-Titre du tableau des clients à marge contributive négative.
+Titre du tableau des clients dont la marge contributive recule le plus sur un an.
 
 Format : texte.
 
 ```dax
-VAR _nombre = [# Clients à marge négative] + 0
+VAR _annee = SELECTEDVALUE('Date'[Année])
+VAR _reculs =
+    COUNTROWS(
+        FILTER(
+            VALUES('Client'[Clé client]),
+            NOT ISBLANK([CA net]) && [Marge contributive écart N-1] < 0
+        )
+    )
 RETURN
     SWITCH(
         TRUE(),
-        _nombre = 0, "Aucun client à marge contributive négative",
-        _nombre = 1, "1 client à marge contributive négative",
-        _nombre & " clients à marge contributive négative"
+        ISBLANK(_annee), "Clients en plus fort recul de marge contributive",
+        ISBLANK([CA net N-1]), "Clients en recul de marge : pas d'exercice précédent",
+        ISBLANK(_reculs), "Aucun client en recul de marge contributive",
+        "Clients en plus fort recul de marge contributive"
     )
 ```
 
 ### Titre produits déficitaires
 
-Titre du tableau des produits vendus sous leur coût d'achat.
+Titre du tableau des produits vendus sous leur coût d'achat : nombre, perte totale et, au-delà de six, mention des six plus lourds affichés.
 
 Format : texte.
 
 ```dax
-VAR _nombre = [# Produits sous le coût] + 0
+VAR _produits =
+    FILTER(
+        ADDCOLUMNS(VALUES('Produit'[Clé produit]), "@marge", [Marge commerciale]),
+        [@marge] < 0
+    )
+VAR _nombre = COUNTROWS(_produits) + 0
+VAR _perte = SUMX(_produits, [@marge])
+VAR _perteTexte =
+    " (" & IF(_perte < 0, "-", "+") & FORMAT(ABS(_perte) / 1000, "#,0", "fr-FR") & " k€)"
 RETURN
     SWITCH(
         TRUE(),
-        _nombre = 0, "Aucun produit vendu sous son coût d'achat",
-        _nombre = 1, "1 produit vendu sous son coût d'achat",
-        _nombre & " produits vendus sous leur coût d'achat"
+        _nombre = 0, "Aucun produit vendu à perte",
+        _nombre = 1, "1 produit vendu à perte" & _perteTexte,
+        _nombre <= 6, _nombre & " produits vendus à perte" & _perteTexte,
+        _nombre & " produits vendus à perte" & _perteTexte & " : les 6 plus lourds"
     )
 ```

@@ -21,6 +21,11 @@
       "attendu": -0.0141129032
     },
     {
+      "mesure": "# Clients perdus",
+      "type": "nombre",
+      "attendu": 180
+    },
+    {
       "mesure": "# Clients à marge négative",
       "type": "nombre",
       "attendu": 12
@@ -29,6 +34,11 @@
       "mesure": "# Commandes",
       "type": "nombre",
       "attendu": 882
+    },
+    {
+      "mesure": "# Nouveaux clients",
+      "type": "nombre",
+      "attendu": 173
     },
     {
       "mesure": "# Produits sous le coût",
@@ -62,6 +72,11 @@
     },
     {
       "mesure": "CA net écart N-1",
+      "type": "montant",
+      "attendu": -53158.65
+    },
+    {
+      "mesure": "CA net écart N-1 par statut",
       "type": "montant",
       "attendu": -53158.65
     },
@@ -156,9 +171,14 @@
       "attendu": 575644.66
     },
     {
+      "mesure": "Marge commerciale écart N-1",
+      "type": "montant",
+      "attendu": -19632.42
+    },
+    {
       "mesure": "Marge commerciale écart N-1 (pts)",
       "type": "points",
-      "attendu": -0.1279839754
+      "attendu": -0.1
     },
     {
       "mesure": "Marge commerciale écart budget (%)",
@@ -186,6 +206,11 @@
       "attendu": 526027.98
     },
     {
+      "mesure": "Marge contributive écart N-1",
+      "type": "montant",
+      "attendu": -18764.85
+    },
+    {
       "mesure": "Marge contributive évol. N-1 (%)",
       "type": "taux",
       "attendu": -0.0356727222
@@ -208,7 +233,7 @@
     {
       "mesure": "Pont de marge",
       "type": "montant",
-      "attendu": 544852.22
+      "attendu": -19632.42
     },
     {
       "mesure": "Pont de marge écart de bouclage",
@@ -219,6 +244,16 @@
       "mesure": "Quantité",
       "type": "nombre",
       "attendu": 136225
+    },
+    {
+      "mesure": "Rang client en recul de marge",
+      "type": "nombre",
+      "attendu": null
+    },
+    {
+      "mesure": "Rang produit sous le coût",
+      "type": "nombre",
+      "attendu": null
     },
     {
       "mesure": "Remises",
@@ -238,7 +273,7 @@
     {
       "mesure": "Taux de remise écart N-1 (pts)",
       "type": "points",
-      "attendu": 0.4306506838
+      "attendu": 0.4
     },
     {
       "mesure": "Transport",
@@ -258,7 +293,7 @@
     {
       "mesure": "Transport écart N-1 (pts)",
       "type": "points",
-      "attendu": 0.0195747965
+      "attendu": 0.0
     },
     {
       "mesure": "Frein principal (libellé)",
@@ -268,32 +303,32 @@
     {
       "mesure": "Synthèse Direction",
       "type": "texte",
-      "attendu": "Meilleure contribution : famille Équipements de protection (+45 k€), région Rhône-Alpes (+50 k€). Clients actifs -1,4 %, commandes par client +1,2 %, panier moyen -2,9 %. Données fictives."
+      "attendu": "Plus faible contribution : famille Outillage à main (-36 k€), région Île-de-France (-120 k€). 173 nouveaux clients, 180 clients perdus. Données fictives."
     },
     {
       "mesure": "Synthèse Marge",
       "type": "texte",
-      "attendu": "Principal frein : volume (-22 k€). Marge commerciale 5,3 % sous le budget. 12 clients à marge contributive négative, 8 produits vendus sous leur coût. Données fictives."
+      "attendu": "Sur un an : CA net -53 k€, marge commerciale -20 k€. Marge commerciale 5,3 % sous le budget. Données fictives."
     },
     {
       "mesure": "Titre Direction",
       "type": "texte",
-      "attendu": "Vue Direction · En 2025, le CA net recule de 3,1 % sur un an et reste sous le budget de 4,9 %"
+      "attendu": "En 2025, le CA net recule de 3,1 % sur un an et reste sous le budget de 4,9 %"
     },
     {
       "mesure": "Titre Marge",
       "type": "texte",
-      "attendu": "Marge · En 2025, la marge commerciale recule de 3,5 % et représente 32,8 % du CA net (-0,1 pts)"
+      "attendu": "En 2025, la marge commerciale recule de 3,5 % et représente 32,8 % du CA net (-0,1 pts)"
     },
     {
-      "mesure": "Titre clients déficitaires",
+      "mesure": "Titre clients en recul",
       "type": "texte",
-      "attendu": "12 clients à marge contributive négative"
+      "attendu": "Clients en plus fort recul de marge contributive"
     },
     {
       "mesure": "Titre marge par famille",
       "type": "texte",
-      "attendu": "Plus forte baisse de taux de marge : famille Outillage à main (-4,1 pts)"
+      "attendu": "Outillage à main : taux de marge -4,1 pts"
     },
     {
       "mesure": "Titre pont de marge",
@@ -303,7 +338,7 @@
     {
       "mesure": "Titre produits déficitaires",
       "type": "texte",
-      "attendu": "8 produits vendus sous leur coût d'achat"
+      "attendu": "8 produits vendus à perte (-3 k€) : les 6 plus lourds"
     },
     {
       "mesure": "Titre remises par commercial",
@@ -323,17 +358,17 @@
     {
       "mesure": "Titre écart par famille",
       "type": "texte",
-      "attendu": "Plus forte hausse de CA net : famille Équipements de protection (+45 k€)"
+      "attendu": "Par famille : Équipements de protection en tête (+45 k€)"
     },
     {
       "mesure": "Titre écart par région",
       "type": "texte",
-      "attendu": "Plus forte hausse de CA net : région Rhône-Alpes (+50 k€)"
+      "attendu": "Par région : Rhône-Alpes en tête (+50 k€)"
     },
     {
-      "mesure": "Titre écart par segment",
+      "mesure": "Titre écart par statut client",
       "type": "texte",
-      "attendu": "Plus forte hausse de CA net : segment PME industrielles (+0 k€)"
+      "attendu": "Par statut : nouveaux clients en tête (+361 k€)"
     }
   ]
 }

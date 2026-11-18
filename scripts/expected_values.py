@@ -142,9 +142,11 @@ def evolution(n, n1):
 
 
 def ecart_points(taux_n, taux_n1):
+    """ROUND((taux N - taux N-1) * 100, 1) : arrondi au dixième, demi s'éloignant de zéro."""
     if taux_n is None or taux_n1 is None:
         return None
-    return (taux_n - taux_n1) * 100
+    valeur = Decimal(repr((taux_n - taux_n1) * 100))
+    return float(valeur.quantize(Decimal("0.1"), rounding=ROUND_HALF_UP)) + 0.0
 
 
 # ---------------------------------------------------------------------------
@@ -162,7 +164,10 @@ class Contexte:
     famille: str | None = None
     segment: str | None = None
     commercial: str | None = None
+    client: str | None = None
+    produit: str | None = None
     etape: int | None = None
+    statut: int | None = None
 
     def avec(self, **filtres) -> Contexte:
         return replace(self, **filtres)
@@ -172,13 +177,18 @@ class Contexte:
 
 
 ETAPES = {
-    1: "Marge N-1",
-    2: "Volume",
-    3: "Mix",
-    4: "Prix catalogue",
-    5: "Remises",
-    6: "Coût d'achat",
+    1: "Volume",
+    2: "Mix",
+    3: "Prix catalogue",
+    4: "Remises",
+    5: "Coût d'achat",
 }
+STATUTS = {
+    1: "Clients existants",
+    2: "Nouveaux clients",
+    3: "Clients perdus",
+}
+LIGNES_TABLEAUX = 6  # lignes affichées par les tableaux de la page Marge
 EFFETS = (
     ("volume", "Effet volume"),
     ("mix", "Effet mix"),
@@ -198,6 +208,7 @@ class Moteur:
     def __init__(self, dossier: Path = DOSSIER_DONNEES) -> None:
         ventes = pd.read_csv(dossier / "ventes.csv")
         clients = pd.read_csv(dossier / "clients.csv")
+        produits = pd.read_csv(dossier / "produits.csv")
         commerciaux = pd.read_csv(dossier / "commerciaux.csv")
         regions = pd.read_csv(dossier / "regions.csv")
         familles = pd.read_csv(dossier / "familles.csv")
@@ -211,6 +222,10 @@ class Moteur:
                 "mois": dates.dt.month,
                 "client": ventes["cle_client"],
                 "produit": ventes["cle_produit"],
+                "nom_client": ventes["cle_client"].map(clients.set_index("cle_client")["client"]),
+                "nom_produit": ventes["cle_produit"].map(
+                    produits.set_index("cle_produit")["produit"]
+                ),
                 "region": ventes["cle_region"].map(regions.set_index("cle_region")["region"]),
                 "famille": ventes["cle_famille"].map(familles.set_index("cle_famille")["famille"]),
                 "segment": ventes["cle_client"].map(clients.set_index("cle_client")["segment"]),
@@ -249,8 +264,18 @@ class Moteur:
     def lignes(self, ctx: Contexte) -> pd.DataFrame:
         v = self.ventes
         masque = pd.Series(True, index=v.index)
-        for colonne in ("annee", "mois", "region", "famille", "segment", "commercial"):
-            valeur = getattr(ctx, colonne)
+        colonnes = {
+            "annee": "annee",
+            "mois": "mois",
+            "region": "region",
+            "famille": "famille",
+            "segment": "segment",
+            "commercial": "commercial",
+            "client": "nom_client",
+            "produit": "nom_produit",
+        }
+        for attribut, colonne in colonnes.items():
+            valeur = getattr(ctx, attribut)
             if valeur is not None:
                 masque &= v[colonne] == valeur
         return v[masque]
@@ -308,7 +333,8 @@ class Moteur:
 
     def budget_ca_marge(self, ctx: Contexte) -> tuple[float | None, float | None]:
         """Garde du modèle : vide si un filtre porte sur Client, Produit ou Commercial."""
-        if ctx.segment is not None or ctx.commercial is not None:
+        hors_budget = (ctx.segment, ctx.commercial, ctx.client, ctx.produit)
+        if any(filtre is not None for filtre in hors_budget):
             return None, None
         b = self.budget
         masque = pd.Series(True, index=b.index)
@@ -332,6 +358,76 @@ class Moteur:
         valeurs = marge.groupby(lignes[cle]).sum()
         nombre = int((valeurs < 0).sum())
         return nombre or None
+
+    def ecart_par_statut(self, ctx: Contexte):
+        """CA net écart N-1 par statut : existants, nouveaux, perdus ; écart total sans statut."""
+        if self.base(ctx.precedent())["CA net"] is None:
+            return None
+        if ctx.statut is None:
+            return ecart(self.base(ctx)["CA net"], self.base(ctx.precedent())["CA net"])
+        n = self.lignes(ctx.avec(statut=None)).groupby("client")["net"].sum()
+        n1 = self.lignes(ctx.avec(statut=None).precedent()).groupby("client")["net"].sum()
+        if ctx.statut == 1:
+            communs = n.index.intersection(n1.index)
+            valeur = None if communs.empty else int((n[communs] - n1[communs]).sum())
+        elif ctx.statut == 2:
+            nouveaux = n.index.difference(n1.index)
+            valeur = None if nouveaux.empty else int(n[nouveaux].sum())
+        else:
+            perdus = n1.index.difference(n.index)
+            valeur = None if perdus.empty else -int(n1[perdus].sum())
+        return None if valeur is None else valeur / 100
+
+    def compter_statut(self, ctx: Contexte, nouveaux: bool) -> int | None:
+        """# Nouveaux clients ou # Clients perdus : vide sans N-1 ou si aucun client."""
+        if self.base(ctx.precedent())["CA net"] is None:
+            return None
+        n = set(self.lignes(ctx)["client"])
+        n1 = set(self.lignes(ctx.precedent())["client"])
+        nombre = len(n - n1) if nouveaux else len(n1 - n)
+        return nombre or None
+
+    @cache  # noqa: B019
+    def marges_contributives(self, ctx: Contexte) -> pd.Series:
+        """Marge contributive par nom de client, en euros, pour les clients ayant des ventes."""
+        lignes = self.lignes(ctx)
+        marge = lignes["net"] - lignes["cout"] - lignes["transport"]
+        return marge.groupby(lignes["nom_client"]).sum() / 100
+
+    @cache  # noqa: B019
+    def ecarts_clients_actifs(self, ctx: Contexte) -> pd.Series:
+        """Écart de marge contributive des clients vendus en N et en N-1 (classement)."""
+        n = self.marges_contributives(ctx)
+        n1 = self.marges_contributives(ctx.precedent())
+        communs = n.index.intersection(n1.index)
+        return (n[communs] - n1[communs]).sort_values()
+
+    def rang_client(self, ctx: Contexte) -> int | None:
+        if ctx.client is None:
+            return None
+        n = self.marges_contributives(ctx)
+        n1 = self.marges_contributives(ctx.precedent())
+        if ctx.client not in n.index or ctx.client not in n1.index:
+            return None
+        propre = n[ctx.client] - n1[ctx.client]
+        classement = self.ecarts_clients_actifs(ctx.avec(client=None, segment=None))
+        return int((classement < propre).sum()) + 1
+
+    @cache  # noqa: B019
+    def marges_produits(self, ctx: Contexte) -> pd.Series:
+        """Marge commerciale par nom de produit, en euros, pour les produits vendus."""
+        lignes = self.lignes(ctx)
+        marge = lignes["net"] - lignes["cout"]
+        return (marge.groupby(lignes["nom_produit"]).sum() / 100).sort_values()
+
+    def rang_produit(self, ctx: Contexte) -> int | None:
+        if ctx.produit is None:
+            return None
+        marges = self.marges_produits(ctx)
+        if ctx.produit not in marges.index or not marges[ctx.produit] < 0:
+            return None
+        classement = self.marges_produits(ctx.avec(produit=None))
+        return int((classement < marges[ctx.produit]).sum()) + 1
 
     # --- pont de marge ----------------------------------------------------------
 
@@ -407,10 +503,17 @@ class Moteur:
         m["# Clients à marge négative"] = self.compter_negatifs(ctx, "client", "contributive")
         m["# Produits sous le coût"] = self.compter_negatifs(ctx, "produit", "commerciale")
 
+        m["Rang client en recul de marge"] = self.rang_client(ctx)
+        m["Rang produit sous le coût"] = self.rang_produit(ctx)
+
         m["CA net N-1"] = n1["CA net"]
         m["CA net écart N-1"] = ecart(n["CA net"], n1["CA net"])
         m["CA net évol. N-1 (%)"] = evolution(n["CA net"], n1["CA net"])
+        m["CA net écart N-1 par statut"] = self.ecart_par_statut(ctx)
+        m["# Nouveaux clients"] = self.compter_statut(ctx, nouveaux=True)
+        m["# Clients perdus"] = self.compter_statut(ctx, nouveaux=False)
         m["Marge commerciale N-1"] = n1["Marge commerciale"]
+        m["Marge commerciale écart N-1"] = ecart(n["Marge commerciale"], n1["Marge commerciale"])
         m["Marge commerciale évol. N-1 (%)"] = evolution(
             n["Marge commerciale"], n1["Marge commerciale"]
         )
@@ -425,6 +528,7 @@ class Moteur:
         m["Transport N-1 (% CA)"] = n1["Transport (% CA)"]
         m["Transport écart N-1 (pts)"] = ecart_points(n["Transport (% CA)"], n1["Transport (% CA)"])
         m["Marge contributive N-1"] = n1["Marge contributive"]
+        m["Marge contributive écart N-1"] = ecart(n["Marge contributive"], n1["Marge contributive"])
         m["Marge contributive évol. N-1 (%)"] = evolution(
             n["Marge contributive"], n1["Marge contributive"]
         )
@@ -459,14 +563,16 @@ class Moteur:
         else:
             m["Frein principal (montant)"] = None
             m["Frein principal (libellé)"] = None
+        total = None
+        if ctx.annee is not None and n1["CA net"] is not None:
+            total = m["Marge commerciale écart N-1"]
         m["Pont de marge"] = {
-            None: n["Marge commerciale"],
-            1: n1["Marge commerciale"],
-            2: m["Effet volume"],
-            3: m["Effet mix"],
-            4: m["Effet prix catalogue"],
-            5: m["Effet remises"],
-            6: m["Effet coût d'achat"],
+            None: total,
+            1: m["Effet volume"],
+            2: m["Effet mix"],
+            3: m["Effet prix catalogue"],
+            4: m["Effet remises"],
+            5: m["Effet coût d'achat"],
         }[ctx.etape]
         return m
 
@@ -509,13 +615,13 @@ class Moteur:
         elif m["CA net évol. N-1 (%)"] is None:
             corps = (
                 f"En {annee}, le CA net atteint {millions(m['CA net'])}"
-                f"{texte_budget} (pas d'exercice précédent à comparer)"
+                f"{texte_budget} (pas d'exercice précédent)"
             )
         else:
             evol = m["CA net évol. N-1 (%)"]
             verbe = "progresse" if evol >= 0 else "recule"
             corps = f"En {annee}, le CA net {verbe} de {pct(abs(evol))} sur un an{texte_budget}"
-        t["Titre Direction"] = "Vue Direction · " + corps
+        t["Titre Direction"] = corps
 
         # Synthèse Direction
         if annee is None:
@@ -527,16 +633,19 @@ class Moteur:
             )
         else:
             famille, ecart_famille = self._meilleur(
-                ctx, "famille", self.familles, "CA net écart N-1"
+                ctx, "famille", self.familles, "CA net écart N-1", croissant=True
             )
-            region, ecart_region = self._meilleur(ctx, "region", self.regions, "CA net écart N-1")
+            region, ecart_region = self._meilleur(
+                ctx, "region", self.regions, "CA net écart N-1", croissant=True
+            )
+            nouveaux = m["# Nouveaux clients"] or 0
+            perdus = m["# Clients perdus"] or 0
+            texte_nouveaux = " nouveau client, " if nouveaux <= 1 else " nouveaux clients, "
+            texte_perdus = " client perdu" if perdus <= 1 else " clients perdus"
             t["Synthèse Direction"] = (
-                f"Meilleure contribution : famille {famille} ({milliers(ecart_famille)}), "
+                f"Plus faible contribution : famille {famille} ({milliers(ecart_famille)}), "
                 f"région {region} ({milliers(ecart_region)}). "
-                f"Clients actifs {pct_signe(m['# Clients actifs évol. N-1 (%)'])}, "
-                f"commandes par client {pct_signe(m['Commandes par client évol. N-1 (%)'])}, "
-                f"panier moyen {pct_signe(m['Panier moyen évol. N-1 (%)'])}. "
-                "Données fictives."
+                f"{nouveaux}{texte_nouveaux}{perdus}{texte_perdus}. Données fictives."
             )
 
         # Titre tendance CA
@@ -556,21 +665,40 @@ class Moteur:
                 f"CA net mensuel : au-dessus de {annee - 1} sur {hausses} mois sur {compares}"
             )
 
-        # Titres des écarts par famille, région, segment
+        # Titres des écarts par famille et par région
         libelles = {
-            "famille": ("famille", "Toutes les familles reculent ; la famille", self.familles),
-            "region": ("région", "Toutes les régions reculent ; la région", self.regions),
-            "segment": ("segment", "Tous les segments reculent ; le segment", self.segments),
+            "famille": ("famille", self.familles),
+            "region": ("région", self.regions),
         }
-        for dimension, (mot, recul, membres) in libelles.items():
+        for dimension, (mot, membres) in libelles.items():
             nom_mesure = f"Titre écart par {mot}"
             membre, valeur = self._meilleur(ctx, dimension, membres, "CA net écart N-1")
             if membre is None:
                 t[nom_mesure] = f"Écart de CA net par {mot}"
             elif valeur > 0:
-                t[nom_mesure] = f"Plus forte hausse de CA net : {mot} {membre} ({milliers(valeur)})"
+                t[nom_mesure] = f"Par {mot} : {membre} en tête ({milliers(valeur)})"
             else:
-                t[nom_mesure] = f"{recul} {membre} résiste le mieux ({milliers(valeur)})"
+                t[nom_mesure] = (
+                    f"Par {mot} : toutes en recul, {membre} résiste le mieux ({milliers(valeur)})"
+                )
+
+        # Titre écart par statut client
+        statuts = [
+            (nom, self.mesure(ctx.avec(statut=ordre), "CA net écart N-1 par statut"))
+            for ordre, nom in STATUTS.items()
+        ]
+        statuts = [(nom, valeur) for nom, valeur in statuts if valeur is not None]
+        if not statuts:
+            t["Titre écart par statut client"] = "Écart de CA net par statut client"
+        else:
+            plus_haut = max(valeur for _, valeur in statuts)
+            nom = max(n for n, valeur in statuts if valeur == plus_haut)
+            if plus_haut > 0:
+                t["Titre écart par statut client"] = (
+                    f"Par statut : {nom.lower()} en tête ({milliers(plus_haut)})"
+                )
+            else:
+                t["Titre écart par statut client"] = "Par statut : aucune hausse"
 
         # Titre écart budget par famille
         ecarts_budget = [
@@ -600,7 +728,7 @@ class Moteur:
             corps = (
                 f"En {annee}, la marge commerciale atteint {millions(m['Marge commerciale'])}, "
                 f"soit {pct(m['Marge commerciale (% CA)'])} du CA net "
-                "(pas d'exercice précédent à comparer)"
+                "(pas d'exercice précédent)"
             )
         else:
             evol = m["Marge commerciale évol. N-1 (%)"]
@@ -610,43 +738,33 @@ class Moteur:
                 f"{pct(m['Marge commerciale (% CA)'])} du CA net "
                 f"({points(m['Marge commerciale écart N-1 (pts)'])})"
             )
-        t["Titre Marge"] = "Marge · " + corps
+        t["Titre Marge"] = corps
 
         # Synthèse Marge
         frein, montant_frein = m["Frein principal (libellé)"], m["Frein principal (montant)"]
-        if frein is None:
-            texte_frein = "Pas d'exercice précédent : pont de marge non calculable. "
-        elif montant_frein < 0:
-            texte_frein = f"Principal frein : {frein} ({milliers(montant_frein)}). "
+        ecart_ca, ecart_marge = m["CA net écart N-1"], m["Marge commerciale écart N-1"]
+        if ecart_ca is None:
+            texte_evolution = "Pas d'exercice précédent : évolution de la marge non calculable. "
         else:
-            texte_frein = "Aucun effet défavorable dans le pont de marge. "
+            texte_evolution = (
+                f"Sur un an : CA net {milliers(ecart_ca)}, "
+                f"marge commerciale {milliers(ecart_marge)}"
+            )
+            if ecart_ca > 0:
+                texte_evolution += (
+                    f", soit une marge de {pct(diviser(ecart_marge, ecart_ca))} "
+                    "sur le CA supplémentaire"
+                )
+            texte_evolution += ". "
         budget_marge = m["Marge commerciale écart budget (%)"]
         texte_budget = ""
         if budget_marge is not None:
             position = " au-dessus du budget. " if budget_marge >= 0 else " sous le budget. "
             texte_budget = f"Marge commerciale {pct(abs(budget_marge))}{position}"
-        nb_clients = m["# Clients à marge négative"] or 0
-        nb_produits = m["# Produits sous le coût"] or 0
-        texte_clients = (
-            "Aucun client à marge contributive négative"
-            if nb_clients == 0
-            else "1 client à marge contributive négative"
-            if nb_clients == 1
-            else f"{nb_clients} clients à marge contributive négative"
-        )
-        texte_produits = (
-            "aucun produit vendu sous son coût"
-            if nb_produits == 0
-            else "1 produit vendu sous son coût"
-            if nb_produits == 1
-            else f"{nb_produits} produits vendus sous leur coût"
-        )
         if annee is None:
             t["Synthèse Marge"] = "Sélectionnez une année. Données fictives."
         else:
-            t["Synthèse Marge"] = (
-                f"{texte_frein}{texte_budget}{texte_clients}, {texte_produits}. Données fictives."
-            )
+            t["Synthèse Marge"] = f"{texte_evolution}{texte_budget}Données fictives."
 
         # Titre pont de marge
         if annee is None:
@@ -688,33 +806,35 @@ class Moteur:
             ctx, "famille", self.familles, "Marge commerciale écart N-1 (pts)", croissant=True
         )
         if famille is None:
-            t["Titre marge par famille"] = (
-                "Taux de marge commerciale par famille : écart avec l'exercice précédent"
-            )
+            t["Titre marge par famille"] = "Écart de taux de marge par famille"
         elif baisse < 0:
-            t["Titre marge par famille"] = (
-                f"Plus forte baisse de taux de marge : famille {famille} ({points(baisse)})"
-            )
+            t["Titre marge par famille"] = f"{famille} : taux de marge {points(baisse)}"
         else:
-            t["Titre marge par famille"] = (
-                "Toutes les familles maintiennent ou améliorent leur taux de marge"
-            )
+            t["Titre marge par famille"] = "Taux de marge : aucune famille en recul"
 
         # Titres des tableaux
-        t["Titre clients déficitaires"] = (
-            "Aucun client à marge contributive négative"
-            if nb_clients == 0
-            else "1 client à marge contributive négative"
-            if nb_clients == 1
-            else f"{nb_clients} clients à marge contributive négative"
-        )
-        t["Titre produits déficitaires"] = (
-            "Aucun produit vendu sous son coût d'achat"
-            if nb_produits == 0
-            else "1 produit vendu sous son coût d'achat"
-            if nb_produits == 1
-            else f"{nb_produits} produits vendus sous leur coût d'achat"
-        )
+        if annee is None:
+            t["Titre clients en recul"] = "Clients en plus fort recul de marge contributive"
+        elif m["CA net N-1"] is None:
+            t["Titre clients en recul"] = "Clients en recul de marge : pas d'exercice précédent"
+        elif not (self.ecarts_clients_actifs(ctx.avec(etape=None, statut=None)) < 0).any():
+            t["Titre clients en recul"] = "Aucun client en recul de marge contributive"
+        else:
+            t["Titre clients en recul"] = "Clients en plus fort recul de marge contributive"
+        pertes = self.marges_produits(ctx)
+        pertes = pertes[pertes < 0]
+        nb_produits = len(pertes)
+        perte = f" ({milliers(float(pertes.sum()))})" if nb_produits else ""
+        if nb_produits == 0:
+            t["Titre produits déficitaires"] = "Aucun produit vendu à perte"
+        elif nb_produits == 1:
+            t["Titre produits déficitaires"] = f"1 produit vendu à perte{perte}"
+        elif nb_produits <= LIGNES_TABLEAUX:
+            t["Titre produits déficitaires"] = f"{nb_produits} produits vendus à perte{perte}"
+        else:
+            t["Titre produits déficitaires"] = (
+                f"{nb_produits} produits vendus à perte{perte} : les {LIGNES_TABLEAUX} plus lourds"
+            )
         t["Frein principal (libellé)"] = frein
         return t
 
@@ -737,7 +857,7 @@ def type_mesure(nom: str) -> str:
         return "points"
     if "(%)" in nom or "(% CA)" in nom:
         return "taux"
-    if nom.startswith("#") or nom == "Quantité":
+    if nom.startswith(("#", "Rang ")) or nom == "Quantité":
         return "nombre"
     if nom.startswith("Commandes par client"):
         return "ratio"
@@ -826,9 +946,11 @@ class Calcul:
             )
         for region in m.regions:
             ajouter(f"2025 total, région {region}", base.avec(region=region), ("CA net écart N-1",))
-        for segment in m.segments:
+        for ordre, statut in STATUTS.items():
             ajouter(
-                f"2025 total, segment {segment}", base.avec(segment=segment), ("CA net écart N-1",)
+                f"2025 total, statut {ordre} {statut}",
+                base.avec(statut=ordre),
+                ("CA net écart N-1 par statut",),
             )
         for commercial in m.commerciaux:
             ajouter(
@@ -839,6 +961,19 @@ class Calcul:
         for ordre, etape in ETAPES.items():
             ajouter(
                 f"2025 total, étape {ordre} {etape}", base.avec(etape=ordre), ("Pont de marge",)
+            )
+        for client in m.ecarts_clients_actifs(base).index[:LIGNES_TABLEAUX]:
+            ajouter(
+                f"2025 total, client {client}",
+                base.avec(client=client),
+                ("Rang client en recul de marge", "Marge contributive écart N-1"),
+            )
+        produits = m.marges_produits(base)
+        for produit in produits[produits < 0].index[:LIGNES_TABLEAUX]:
+            ajouter(
+                f"2025 total, produit {produit}",
+                base.avec(produit=produit),
+                ("Rang produit sous le coût", "Marge commerciale"),
             )
         return {"cas": "2025 total, par catégorie", "lignes": lignes}
 

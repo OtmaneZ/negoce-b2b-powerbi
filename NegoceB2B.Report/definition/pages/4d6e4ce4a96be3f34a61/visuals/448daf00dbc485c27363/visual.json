@@ -41,7 +41,8 @@
                 }
               },
               "queryRef": "Mesures.CA net",
-              "nativeQueryRef": "CA net"
+              "nativeQueryRef": "CA net",
+              "displayName": "CA net"
             },
             {
               "field": {
@@ -55,7 +56,8 @@
                 }
               },
               "queryRef": "Mesures.Marge commerciale",
-              "nativeQueryRef": "Marge commerciale"
+              "nativeQueryRef": "Marge commerciale",
+              "displayName": "Marge"
             },
             {
               "field": {
@@ -69,7 +71,8 @@
                 }
               },
               "queryRef": "Mesures.Marge commerciale (% CA)",
-              "nativeQueryRef": "Marge commerciale (% CA)"
+              "nativeQueryRef": "Marge commerciale (% CA)",
+              "displayName": "Taux de marge"
             }
           ]
         }
@@ -195,6 +198,19 @@
                       "Value": "'#E1DFDD'"
                     }
                   }
+                }
+              }
+            }
+          }
+        }
+      ],
+      "total": [
+        {
+          "properties": {
+            "totals": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
                 }
               }
             }
@@ -359,7 +375,7 @@
             "bold": {
               "expr": {
                 "Literal": {
-                  "Value": "true"
+                  "Value": "false"
                 }
               }
             },
@@ -407,7 +423,7 @@
   "filterConfig": {
     "filters": [
       {
-        "name": "Filter0dcc1fcf67f12a204fd2eb8b",
+        "name": "Filter60dac2fec071e64728b2b950",
         "field": {
           "Measure": {
             "Expression": {
@@ -415,7 +431,7 @@
                 "Entity": "Mesures"
               }
             },
-            "Property": "Marge commerciale"
+            "Property": "Rang produit sous le coût"
           }
         },
         "type": "Advanced",
@@ -432,7 +448,7 @@
             {
               "Condition": {
                 "Comparison": {
-                  "ComparisonKind": 3,
+                  "ComparisonKind": 4,
                   "Left": {
                     "Measure": {
                       "Expression": {
@@ -440,12 +456,12 @@
                           "Source": "m"
                         }
                       },
-                      "Property": "Marge commerciale"
+                      "Property": "Rang produit sous le coût"
                     }
                   },
                   "Right": {
                     "Literal": {
-                      "Value": "0D"
+                      "Value": "6D"
                     }
                   }
                 }

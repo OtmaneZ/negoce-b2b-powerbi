@@ -20,6 +20,11 @@
       "attendu": null
     },
     {
+      "mesure": "# Clients perdus",
+      "type": "nombre",
+      "attendu": null
+    },
+    {
       "mesure": "# Clients à marge négative",
       "type": "nombre",
       "attendu": 9
@@ -28,6 +33,11 @@
       "mesure": "# Commandes",
       "type": "nombre",
       "attendu": 10750
+    },
+    {
+      "mesure": "# Nouveaux clients",
+      "type": "nombre",
+      "attendu": null
     },
     {
       "mesure": "# Produits sous le coût",
@@ -61,6 +71,11 @@
     },
     {
       "mesure": "CA net écart N-1",
+      "type": "montant",
+      "attendu": null
+    },
+    {
+      "mesure": "CA net écart N-1 par statut",
       "type": "montant",
       "attendu": null
     },
@@ -155,6 +170,11 @@
       "attendu": 6908669.56
     },
     {
+      "mesure": "Marge commerciale écart N-1",
+      "type": "montant",
+      "attendu": null
+    },
+    {
       "mesure": "Marge commerciale écart N-1 (pts)",
       "type": "points",
       "attendu": null
@@ -185,6 +205,11 @@
       "attendu": null
     },
     {
+      "mesure": "Marge contributive écart N-1",
+      "type": "montant",
+      "attendu": null
+    },
+    {
       "mesure": "Marge contributive évol. N-1 (%)",
       "type": "taux",
       "attendu": null
@@ -207,7 +232,7 @@
     {
       "mesure": "Pont de marge",
       "type": "montant",
-      "attendu": 6918126.09
+      "attendu": null
     },
     {
       "mesure": "Pont de marge écart de bouclage",
@@ -218,6 +243,16 @@
       "mesure": "Quantité",
       "type": "nombre",
       "attendu": 1754465
+    },
+    {
+      "mesure": "Rang client en recul de marge",
+      "type": "nombre",
+      "attendu": null
+    },
+    {
+      "mesure": "Rang produit sous le coût",
+      "type": "nombre",
+      "attendu": null
     },
     {
       "mesure": "Remises",
@@ -272,27 +307,27 @@
     {
       "mesure": "Synthèse Marge",
       "type": "texte",
-      "attendu": "Pas d'exercice précédent : pont de marge non calculable. Marge commerciale 0,1 % au-dessus du budget. 9 clients à marge contributive négative, aucun produit vendu sous son coût. Données fictives."
+      "attendu": "Pas d'exercice précédent : évolution de la marge non calculable. Marge commerciale 0,1 % au-dessus du budget. Données fictives."
     },
     {
       "mesure": "Titre Direction",
       "type": "texte",
-      "attendu": "Vue Direction · En 2024, le CA net atteint 20,9 M€ et dépasse le budget de 0,2 % (pas d'exercice précédent à comparer)"
+      "attendu": "En 2024, le CA net atteint 20,9 M€ et dépasse le budget de 0,2 % (pas d'exercice précédent)"
     },
     {
       "mesure": "Titre Marge",
       "type": "texte",
-      "attendu": "Marge · En 2024, la marge commerciale atteint 6,9 M€, soit 33,1 % du CA net (pas d'exercice précédent à comparer)"
+      "attendu": "En 2024, la marge commerciale atteint 6,9 M€, soit 33,1 % du CA net (pas d'exercice précédent)"
     },
     {
-      "mesure": "Titre clients déficitaires",
+      "mesure": "Titre clients en recul",
       "type": "texte",
-      "attendu": "9 clients à marge contributive négative"
+      "attendu": "Clients en recul de marge : pas d'exercice précédent"
     },
     {
       "mesure": "Titre marge par famille",
       "type": "texte",
-      "attendu": "Taux de marge commerciale par famille : écart avec l'exercice précédent"
+      "attendu": "Écart de taux de marge par famille"
     },
     {
       "mesure": "Titre pont de marge",
@@ -302,7 +337,7 @@
     {
       "mesure": "Titre produits déficitaires",
       "type": "texte",
-      "attendu": "Aucun produit vendu sous son coût d'achat"
+      "attendu": "Aucun produit vendu à perte"
     },
     {
       "mesure": "Titre remises par commercial",
@@ -330,9 +365,9 @@
       "attendu": "Écart de CA net par région"
     },
     {
-      "mesure": "Titre écart par segment",
+      "mesure": "Titre écart par statut client",
       "type": "texte",
-      "attendu": "Écart de CA net par segment"
+      "attendu": "Écart de CA net par statut client"
     }
   ]
 }

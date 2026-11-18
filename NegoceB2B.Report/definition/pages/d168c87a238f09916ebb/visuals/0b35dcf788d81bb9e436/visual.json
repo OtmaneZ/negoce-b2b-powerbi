@@ -27,77 +27,9 @@
                 }
               },
               "queryRef": "Mesures.CA net",
-              "nativeQueryRef": "CA net"
-            },
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "Mesures"
-                    }
-                  },
-                  "Property": "CA net écart budget (%)"
-                }
-              },
-              "queryRef": "Mesures.CA net écart budget (%)",
-              "nativeQueryRef": "CA net écart budget (%)"
-            },
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "Mesures"
-                    }
-                  },
-                  "Property": "# Clients actifs"
-                }
-              },
-              "queryRef": "Mesures.# Clients actifs",
-              "nativeQueryRef": "# Clients actifs"
-            },
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "Mesures"
-                    }
-                  },
-                  "Property": "Commandes par client"
-                }
-              },
-              "queryRef": "Mesures.Commandes par client",
-              "nativeQueryRef": "Commandes par client"
-            },
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "Mesures"
-                    }
-                  },
-                  "Property": "Panier moyen"
-                }
-              },
-              "queryRef": "Mesures.Panier moyen",
-              "nativeQueryRef": "Panier moyen"
-            },
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "Mesures"
-                    }
-                  },
-                  "Property": "CA net évol. N-1 (%)"
-                }
-              },
-              "queryRef": "Mesures.CA net évol. N-1 (%)",
-              "nativeQueryRef": "CA net évol. N-1 (%)"
+              "nativeQueryRef": "CA net",
+              "displayName": "CA net",
+              "format": "#,0.0,, \"M€\""
             },
             {
               "field": {
@@ -111,7 +43,84 @@
                 }
               },
               "queryRef": "Mesures.CA net budget",
-              "nativeQueryRef": "CA net budget"
+              "nativeQueryRef": "CA net budget",
+              "displayName": "Budget de CA net",
+              "format": "#,0.0,, \"M€\""
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Mesures"
+                    }
+                  },
+                  "Property": "# Clients actifs"
+                }
+              },
+              "queryRef": "Mesures.# Clients actifs",
+              "nativeQueryRef": "# Clients actifs",
+              "displayName": "Clients actifs"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Mesures"
+                    }
+                  },
+                  "Property": "Commandes par client"
+                }
+              },
+              "queryRef": "Mesures.Commandes par client",
+              "nativeQueryRef": "Commandes par client",
+              "displayName": "Commandes par client"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Mesures"
+                    }
+                  },
+                  "Property": "Panier moyen"
+                }
+              },
+              "queryRef": "Mesures.Panier moyen",
+              "nativeQueryRef": "Panier moyen",
+              "displayName": "Panier moyen"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Mesures"
+                    }
+                  },
+                  "Property": "CA net évol. N-1 (%)"
+                }
+              },
+              "queryRef": "Mesures.CA net évol. N-1 (%)",
+              "nativeQueryRef": "CA net évol. N-1 (%)",
+              "displayName": "Évolution sur un an"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Mesures"
+                    }
+                  },
+                  "Property": "CA net écart budget (%)"
+                }
+              },
+              "queryRef": "Mesures.CA net écart budget (%)",
+              "nativeQueryRef": "CA net écart budget (%)",
+              "displayName": "Écart au budget"
             },
             {
               "field": {
@@ -125,7 +134,8 @@
                 }
               },
               "queryRef": "Mesures.# Clients actifs évol. N-1 (%)",
-              "nativeQueryRef": "# Clients actifs évol. N-1 (%)"
+              "nativeQueryRef": "# Clients actifs évol. N-1 (%)",
+              "displayName": "Évolution sur un an"
             },
             {
               "field": {
@@ -139,7 +149,8 @@
                 }
               },
               "queryRef": "Mesures.Commandes par client évol. N-1 (%)",
-              "nativeQueryRef": "Commandes par client évol. N-1 (%)"
+              "nativeQueryRef": "Commandes par client évol. N-1 (%)",
+              "displayName": "Évolution sur un an"
             },
             {
               "field": {
@@ -153,7 +164,8 @@
                 }
               },
               "queryRef": "Mesures.Panier moyen évol. N-1 (%)",
-              "nativeQueryRef": "Panier moyen évol. N-1 (%)"
+              "nativeQueryRef": "Panier moyen évol. N-1 (%)",
+              "displayName": "Évolution sur un an"
             }
           ]
         }
@@ -176,6 +188,27 @@
                   "Value": "10L"
                 }
               }
+            },
+            "customizePadding": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "rowPadding": {
+              "expr": {
+                "Literal": {
+                  "Value": "0L"
+                }
+              }
+            },
+            "columnPadding": {
+              "expr": {
+                "Literal": {
+                  "Value": "8L"
+                }
+              }
             }
           },
           "selector": {
@@ -189,14 +222,14 @@
             "fontSize": {
               "expr": {
                 "Literal": {
-                  "Value": "14D"
+                  "Value": "12D"
                 }
               }
             },
             "bold": {
               "expr": {
                 "Literal": {
-                  "Value": "true"
+                  "Value": "false"
                 }
               }
             },
@@ -244,7 +277,7 @@
             "fontSize": {
               "expr": {
                 "Literal": {
-                  "Value": "8D"
+                  "Value": "9D"
                 }
               }
             },
@@ -287,7 +320,7 @@
             "paddingUniform": {
               "expr": {
                 "Literal": {
-                  "Value": "4D"
+                  "Value": "2D"
                 }
               }
             }
@@ -435,7 +468,7 @@
             "altText": {
               "expr": {
                 "Literal": {
-                  "Value": "'Indicateurs de croissance : CA net, écart au budget, clients actifs, commandes par client et panier moyen, avec leur évolution sur un an'"
+                  "Value": "'Indicateurs de croissance : CA net, budget, clients actifs, commandes par client et panier moyen, avec leur évolution sur un an et l''écart au budget'"
                 }
               }
             }

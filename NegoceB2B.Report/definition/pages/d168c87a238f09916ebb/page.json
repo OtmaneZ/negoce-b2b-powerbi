@@ -29,11 +29,64 @@
           }
         }
       }
+    ],
+    "displayArea": [
+      {
+        "properties": {
+          "verticalAlignment": {
+            "expr": {
+              "Literal": {
+                "Value": "'Middle'"
+              }
+            }
+          }
+        }
+      }
     ]
   },
   "visualInteractions": [
     {
-      "source": "4e1ada5b0c5a300b16ee",
+      "source": "447b86cc4e8a3ea9dfc0",
+      "target": "dee158360b133e240a75",
+      "type": "NoFilter"
+    },
+    {
+      "source": "447b86cc4e8a3ea9dfc0",
+      "target": "136f833533cd6e228a5d",
+      "type": "NoFilter"
+    },
+    {
+      "source": "447b86cc4e8a3ea9dfc0",
+      "target": "450be20bc3c0d23fe6de",
+      "type": "NoFilter"
+    },
+    {
+      "source": "447b86cc4e8a3ea9dfc0",
+      "target": "961a62531c53db889d77",
+      "type": "NoFilter"
+    },
+    {
+      "source": "447b86cc4e8a3ea9dfc0",
+      "target": "0b35dcf788d81bb9e436",
+      "type": "NoFilter"
+    },
+    {
+      "source": "447b86cc4e8a3ea9dfc0",
+      "target": "bd318da0409f2637b283",
+      "type": "NoFilter"
+    },
+    {
+      "source": "447b86cc4e8a3ea9dfc0",
+      "target": "596b48638f3038a09319",
+      "type": "NoFilter"
+    },
+    {
+      "source": "447b86cc4e8a3ea9dfc0",
+      "target": "00e8b854c096b5c7554c",
+      "type": "NoFilter"
+    },
+    {
+      "source": "447b86cc4e8a3ea9dfc0",
       "target": "28af3efcc705734fef43",
       "type": "NoFilter"
     }

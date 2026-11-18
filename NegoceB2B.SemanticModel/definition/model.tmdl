@@ -19,6 +19,7 @@ ref table Famille
 ref table 'Région'
 ref table 'Accès régional'
 ref table 'Étape du pont'
+ref table 'Statut client'
 ref table Mesures
 
 ref role Commercial

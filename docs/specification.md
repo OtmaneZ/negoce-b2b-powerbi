@@ -203,10 +203,11 @@ Clés et colonnes techniques masquées ; colonnes agrégées par des mesures mas
 | Région | Dimension conforme | Région | Clé région |
 | Accès régional | Sécurité, table masquée, sans relation | | E-mail, Clé région |
 | Étape du pont | Utilitaire du pont de marge, sans relation | Étape (triée par Ordre) | Ordre (Int64) |
+| Statut client | Utilitaire de l'écart par statut client, sans relation | Statut (trié par Ordre) | Ordre (Int64) |
 | Mesures | Table de mesures | toutes les mesures | une colonne technique masquée |
 
 - La table **Date** couvre du 1er janvier 2024 au 31 décembre 2025 (731 jours, 2024 est bissextile), générée en M avec `List.Dates`. Libellés de mois fixés par une liste en M, sans dépendance à la langue du poste. Hiérarchie « Calendrier » : Année > Trimestre > Mois.
-- La table **Étape du pont** est une table littérale en M (`#table`) de six lignes : 1 Marge N-1, 2 Volume, 3 Mix, 4 Prix catalogue, 5 Remises, 6 Coût d'achat.
+- La table **Étape du pont** est une table littérale en M (`#table`) de cinq lignes : 1 Volume, 2 Mix, 3 Prix catalogue, 4 Remises, 5 Coût d'achat. La table **Statut client**, littérale elle aussi, compte trois lignes : 1 Clients existants, 2 Nouveaux clients, 3 Clients perdus.
 
 ### Relations
 
@@ -267,7 +268,7 @@ Formats (culture d'affichage fr-FR) :
 | DEC | `#,0.0` | 12,4 |
 | TXT | aucun (mesure texte) | |
 
-Les cartes affichent les montants en millions d'euros et les barres en milliers d'euros grâce à l'unité d'affichage du visuel ; la chaîne de format de la mesure reste celle indiquée ci-dessus.
+Les cartes affichent les montants en millions d'euros grâce à une chaîne de format propre au visuel (`#,0.0,, "M€"`, propriété `format` de la projection) ; les barres affichent des milliers d'euros grâce à l'unité d'affichage du visuel. La chaîne de format de la mesure reste celle indiquée ci-dessus.
 
 ### 1. Chiffre d'affaires
 
@@ -298,6 +299,8 @@ Identité vérifiée par test : CA net = # Clients actifs × Commandes par clien
 | Marge contributive (% CA) | Marge contributive rapportée au CA net | `DIVIDE([Marge contributive], [CA net])` | PCT |
 | # Clients à marge négative | Clients dont la marge contributive est négative sur la période | `COUNTROWS(FILTER(VALUES('Client'[Clé client]), [Marge contributive] < 0))` | NB |
 | # Produits sous le coût | Références dont la marge commerciale est négative sur la période | `COUNTROWS(FILTER(VALUES('Produit'[Clé produit]), [Marge commerciale] < 0))` | NB |
+| Rang client en recul de marge | Masquée. Rang du client parmi les clients actifs en N et en N-1, du plus fort recul de marge contributive au plus faible ; filtre le tableau M9 aux six premiers | Nombre de clients au recul plus fort, plus un, calculé sur la liste des clients sans filtre Client (`REMOVEFILTERS('Client')`) | NB |
+| Rang produit sous le coût | Masquée. Rang du produit parmi les produits à marge négative, de la plus forte perte à la plus faible ; filtre le tableau M10 aux six premiers | Même construction sur Produit | NB |
 
 ### 3. Comparaison N-1
 
@@ -318,8 +321,10 @@ RETURN DIVIDE([CA net] - _n1, _n1)
 Marge commerciale écart N-1 (pts) =
 VAR _tauxN = [Marge commerciale (% CA)]
 VAR _tauxN1 = [Marge commerciale N-1 (% CA)]
-RETURN IF(NOT ISBLANK(_tauxN) && NOT ISBLANK(_tauxN1), (_tauxN - _tauxN1) * 100)
+RETURN IF(NOT ISBLANK(_tauxN) && NOT ISBLANK(_tauxN1), ROUND((_tauxN - _tauxN1) * 100, 1))
 ```
+
+Les écarts en points sont arrondis au dixième dans la mesure : un écart minime s'affiche « 0,0 pts » et non « -0,0 pts », et la couleur des barres suit la valeur affichée.
 
 La table Date étant marquée comme table de dates, le filtre posé par `SAMEPERIODLASTYEAR` sur Date[Date] remplace le filtre du segment Année. Pour 2024, la période N-1 (2023) n'existe pas : les mesures N-1 sont vides, les écarts et évolutions aussi.
 
@@ -328,7 +333,11 @@ La table Date étant marquée comme table de dates, le filtre posé par `SAMEPER
 | CA net N-1 | `CALCULATE` + `SAMEPERIODLASTYEAR` sur [CA net] | EUR |
 | CA net écart N-1 | Modèle « écart » | EUR± |
 | CA net évol. N-1 (%) | Modèle « évol. » | PCT± |
+| CA net écart N-1 par statut | Écart de CA net réparti par statut client : clients présents sur les deux périodes (écart de leur CA), nouveaux clients (leur CA N), clients perdus (moins leur CA N-1). Somme des trois = CA net écart N-1 | EUR± |
+| # Nouveaux clients | Clients actifs en N sans achat en N-1 | NB |
+| # Clients perdus | Clients actifs en N-1 sans achat en N | NB |
 | Marge commerciale N-1 | `CALCULATE` + `SAMEPERIODLASTYEAR` | EUR |
+| Marge commerciale écart N-1 | Modèle « écart » | EUR± |
 | Marge commerciale évol. N-1 (%) | Modèle « évol. » | PCT± |
 | Marge commerciale N-1 (% CA) | `CALCULATE` + `SAMEPERIODLASTYEAR` sur [Marge commerciale (% CA)] | PCT |
 | Marge commerciale écart N-1 (pts) | Modèle « points » | PTS |
@@ -337,6 +346,7 @@ La table Date étant marquée comme table de dates, le filtre posé par `SAMEPER
 | Transport N-1 (% CA) | `CALCULATE` + `SAMEPERIODLASTYEAR` | PCT |
 | Transport écart N-1 (pts) | Modèle « points » | PTS |
 | Marge contributive N-1 | `CALCULATE` + `SAMEPERIODLASTYEAR` | EUR |
+| Marge contributive écart N-1 | Modèle « écart » | EUR± |
 | Marge contributive évol. N-1 (%) | Modèle « évol. » | PCT± |
 | # Clients actifs N-1 | `CALCULATE` + `SAMEPERIODLASTYEAR` | NB |
 | # Clients actifs évol. N-1 (%) | Modèle « évol. » | PCT± |
@@ -444,15 +454,19 @@ VAR _ordre = SELECTEDVALUE('Étape du pont'[Ordre])
 RETURN
     SWITCH(
         _ordre,
-        1, [Marge commerciale N-1],
-        2, [Effet volume],
-        3, [Effet mix],
-        4, [Effet prix catalogue],
-        5, [Effet remises],
-        6, [Effet coût d'achat],
-        [Marge commerciale]
+        1, [Effet volume],
+        2, [Effet mix],
+        3, [Effet prix catalogue],
+        4, [Effet remises],
+        5, [Effet coût d'achat],
+        IF(
+            HASONEVALUE('Date'[Année]) && NOT ISBLANK([CA net N-1]),
+            [Marge commerciale écart N-1]
+        )
     )
 ```
+
+La cascade ne montre que les cinq effets : avec les barres de niveau (marge N-1 vers 6,9 M€, marge N vers 7,1 M€), des effets de quelques centaines de k€ ne feraient que quelques pixels de haut. Le total de la cascade vaut l'écart de marge commerciale, que les effets expliquent exactement.
 
 | Mesure | Visible | Format |
 |---|---|---|
@@ -470,25 +484,26 @@ Les mesures texte suivent des règles communes, appliquées à l'identique par l
 - **Formats.** Tous les nombres passent par `FORMAT(valeur, format, "fr-FR")`, indépendant du poste, avec des formats à une seule section : pourcentage `0.0 %` (« 8,4 % »), millions `#,0.0` puis « M€ », milliers `#,0` puis « k€ », points `0.0` puis « pts ». Pour les valeurs signées, le signe est ajouté explicitement (`IF(x < 0, "-", "+") & FORMAT(ABS(x), …)`) : une valeur non nulle arrondie à zéro s'écrit ainsi « +0 k€ » quel que soit le moteur. Arrondi au plus proche, demi s'éloignant de zéro.
 - **Comparaison.** Les textes attendus sont comparés après normalisation des espaces : espaces insécables (U+00A0, U+202F) ramenées à une espace simple.
 - **Cas limites.** Aucune année ou plusieurs années : « Sélectionnez une année ». Pas d'exercice N-1 : le texte le dit. Budget vide : la partie budgétaire est omise. Compteurs : singulier pour 0 et 1, pluriel au-delà.
-- **Préfixe et mention.** Les titres de page commencent par le nom de la page (« Vue Direction · », « Marge · ») ; les synthèses se terminent par « Données fictives. ».
+- **Mention.** Les synthèses se terminent par « Données fictives. ». Les titres de page ne répètent pas le nom de la page, déjà porté par l'onglet.
+- **Longueur.** Un titre tient sur une ligne dans la largeur de son visuel ; une synthèse tient sur deux lignes. Les synthèses disent ce qu'aucun titre ni aucune carte ne dit déjà.
 - **Meilleur et pire.** Les classements utilisent `TOPN` sur les membres dont la valeur n'est pas vide.
 
 | Mesure | Où | Texte (exemple sur des valeurs fictives) et variantes |
 |---|---|---|
-| Titre Direction | Titre de page Vue Direction | « Vue Direction · En 2025, le CA net progresse de 8,4 % sur un an et dépasse le budget de 1,2 % ». Variantes : « recule », « reste sous le budget de » ; sans N-1 : « En 2024, le CA net atteint 18,2 M€ et reste sous le budget de 0,8 % (pas d'exercice précédent à comparer) » ; sans budget, la partie budgétaire disparaît |
-| Synthèse Direction | Sous-titre Vue Direction | « Meilleure contribution : famille Équipements de protection (+640 k€), région Rhône-Alpes (+590 k€). Clients actifs +2,1 %, commandes par client +1,8 %, panier moyen +4,3 %. Données fictives. » Sans N-1 : « Pas d'exercice précédent : contributions à la croissance non calculables. Données fictives. » |
+| Titre Direction | Titre de page Vue Direction | « En 2025, le CA net progresse de 8,4 % sur un an et dépasse le budget de 1,2 % ». Variantes : « recule », « reste sous le budget de » ; sans N-1 : « En 2024, le CA net atteint 18,2 M€ et reste sous le budget de 0,8 % (pas d'exercice précédent) » ; sans budget, la partie budgétaire disparaît |
+| Synthèse Direction | Sous-titre Vue Direction | « Plus faible contribution : famille Outillage à main (-120 k€), région Nord-Est (-210 k€). 60 nouveaux clients, 45 clients perdus. Données fictives. » Compteurs au singulier pour 0 et 1. Sans N-1 : « Pas d'exercice précédent : contributions à la croissance non calculables. Données fictives. » |
 | Titre tendance CA | Courbe mensuelle | « CA net mensuel : au-dessus de 2024 sur 10 mois sur 12 » ; sans N-1 : « CA net mensuel » |
-| Titre écart par famille | Barres familles | « Plus forte hausse de CA net : famille Équipements de protection (+640 k€) » ; si aucune hausse : « Toutes les familles reculent ; la famille Visserie et fixations résiste le mieux (-20 k€) » ; sans N-1 : « Écart de CA net par famille » |
-| Titre écart par région | Barres régions | Même modèle : « région … », « Toutes les régions reculent ; la région … » |
-| Titre écart par segment | Barres segments | Même modèle : « segment … », « Tous les segments reculent ; le segment … » |
+| Titre écart par famille | Barres familles | « Par famille : Équipements de protection en tête (+640 k€) » ; si aucune hausse : « Par famille : toutes en recul, Visserie et fixations résiste le mieux (-20 k€) » ; sans N-1 : « Écart de CA net par famille » |
+| Titre écart par région | Barres régions | Même modèle : « Par région : … en tête », « Par région : toutes en recul, … résiste le mieux » |
+| Titre écart par statut client | Barres statuts | « Par statut : clients existants en tête (+1 600 k€) » ; si aucune hausse : « Par statut : aucune hausse » ; sans N-1 : « Écart de CA net par statut client » |
 | Titre écart budget par famille | Barres budget | « 4 familles sur 6 atteignent leur budget de CA net » ; « 1 famille sur 6 atteint son budget de CA net » ; budget vide : « Écart de CA net au budget par famille » |
-| Titre Marge | Titre de page Marge | « Marge · En 2025, la marge commerciale recule de 1,5 % et représente 30,1 % du CA net (-2,6 pts) » ; sans N-1 : « Marge · En 2024, la marge commerciale atteint 5,8 M€, soit 32,0 % du CA net (pas d'exercice précédent à comparer) » |
-| Synthèse Marge | Sous-titre Marge | « Principal frein : coût d'achat (-310 k€). Marge commerciale 4,2 % sous le budget. 11 clients à marge contributive négative, 9 produits vendus sous leur coût. Données fictives. » Variantes : « Aucun effet défavorable dans le pont de marge. » ; sans N-1 : « Pas d'exercice précédent : pont de marge non calculable. » ; budget vide : phrase budgétaire omise |
+| Titre Marge | Titre de page Marge | « En 2025, la marge commerciale recule de 1,5 % et représente 30,1 % du CA net (-2,6 pts) » ; sans N-1 : « En 2024, la marge commerciale atteint 5,8 M€, soit 32,0 % du CA net (pas d'exercice précédent) » |
+| Synthèse Marge | Sous-titre Marge | « Sur un an : CA net +1 700 k€, marge commerciale +180 k€, soit une marge de 10,6 % sur le CA supplémentaire. Marge commerciale 4,2 % sous le budget. Données fictives. » La part de marge sur le CA supplémentaire n'est citée que si le CA progresse. Sans N-1 : « Pas d'exercice précédent : évolution de la marge non calculable. » ; budget vide : phrase budgétaire omise |
 | Titre pont de marge | Cascade | « Pont de marge 2024 → 2025 : l'effet coût d'achat pèse le plus (-310 k€) » ; « Pont de marge 2024 → 2025 : aucun effet défavorable » ; sans N-1 : « Pont de marge commerciale : pas d'exercice précédent à comparer » |
 | Titre remises par commercial | Barres commerciaux | « Damien Revol : taux de remise de 9,1 % à 15,8 % (+6,7 pts) » (plus forte hausse) ; « Aucun commercial n'augmente ses remises » ; sans N-1 : « Taux de remise par commercial : écart avec l'exercice précédent » |
-| Titre marge par famille | Barres familles | « Plus forte baisse de taux de marge : famille Visserie et fixations (-5,2 pts) » ; « Toutes les familles maintiennent ou améliorent leur taux de marge » ; sans N-1 : « Taux de marge commerciale par famille : écart avec l'exercice précédent » |
-| Titre clients déficitaires | Tableau clients | « 11 clients à marge contributive négative » ; « 1 client … » ; « Aucun client à marge contributive négative » |
-| Titre produits déficitaires | Tableau produits | « 9 produits vendus sous leur coût d'achat » ; « 1 produit vendu sous son coût d'achat » ; « Aucun produit vendu sous son coût d'achat » |
+| Titre marge par famille | Barres familles | « Visserie et fixations : taux de marge -5,2 pts » (plus forte baisse) ; « Taux de marge : aucune famille en recul » ; sans N-1 : « Écart de taux de marge par famille » |
+| Titre clients en recul | Tableau clients | « Clients en plus fort recul de marge contributive » ; « Aucun client en recul de marge contributive » ; sans N-1 : « Clients en recul de marge : pas d'exercice précédent » |
+| Titre produits déficitaires | Tableau produits | « 9 produits vendus à perte (-45 k€) : les 6 plus lourds » ; de 2 à 6 produits, sans la mention finale ; « 1 produit vendu à perte (-3 k€) » ; « Aucun produit vendu à perte » |
 
 Exemple complet (le DAX de chaque mesure est dans le modèle et dans `docs/mesures.md`) :
 
@@ -505,8 +520,7 @@ VAR _texteBudget =
             & FORMAT(ABS(_ecartBudget), "0.0 %", "fr-FR")
     )
 RETURN
-    "Vue Direction · "
-        & SWITCH(
+    SWITCH(
             TRUE(),
             ISBLANK(_annee), "Sélectionnez une année",
             ISBLANK(_ca), "Aucune vente sur la sélection",
@@ -521,7 +535,7 @@ RETURN
         )
 ```
 
-Récapitulatif des dossiers : 1. Chiffre d'affaires (9 mesures), 2. Marge (9), 3. Comparaison N-1 (19), 4. Budget (5), 5. Pont de marge (10, dont 4 masquées), 6. Textes (14). Total : 66 mesures.
+Récapitulatif des dossiers : 1. Chiffre d'affaires (9 mesures), 2. Marge (11, dont 2 masquées), 3. Comparaison N-1 (24), 4. Budget (5), 5. Pont de marge (10, dont 4 masquées), 6. Textes (14). Total : 73 mesures.
 
 ## 5. Rapport
 
@@ -545,44 +559,46 @@ Récapitulatif des dossiers : 1. Chiffre d'affaires (9 mesures), 2. Marge (9), 3
 
 - Deux segments dans la zone filtres, synchronisés entre les pages : **Année** (Date[Année], liste horizontale affichée en vignettes, sélection unique, 2025 par défaut ; x 960, y 32, 120 × 96) et **Région** (Région[Région], liste déroulante, sélection multiple avec « Tout sélectionner » ; x 1096, y 32, 160 × 96). Les segments occupent toute la hauteur de la bande du titre et de la synthèse : un segment en liste déroulante avec en-tête demande au moins 80 px avec des marges de 8 px.
 - Les titres de page et de visuels sont des mesures texte (section 4.6) : ils répondent à la question métier et restent justes quel que soit le filtre ou le rôle RLS. Titre et synthèse de page sont affichés par une carte à valeur unique (`cardVisual`, libellé masqué, retour à la ligne activé, alignement à gauche) ; les titres des graphiques sont des titres de visuel liés à la mesure. Aucune zone de texte à valeur dynamique n'est utilisée : son encodage PBIR n'est pas documenté de façon assez fiable pour être vérifié sans Desktop.
-- Interactions : un clic sur une barre, une ligne ou un tableau **filtre** les autres visuels de la page (paramètre du rapport « filtrer plutôt que mettre en surbrillance »). Exceptions déclarées dans la page : la cascade ne filtre rien (sa table d'étapes n'est reliée à rien) ; le graphique des segments clients n'agit pas sur le graphique budgétaire (le budget n'existe pas par segment).
-- Navigation par les onglets natifs des pages ; pas de boutons. Le volet de filtres est masqué en lecture (`report.json`, objet `outspacePane`, propriété `visible`, prévue par le schéma report 3.3.0) : les segments couvrent les filtres utiles, et le filtre de visuel des deux tableaux est annoncé dans leurs titres.
+- Interactions : un clic sur une barre, une ligne ou un tableau **filtre** les autres visuels de la page (paramètre du rapport « filtrer plutôt que mettre en surbrillance »). Exceptions déclarées dans la page : la cascade et le graphique par statut client ne filtrent rien (leurs tables d'étapes et de statuts ne sont reliées à rien).
+- Navigation par les onglets natifs des pages ; pas de boutons. Le volet de filtres est masqué en lecture (`report.json`, objet `outspacePane`, propriété `visible`, prévue par le schéma report 3.3.0) : les segments couvrent les filtres utiles, et la limite des deux tableaux aux six premières lignes est annoncée dans leurs titres.
 - Ordre de tabulation = ordre de lecture (titre, synthèse, segments, KPI, principal, secondaire, bas gauche, centre, droite). Texte de remplacement sur chaque visuel de données, lié à la même mesure que son titre.
 
 ### Page 1 : « Vue Direction » (d'où vient la croissance)
 
 | Id | Zone | Type | Champs | Question métier |
 |---|---|---|---|---|
-| D1 | titre | cardVisual (valeur unique, 14 pt semi-gras) | [Titre Direction] | Le CA progresse-t-il, et par rapport au budget ? |
-| D2 | synthese | cardVisual (valeur unique, 10 pt) | [Synthèse Direction] | Qu'est-ce qui porte la croissance ? |
+| D1 | titre | cardVisual (valeur unique, 14 pt, police semi-grasse du thème) | [Titre Direction] | Le CA progresse-t-il, et par rapport au budget ? |
+| D2 | synthese | cardVisual (valeur unique, 10 pt) | [Synthèse Direction] | Qu'est-ce qui freine la croissance, et le portefeuille de clients se renouvelle-t-il ? |
 | D3 | filtres | slicer (vignettes) | Date[Année] | Quel exercice ? |
 | D4 | filtres | slicer (liste déroulante) | Région[Région] | Quelle région ? |
-| D5 | kpis | cardVisual, 10 valeurs sur 2 rangées de 5 | Première rangée : CA net · CA net écart budget (%) · # Clients actifs · Commandes par client · Panier moyen. Seconde rangée, sous chaque valeur : CA net évol. N-1 (%) · CA net budget · # Clients actifs évol. N-1 (%) · Commandes par client évol. N-1 (%) · Panier moyen évol. N-1 (%) | La croissance vient-elle de plus de clients, de commandes plus fréquentes ou de paniers plus gros ? |
-| D6 | principal | lineChart | Axe : Date[Mois] ; valeurs : CA net, CA net N-1, CA net budget ; titre : [Titre tendance CA] | Quand la croissance se produit-elle, et suit-elle le budget ? |
+| D5 | kpis | cardVisual, 10 valeurs sur 2 rangées de 5 | Première rangée : CA net · CA net budget · # Clients actifs · Commandes par client · Panier moyen. Seconde rangée, sous chaque valeur : CA net évol. N-1 (%) · CA net écart budget (%) · # Clients actifs évol. N-1 (%) · Commandes par client évol. N-1 (%) · Panier moyen évol. N-1 (%). Libellés propres au visuel : « Budget de CA net », « Clients actifs », « Évolution sur un an », « Écart au budget » | La croissance vient-elle de plus de clients, de commandes plus fréquentes ou de paniers plus gros ? |
+| D6 | principal | lineChart | Axe : Date[Mois] ; valeurs : CA net (trait de 3 px), CA net N-1 (2 px), CA net budget (pointillés fins) ; axe en millions ; titre : [Titre tendance CA] | Quand la croissance se produit-elle, et suit-elle le budget ? |
 | D7 | secondaire | clusteredBarChart (horizontal) | Axe : Famille[Famille] ; valeur : CA net écart N-1 ; tri décroissant ; titre : [Titre écart par famille] | Quelles familles apportent la croissance ? |
 | D8 | bas_gauche | clusteredBarChart | Région[Région] ; CA net écart N-1 ; tri décroissant ; titre : [Titre écart par région] | Quelles régions apportent la croissance ? |
-| D9 | bas_centre | clusteredBarChart | Client[Segment] ; CA net écart N-1 ; tri décroissant ; titre : [Titre écart par segment] | Quels types de clients apportent la croissance ? |
+| D9 | bas_centre | clusteredBarChart | 'Statut client'[Statut], trié par Ordre ; CA net écart N-1 par statut ; titre : [Titre écart par statut client] | La croissance vient-elle des clients existants, des nouveaux clients, malgré les clients perdus ? |
 | D10 | bas_droite | clusteredBarChart | Famille[Famille] ; CA net écart budget ; tri décroissant ; titre : [Titre écart budget par famille] | Quelles familles tiennent leur budget ? |
 
-Infobulles : D7 à D9 ajoutent CA net, CA net N-1 et CA net évol. N-1 (%) ; D10 ajoute CA net budget et CA net écart budget (%).
+Infobulles : D7 et D8 ajoutent CA net, CA net N-1 et CA net évol. N-1 (%) ; D10 ajoute CA net budget et CA net écart budget (%). L'axe des catégories réserve jusqu'à 30 à 40 % de la largeur du visuel aux libellés (`maxMarginFactor`), pour que les noms de famille ne soient pas tronqués.
 
-Les deux bandes de KPI affichent l'évolution de chaque indicateur juste sous sa valeur, dans la même carte. Les étiquettes de référence de la carte n'ont pas été retenues : leur encodage PBIR n'est pas documenté de façon vérifiable sans Desktop. Une valeur vide s'affiche « n.d. ».
+Les deux bandes de KPI affichent l'évolution de chaque indicateur juste sous sa valeur, dans la même carte. Les étiquettes de référence de la carte n'ont pas été retenues : leur encodage PBIR n'est pas documenté de façon vérifiable sans Desktop. Dans une carte à plusieurs valeurs, la police et la couleur s'appliquent à toutes les valeurs : les évolutions ne peuvent pas être colorées une à une, seul le signe les distingue. Valeurs en 12 pt, libellés en 9 pt, marges intérieures de 2 px et aucun espace entre les rangées : deux rangées tiennent dans 96 px. Une valeur vide s'affiche « n.d. ».
 
 ### Page 2 : « Marge » (où part la marge)
 
 | Id | Zone | Type | Champs | Question métier |
 |---|---|---|---|---|
-| M1 | titre | cardVisual (valeur unique, 14 pt semi-gras) | [Titre Marge] | La marge suit-elle le chiffre d'affaires ? |
-| M2 | synthese | cardVisual (valeur unique, 10 pt) | [Synthèse Marge] | Qu'est-ce qui fait perdre de la marge ? |
+| M1 | titre | cardVisual (valeur unique, 14 pt, police semi-grasse du thème) | [Titre Marge] | La marge suit-elle le chiffre d'affaires ? |
+| M2 | synthese | cardVisual (valeur unique, 10 pt) | [Synthèse Marge] | Combien de marge rapporte le chiffre d'affaires supplémentaire ? |
 | M3, M4 | filtres | slicers | Identiques à D3 et D4, synchronisés | |
 | M5 | kpis | cardVisual, 10 valeurs sur 2 rangées de 5 | Première rangée : Marge commerciale · Marge commerciale (% CA) · Taux de remise (%) · Transport (% CA) · Marge contributive. Seconde rangée : Marge commerciale évol. N-1 (%) · Marge commerciale écart N-1 (pts) · Taux de remise écart N-1 (pts) · Transport écart N-1 (pts) · Marge contributive évol. N-1 (%) | Où se situe la perte : prix, remises, coûts, transport ? |
-| M6 | principal | waterfallChart | Catégorie : 'Étape du pont'[Étape], triée par 'Étape du pont'[Ordre] (jamais par valeur) ; valeur : [Pont de marge] ; total automatique = marge N ; titre : [Titre pont de marge] | Pourquoi la marge a-t-elle changé depuis N-1 ? |
-| M7 | secondaire | clusteredBarChart | Commercial[Commercial] ; Taux de remise écart N-1 (pts) ; tri décroissant ; infobulles : Taux de remise (%), Taux de remise N-1 (%) ; titre : [Titre remises par commercial] | Qui accorde plus de remises qu'avant ? |
-| M8 | bas_gauche | clusteredBarChart | Famille[Famille] ; Marge commerciale écart N-1 (pts) ; tri croissant ; titre : [Titre marge par famille] | Quelle famille perd du taux de marge ? |
-| M9 | bas_centre | tableEx | Client[Client], CA net, Marge contributive, Marge contributive (% CA) ; filtre de visuel : Marge contributive < 0 ; tri croissant sur la marge ; titre : [Titre clients déficitaires] | Quels clients coûtent plus qu'ils ne rapportent ? |
-| M10 | bas_droite | tableEx | Produit[Produit], CA net, Marge commerciale, Marge commerciale (% CA) ; filtre de visuel : Marge commerciale < 0 ; tri croissant ; titre : [Titre produits déficitaires] | Quels produits sont vendus à perte ? |
+| M6 | principal | waterfallChart | Catégorie : 'Étape du pont'[Étape], triée par 'Étape du pont'[Ordre] (jamais par valeur) ; valeur : [Pont de marge] ; total = écart de marge commerciale avec N-1 ; titre : [Titre pont de marge] | Pourquoi la marge a-t-elle changé depuis N-1 ? |
+| M7 | secondaire | clusteredBarChart | Commercial[Commercial] ; Taux de remise écart N-1 (pts) ; tri décroissant ; rouge au-delà de +1 point, bleu en deçà de -1 point, gris entre les deux ; infobulles : Taux de remise (%), Taux de remise N-1 (%) ; titre : [Titre remises par commercial] | Qui accorde plus de remises qu'avant ? |
+| M8 | bas_gauche | clusteredBarChart | Famille[Famille] ; Marge commerciale écart N-1 (pts) ; tri croissant ; même règle de couleur à ±1 point ; titre : [Titre marge par famille] | Quelle famille perd du taux de marge ? |
+| M9 | bas_centre | tableEx | Client[Client], Commercial[Commercial], Marge contributive écart N-1 (« Écart de marge »), Taux de remise écart N-1 (pts) (« Écart de remise ») ; filtre de visuel : Rang client en recul de marge ≤ 6 ; tri croissant sur l'écart ; sans ligne de total ; titre : [Titre clients en recul] | Quels clients rapportent beaucoup moins qu'un an plus tôt, et pourquoi ? |
+| M10 | bas_droite | tableEx | Produit[Produit], CA net, Marge commerciale (« Marge »), Marge commerciale (% CA) (« Taux de marge ») ; filtre de visuel : Rang produit sous le coût ≤ 6 ; tri croissant ; sans ligne de total ; titre : [Titre produits déficitaires] | Quels produits sont vendus à perte ? |
 
-La cascade M6 affiche : Marge N-1, Volume, Mix, Prix catalogue, Remises, Coût d'achat, puis la barre de total. Le total automatique égale la marge N, ce que garantit le test de bouclage. Le format PBIR du graphique en cascade n'offre aucune propriété pour renommer la barre de total : son libellé « Total » et la couleur de la première barre (traitée comme une hausse) restent à contrôler dans Desktop.
+La cascade M6 affiche : Volume, Mix, Prix catalogue, Remises, Coût d'achat, puis la barre de total, égale à l'écart de marge commerciale (le test de bouclage le garantit). Le format PBIR du graphique en cascade n'offre aucune propriété pour renommer la barre de total : son libellé « Total » reste à contrôler dans Desktop.
+
+Les tableaux M9 et M10 se limitent à six lignes, par un filtre de visuel sur une mesure de rang : un tableau de 208 px de haut n'affiche pas davantage de lignes sans barre de défilement. Le filtre « N premiers » natif ne convient pas : dans le format PBIR, il ne peut trier que sur une agrégation de colonne, pas sur une mesure.
 
 ### Thème « Arvenor sobre »
 
@@ -594,13 +610,13 @@ Une seule couleur d'accent ; le rouge est réservé au défavorable ; le reste e
 | Alerte | `#B42318` | 6,57 | Écarts défavorables uniquement, baisses de la cascade |
 | Texte principal | `#252423` | 15,49 | Titres, valeurs, étiquettes de données, ligne de budget (pointillés) |
 | Texte secondaire | `#605E5C` | 6,46 | Libellés d'axe, barre de total de la cascade |
-| Gris N-1 | `#8A8886` | 3,53 | Série de l'année N-1 |
+| Gris N-1 | `#8A8886` | 3,53 | Série de l'année N-1, écarts de moins d'un point |
 | Quadrillage | `#E1DFDD` | | Quadrillage, séparateurs |
 | Fond de page | `#F3F2F1` | | Fond du canevas |
 
 - **Sémantique favorable / défavorable** : une hausse de CA ou de taux de marge est favorable (accent), une hausse du taux de remise ou du transport est défavorable (alerte). La couleur double toujours une information déjà portée par le signe et la position de la barre ; pas de vert, ce qui évite la confusion rouge-vert.
 - `dataColors` : `#1F4E79`, `#8A8886`, `#252423`, `#B42318`, `#6F93B8`, `#C9D8E8`, `#605E5C`, `#E1DFDD`. Sentiments : good `#1F4E79`, neutral `#605E5C`, bad `#B42318`.
-- Typographie Segoe UI : titre de page 14 pt semi-gras ; titres de visuel 11 pt semi-gras ; valeurs des cartes 20 pt ; libellés de carte 9 pt ; axes et étiquettes 9 pt.
+- Typographie Segoe UI : titre de page 14 pt et titres de visuel 11 pt, dans la police semi-grasse du thème, sans gras ajouté ; synthèses 10 pt ; valeurs des cartes KPI 12 pt (deux rangées dans 96 px) ; libellés de carte 9 pt ; axes et étiquettes 9 pt.
 - Règles de mise en forme : barres partant de zéro ; montants signés dans les écarts ; k€ dans les barres, M€ dans les cartes, € dans les tableaux ; aucune 3D, aucun camembert, aucune jauge ; étiquettes de données en `#252423` ; quadrillage horizontal seulement sur les courbes.
 
 ## 6. Plan de contrôle
@@ -617,7 +633,7 @@ Chaque mesure affichée sur les deux pages est calculée en pandas, indépendamm
 | 2025 famille Visserie et fixations | Année 2025, Famille Visserie et fixations | Hausse des coûts d'achat |
 | Février 2025 | Année 2025, Numéro mois 2 | Comparaison avec février 2024, mois de 29 jours |
 
-S'y ajoutent, pour le cas 2025 total, les valeurs par catégorie de chaque graphique : par mois (CA net, CA net N-1, CA net budget), par famille, par région et par segment (écart N-1), par famille (écart au budget, écart de taux de marge), par commercial (écart de taux de remise).
+S'y ajoutent, pour le cas 2025 total, les valeurs par catégorie de chaque graphique : par mois (CA net, CA net N-1, CA net budget), par famille et par région (écart N-1), par statut client (écart N-1 par statut), par famille (écart au budget, écart de taux de marge), par commercial (écart de taux de remise), par étape du pont, et le rang et l'écart des six clients et des six produits affichés par les tableaux.
 
 Tolérances : 1 € sur les montants, 0,05 point sur les taux, égalité exacte sur les nombres entiers et sur les textes après normalisation des espaces.
 
@@ -651,7 +667,7 @@ Tolérances : 1 € sur les montants, 0,05 point sur les taux, égalité exacte 
 
 ### Contrôles dans Power BI Desktop
 
-La procédure pas à pas est dans `docs/test-windows.md` : mise à jour de Desktop, ouverture et actualisation, requête de validation (« 0 KO » attendu), parcours des deux pages, test des deux comptes RLS, enregistrement et commit. Points qui ne se vérifient que dans Desktop : rendu des visuels, lisibilité des titres longs, libellé « Total » et couleur de la première barre de la cascade, comportement des segments synchronisés, volet de filtres masqué en lecture, RLS.
+La procédure pas à pas est dans `docs/test-windows.md` : mise à jour de Desktop, ouverture et actualisation, requête de validation (« 0 KO » attendu), parcours des deux pages, test des deux comptes RLS, enregistrement et commit. Points qui ne se vérifient que dans Desktop : rendu des visuels, lisibilité des titres longs, libellé « Total » de la cascade, absence de barre de défilement dans les tableaux, comportement des segments synchronisés, volet de filtres masqué en lecture, RLS.
 
 ## Annexe : contrat de mise en page
 
@@ -711,7 +727,7 @@ Design Brief:
             region: synthese
             kind: cardVisual
             text: "[Synthèse Direction]"
-            insight_basis: "Meilleures contributions à l'écart N-1 et décomposition clients, fréquence, panier."
+            insight_basis: "Plus faibles contributions à l'écart N-1 par famille et par région, nouveaux clients et clients perdus."
           - id: annee
             region: filtres
             kind: slicer
@@ -728,7 +744,7 @@ Design Brief:
             region: kpis
             kind: cardVisual
             purpose: "La croissance vient-elle de plus de clients, de commandes plus fréquentes ou de paniers plus gros ?"
-            field_bindings: ["Mesures[CA net]", "Mesures[CA net écart budget (%)]", "Mesures[# Clients actifs]", "Mesures[Commandes par client]", "Mesures[Panier moyen]", "Mesures[CA net évol. N-1 (%)]", "Mesures[CA net budget]", "Mesures[# Clients actifs évol. N-1 (%)]", "Mesures[Commandes par client évol. N-1 (%)]", "Mesures[Panier moyen évol. N-1 (%)]"]
+            field_bindings: ["Mesures[CA net]", "Mesures[CA net budget]", "Mesures[# Clients actifs]", "Mesures[Commandes par client]", "Mesures[Panier moyen]", "Mesures[CA net évol. N-1 (%)]", "Mesures[CA net écart budget (%)]", "Mesures[# Clients actifs évol. N-1 (%)]", "Mesures[Commandes par client évol. N-1 (%)]", "Mesures[Panier moyen évol. N-1 (%)]"]
             comparison_basis: "N-1 pour quatre cartes, budget pour la deuxième"
             color_strategy: measure_match
           - id: tendance
@@ -751,12 +767,12 @@ Design Brief:
             field_bindings: { Category: "Région[Région]", X: "Mesures[CA net écart N-1]" }
             sort_policy: value_desc
             color_strategy: semantic
-          - id: ecart_segment
+          - id: ecart_statut
             region: bas_centre
             kind: clusteredBarChart
-            purpose: "Quels types de clients apportent la croissance ?"
-            field_bindings: { Category: "Client[Segment]", X: "Mesures[CA net écart N-1]" }
-            sort_policy: value_desc
+            purpose: "La croissance vient-elle des clients existants, des nouveaux clients, malgré les clients perdus ?"
+            field_bindings: { Category: "Statut client[Statut]", X: "Mesures[CA net écart N-1 par statut]" }
+            sort_policy: category_asc
             color_strategy: semantic
           - id: ecart_budget
             region: bas_droite
@@ -780,7 +796,7 @@ Design Brief:
       variant_rationale: "Même grille que la Vue Direction pour une lecture identique ; le pont de marge prend la zone principale."
       navigation: []
       page_background: "#F3F2F1"
-      layout_summary: "Titre et synthèse dynamiques, bande de cinq KPI de marge, pont N-1 vers N et remises par commercial, puis marge par famille et listes des clients et produits déficitaires."
+      layout_summary: "Titre et synthèse dynamiques, bande de cinq KPI de marge, pont N-1 vers N et remises par commercial, puis marge par famille, clients en plus fort recul de marge et produits vendus à perte."
       layout_contract:
         canvas: { width: 1280, height: 720, margin: 24, margin_vertical: 32, gutter: 16, snap: 8 }
         grid:
@@ -806,7 +822,7 @@ Design Brief:
             region: synthese
             kind: cardVisual
             text: "[Synthèse Marge]"
-            insight_basis: "Effet le plus défavorable du pont, écart au budget de marge, nombre de clients et de produits déficitaires."
+            insight_basis: "Écarts de CA net et de marge commerciale sur un an, marge sur le CA supplémentaire, écart au budget de marge."
           - id: annee
             region: filtres
             kind: slicer
@@ -848,20 +864,20 @@ Design Brief:
             field_bindings: { Category: "Famille[Famille]", X: "Mesures[Marge commerciale écart N-1 (pts)]" }
             sort_policy: value_asc
             color_strategy: semantic
-          - id: clients_deficitaires
+          - id: clients_en_recul
             region: bas_centre
             kind: tableEx
-            purpose: "Quels clients coûtent plus qu'ils ne rapportent ?"
-            field_bindings: ["Client[Client]", "Mesures[CA net]", "Mesures[Marge contributive]", "Mesures[Marge contributive (% CA)]"]
+            purpose: "Quels clients rapportent beaucoup moins qu'un an plus tôt, et pourquoi ?"
+            field_bindings: ["Client[Client]", "Commercial[Commercial]", "Mesures[Marge contributive écart N-1]", "Mesures[Taux de remise écart N-1 (pts)]"]
             sort_policy: value_asc
-            insight_basis: "Filtre de visuel : marge contributive négative"
+            insight_basis: "Filtre de visuel : rang de recul de marge contributive ≤ 6"
           - id: produits_deficitaires
             region: bas_droite
             kind: tableEx
             purpose: "Quels produits sont vendus à perte ?"
             field_bindings: ["Produit[Produit]", "Mesures[CA net]", "Mesures[Marge commerciale]", "Mesures[Marge commerciale (% CA)]"]
             sort_policy: value_asc
-            insight_basis: "Filtre de visuel : marge commerciale négative"
+            insight_basis: "Filtre de visuel : rang parmi les produits à marge négative ≤ 6"
         space_audit:
           content_cell_count: 120
           placed_cell_count: 120
@@ -871,7 +887,7 @@ Design Brief:
           balance_rationale: "Le pont de marge est la preuve principale ; les remises par commercial l'expliquent à côté ; la dernière rangée descend au détail, famille puis clients puis produits."
   interaction_pattern:
     drill_targets: []
-    cross_filter_rules: "Filtrer entre visuels de données ; cascade : aucune interaction sortante ; segments clients vers écart au budget : aucune"
+    cross_filter_rules: "Filtrer entre visuels de données ; cascade et statut client : aucune interaction sortante"
   accessibility:
     alt_text_strategy: "Même mesure texte que le titre du visuel"
     contrast_notes: "Accent 8,66:1, alerte 6,57:1, gris N-1 3,53:1 sur blanc ; la couleur double toujours le signe de la valeur"

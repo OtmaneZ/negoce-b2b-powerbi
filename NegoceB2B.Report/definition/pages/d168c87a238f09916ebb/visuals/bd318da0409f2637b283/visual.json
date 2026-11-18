@@ -167,7 +167,7 @@
             "strokeWidth": {
               "expr": {
                 "Literal": {
-                  "Value": "2D"
+                  "Value": "3D"
                 }
               }
             }
@@ -202,14 +202,14 @@
             "lineStyle": {
               "expr": {
                 "Literal": {
-                  "Value": "'dashed'"
+                  "Value": "'dotted'"
                 }
               }
             },
             "strokeWidth": {
               "expr": {
                 "Literal": {
-                  "Value": "2D"
+                  "Value": "1D"
                 }
               }
             }
@@ -272,7 +272,14 @@
             "labelDisplayUnits": {
               "expr": {
                 "Literal": {
-                  "Value": "1000D"
+                  "Value": "1000000D"
+                }
+              }
+            },
+            "labelPrecision": {
+              "expr": {
+                "Literal": {
+                  "Value": "1L"
                 }
               }
             },
@@ -489,7 +496,7 @@
             "bold": {
               "expr": {
                 "Literal": {
-                  "Value": "true"
+                  "Value": "false"
                 }
               }
             },

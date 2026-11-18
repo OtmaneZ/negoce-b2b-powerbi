@@ -31,7 +31,8 @@ Six étapes, à suivre dans l'ordre. Pour chacune : ce qui doit s'afficher, et c
 | Région | 5 |
 | Accès régional | 15 |
 | Date | 731 |
-| Étape du pont | 6 |
+| Étape du pont | 5 |
+| Statut client | 3 |
 
 **À relever sinon** : le texte exact du message d'erreur (ou une capture), l'étape où il apparaît (ouverture, paramètre, actualisation) et la table concernée.
 
@@ -42,7 +43,7 @@ Six étapes, à suivre dans l'ordre. Pour chacune : ce qui doit s'afficher, et c
 
 **Résultat attendu** : deux résultats.
 
-- Le premier affiche **Contrôles = 409** et **KO = 0**.
+- Le premier affiche **Contrôles = 466** et **KO = 0**.
 - Le second détaille chaque contrôle (colonnes Cas, Mesure, Attendu, Obtenu, Écart, Statut), lignes KO en premier.
 
 **À relever sinon** : si la requête échoue, le message d'erreur complet ; si KO est supérieur à 0, toutes les lignes KO du second résultat (bouton de copie du tableau de résultats).
@@ -53,21 +54,23 @@ Sur chaque page, le segment Année est sur 2025 et le segment Région sur « Tou
 
 **Résultat attendu, page Vue Direction** :
 
-- Titre : « Vue Direction · En 2025, le CA net progresse de 8,3 % sur un an et dépasse le budget de 0,9 % ».
-- Synthèse : « Meilleure contribution : famille Équipements de protection (+778 k€), région Rhône-Alpes (+699 k€). Clients actifs +2,2 %, commandes par client +5,0 %, panier moyen +0,9 %. Données fictives. »
-- Bande de KPI sur deux rangées : les cinq indicateurs en haut, leur évolution ou le budget juste en dessous.
-- Courbe mensuelle titrée « CA net mensuel : au-dessus de 2024 sur 10 mois sur 12 », avec trois séries (2025 en bleu, 2024 en gris, budget en pointillés).
-- Quatre graphiques en barres : barres bleues pour les hausses, rouges pour les baisses ; titres lisibles en entier.
+- Titre : « En 2025, le CA net progresse de 8,3 % sur un an et dépasse le budget de 0,9 % ».
+- Synthèse : « Plus faible contribution : famille Outillage à main (-125 k€), région Nord-Est (-215 k€). 63 nouveaux clients, 45 clients perdus. Données fictives. »
+- Bande de KPI sur deux rangées : les cinq indicateurs en haut (CA net et budget en M€, par exemple « 22,6 M€ »), leur évolution sur un an ou l'écart au budget juste en dessous ; aucune valeur rognée en bas de la carte.
+- Courbe mensuelle titrée « CA net mensuel : au-dessus de 2024 sur 10 mois sur 12 », avec trois séries (2025 en bleu épais, 2024 en gris, budget en pointillés fins) et un axe en millions.
+- Quatre graphiques en barres : barres bleues pour les hausses, rouges pour les baisses ; titres sur une ligne ; noms de famille entiers, sans « … ». Le graphique du bas au centre est titré « Par statut : clients existants en tête (+1 617 k€) » et montre, dans cet ordre, Clients existants, Nouveaux clients et Clients perdus.
 
 **Résultat attendu, page Marge** :
 
-- Titre : « Marge · En 2025, la marge commerciale progresse de 2,6 % et représente 31,4 % du CA net (-1,7 pts) ».
-- Synthèse : « Principal frein : coût d'achat (-504 k€). Marge commerciale 4,0 % sous le budget. 12 clients à marge contributive négative, 8 produits vendus sous leur coût. Données fictives. »
-- Graphique en cascade titré « Pont de marge 2024 → 2025 : l'effet coût d'achat pèse le plus (-504 k€) », dans l'ordre Marge N-1, Volume, Mix, Prix catalogue, Remises, Coût d'achat, puis la barre de total.
-- Barres des commerciaux titrées « Damien Revol : taux de remise de 10,9 % à 19,2 % (+8,3 pts) ».
-- Tableau de 12 clients et tableau de 8 produits, triés par marge croissante.
+- Titre : « En 2025, la marge commerciale progresse de 2,6 % et représente 31,4 % du CA net (-1,7 pts) ».
+- Synthèse : « Sur un an : CA net +1 727 k€, marge commerciale +181 k€, soit une marge de 10,5 % sur le CA supplémentaire. Marge commerciale 4,0 % sous le budget. Données fictives. »
+- Graphique en cascade titré « Pont de marge 2024 → 2025 : l'effet coût d'achat pèse le plus (-504 k€) », dans l'ordre Volume, Mix, Prix catalogue, Remises, Coût d'achat, puis la barre de total (+181 k€, l'écart de marge sur un an).
+- Barres des commerciaux titrées « Damien Revol : taux de remise de 10,9 % à 19,2 % (+8,3 pts) » : la barre de Damien Revol est rouge, les neuf autres, inférieures à un point, sont grises.
+- Tableau titré « Clients en plus fort recul de marge contributive » : six clients avec leur commercial, de Falarin Hydraulique (-19 119 €) à Duretec Énergie (-12 525 €) ; les deux premiers, chez Damien Revol, ont un écart de remise de plus de 25 points.
+- Tableau titré « 8 produits vendus à perte (-40 k€) : les 6 plus lourds » : six produits, de Pince universelle 180 mm (-7 588 €) à Niveau à bulle 80 cm (-3 766 €).
+- Aucun des deux tableaux n'a de barre de défilement ni de ligne de total.
 
-**Points à observer en particulier** : libellé de la barre de total de la cascade (« Total » par défaut) et couleur de sa première barre ; titres et synthèses affichés en entier, sans coupure ; volet Filtres signalé comme masqué en lecture (icône en forme d'œil barré à côté de son titre) ; aucun visuel en erreur.
+**Points à observer en particulier** : libellé de la barre de total de la cascade (« Total » par défaut) ; titres et synthèses affichés en entier, sans coupure ; volet Filtres signalé comme masqué en lecture (icône en forme d'œil barré à côté de son titre) ; aucun visuel en erreur.
 
 **À relever sinon** : une capture de chaque page et, pour chaque visuel en erreur, le message affiché par « Afficher les détails ».
 
@@ -77,7 +80,7 @@ Modélisation > Afficher en tant que : cocher **Autre utilisateur**, saisir l'ad
 
 | Adresse | Résultat attendu |
 |---|---|
-| `damien.revol@example.com` | Le segment Région ne propose que Sud. Titre de la Vue Direction : « Vue Direction · En 2025, le CA net progresse de 9,9 % sur un an et dépasse le budget de 2,2 % ». |
+| `damien.revol@example.com` | Le segment Région ne propose que Sud. Titre de la Vue Direction : « En 2025, le CA net progresse de 9,9 % sur un an et dépasse le budget de 2,2 % ». |
 | `direction.commerciale@example.com` | Les cinq régions sont visibles. Titre de la Vue Direction identique à celui de l'étape 4. |
 
 Revenir ensuite à l'affichage normal (Arrêter l'affichage).

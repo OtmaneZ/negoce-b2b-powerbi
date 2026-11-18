@@ -53,13 +53,16 @@ def test_tableau_attendu_du_readme(cas, mesure, valeur, obtenue):
 def test_chiffres_cles_du_readme():
     textes = ev.Moteur().textes(ev.Contexte(annee=2025))
     for fragment in (
-        "Meilleure contribution : famille Équipements de protection (+778 k€), "
-        "région Rhône-Alpes (+699 k€)",
+        "Par famille : Équipements de protection en tête (+778 k€)",
+        "Par région : Rhône-Alpes en tête (+699 k€)",
+        "Par statut : clients existants en tête (+1 617 k€)",
+        "63 nouveaux clients, 45 clients perdus",
+        "soit une marge de 10,5 % sur le CA supplémentaire",
+        "8 produits vendus à perte (-40 k€)",
         "taux de remise de 10,9 % à 19,2 %",
         "l'effet coût d'achat pèse le plus (-504 k€)",
         "progresse de 8,3 % sur un an et dépasse le budget de 0,9 %",
         "progresse de 2,6 % et représente 31,4 % du CA net (-1,7 pts)",
-        "12 clients à marge contributive négative, 8 produits vendus sous leur coût",
     ):
         assert any(fragment in texte for texte in textes.values()), fragment
     for fragment in (
@@ -72,12 +75,28 @@ def test_chiffres_cles_du_readme():
         "2,6 %",
         "31,4 %",
         "-1,7 pts",
-        "12 clients",
+        "+1 617 k€",
+        "63 nouveaux clients +806 k€",
+        "45 clients perdus en retirent 696 k€",
+        "10,5 % de marge",
         "8 produits",
+        "-40 k€",
         "-204 k€",
     ):
         assert fragment in README, fragment
     assert ev.milliers(attendu("2025 total", "Effet remises")[0]) == "-204 k€"
+    moteur = ev.Moteur()
+    statuts = [
+        ev.milliers(
+            moteur.mesure(ev.Contexte(annee=2025, statut=ordre), "CA net écart N-1 par statut")
+        )
+        for ordre in ev.STATUTS
+    ]
+    assert statuts == ["+1 617 k€", "+806 k€", "-696 k€"]
+    revol = ev.Contexte(annee=2025, commercial="Damien Revol")
+    premiers = moteur.ecarts_clients_actifs(ev.Contexte(annee=2025)).index[:2]
+    for client in premiers:
+        assert moteur.lignes(revol.avec(client=client)).index.size > 0, client
 
 
 def test_comptes_du_modele_dans_le_readme():
@@ -131,7 +150,8 @@ def test_lignes_par_table_de_la_procedure():
         lignes = len(pd.read_csv(RACINE / "data" / f"{fichier}.csv"))
         assert f"| {table} | {ev.format_fr(lignes, '#,0')} |" in TEST_WINDOWS, table
     assert "| Date | 731 |" in TEST_WINDOWS
-    assert "| Étape du pont | 6 |" in TEST_WINDOWS
+    assert "| Étape du pont | 5 |" in TEST_WINDOWS
+    assert "| Statut client | 3 |" in TEST_WINDOWS
 
 
 def test_textes_cites_par_la_procedure():
@@ -146,6 +166,9 @@ def test_textes_cites_par_la_procedure():
         total["Synthèse Marge"],
         total["Titre pont de marge"],
         total["Titre remises par commercial"],
+        total["Titre écart par statut client"],
+        total["Titre clients en recul"],
+        total["Titre produits déficitaires"],
         sud["Titre Direction"],
     ):
         assert f"« {texte} »" in TEST_WINDOWS, texte

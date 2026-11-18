@@ -14,8 +14,8 @@ Arvenor est une PME fictive de négoce B2B : visserie, outillage, abrasifs, équ
 
 Valeurs de l'exercice 2025, calculées par `scripts/expected_values.py` :
 
-- **D'où vient la croissance ?** Le CA net progresse de 8,3 % sur un an et dépasse le budget de 0,9 %. La plus forte hausse vient de la famille Équipements de protection (+778 k€) et de la région Rhône-Alpes (+699 k€) ; le nombre de clients actifs progresse de 2,2 %, les commandes par client de 5,0 %, le panier moyen de 0,9 %.
-- **Où part la marge ?** La marge commerciale ne progresse que de 2,6 % : son taux tombe à 31,4 % du CA net (-1,7 pts). Le pont de marge l'explique : hausse des coûts d'achat (-504 k€, surtout la visserie) et remises (-204 k€), avec un commercial dont le taux de remise passe de 10,9 % à 19,2 %. 12 clients ont une marge contributive négative et 8 produits sont vendus sous leur coût.
+- **D'où vient la croissance ?** Le CA net progresse de 8,3 % sur un an et dépasse le budget de 0,9 %. La plus forte hausse vient de la famille Équipements de protection (+778 k€) et de la région Rhône-Alpes (+699 k€). Les clients existants apportent +1 617 k€ et les 63 nouveaux clients +806 k€ ; les 45 clients perdus en retirent 696 k€. Les commandes par client progressent de 5,0 %, le panier moyen de 0,9 %.
+- **Où part la marge ?** La marge commerciale ne progresse que de 2,6 % : son taux tombe à 31,4 % du CA net (-1,7 pts). Le pont de marge l'explique : hausse des coûts d'achat (-504 k€, surtout la visserie) et remises (-204 k€), avec un commercial dont le taux de remise passe de 10,9 % à 19,2 %. Le CA supplémentaire ne rapporte que 10,5 % de marge, contre 31,4 % en moyenne. Les deux clients dont la marge contributive recule le plus sont suivis par ce commercial, et 8 produits sont vendus à perte (-40 k€).
 
 ## Captures
 
@@ -29,12 +29,12 @@ Deux pages de 1280 × 720 sur la même grille de 12 colonnes et 12 lignes. Les t
 
 | Page | Question | Visuels |
 |---|---|---|
-| Vue Direction | D'où vient la croissance ? | Titre et synthèse calculés, segments Année et Région, bande de KPI (CA net, écart au budget, clients actifs, commandes par client, panier moyen, avec leur évolution), CA net mensuel comparé à N-1 et au budget, écarts de CA par famille, région et segment, écart au budget par famille |
-| Marge | Où part la marge ? | Titre et synthèse calculés, segments, bande de KPI (marge commerciale, taux de marge, taux de remise, transport, marge contributive, avec leur évolution), pont de marge N-1 → N en cascade, écart de taux de remise par commercial, écart de taux de marge par famille, clients à marge contributive négative, produits vendus sous leur coût |
+| Vue Direction | D'où vient la croissance ? | Titre et synthèse calculés, segments Année et Région, bande de KPI (CA net, écart au budget, clients actifs, commandes par client, panier moyen, avec leur évolution), CA net mensuel comparé à N-1 et au budget, écarts de CA par famille, par région et par statut client (existants, nouveaux, perdus), écart au budget par famille |
+| Marge | Où part la marge ? | Titre et synthèse calculés, segments, bande de KPI (marge commerciale, taux de marge, taux de remise, transport, marge contributive, avec leur évolution), pont de marge N-1 → N en cascade (cinq effets), écart de taux de remise par commercial, écart de taux de marge par famille, six clients en plus fort recul de marge, six produits vendus avec la plus forte perte |
 
 ## Modèle
 
-Modèle en étoile en mode Import, 11 tables : 2 tables de faits, 6 dimensions, 3 tables utilitaires (Mesures, Accès régional pour la sécurité, Étape du pont pour la cascade). 9 relations, toutes un-à-plusieurs et à sens unique. Famille et Région sont des dimensions partagées par les ventes et le budget, qui est défini par mois, famille et région.
+Modèle en étoile en mode Import, 12 tables : 2 tables de faits, 6 dimensions, 4 tables utilitaires (Mesures, Accès régional pour la sécurité, Étape du pont pour la cascade, Statut client pour l'écart par statut). 9 relations, toutes un-à-plusieurs et à sens unique. Famille et Région sont des dimensions partagées par les ventes et le budget, qui est défini par mois, famille et région.
 
 ```mermaid
 erDiagram
@@ -53,7 +53,7 @@ Sécurité au niveau des lignes : le rôle Commercial ne laisse voir que les ré
 
 ## Mesures
 
-66 mesures dans la table Mesures, 62 visibles et 4 masquées, rangées en 6 dossiers : chiffre d'affaires (9), marge (9), comparaison N-1 (19), budget (5), pont de marge (10), textes (14). Chaque mesure a une description, un dossier et, hors mesures texte, un format. Dictionnaire complet, avec le DAX de chaque mesure : [docs/mesures.md](docs/mesures.md).
+73 mesures dans la table Mesures, 67 visibles et 6 masquées, rangées en 6 dossiers : chiffre d'affaires (9), marge (11), comparaison N-1 (24), budget (5), pont de marge (10), textes (14). Chaque mesure a une description, un dossier et, hors mesures texte, un format. Dictionnaire complet, avec le DAX de chaque mesure : [docs/mesures.md](docs/mesures.md).
 
 | Mesure | Définition | Format |
 |---|---|---|
@@ -64,11 +64,11 @@ Sécurité au niveau des lignes : le rôle Commercial ne laisse voir que les ré
 | Effet volume | Marge N-1 × (CA net N au prix N-1 / CA net N-1 - 1) : le volume se mesure à prix constants | `+#,0 €;-#,0 €;0 €` |
 | Titre Direction | Titre de la Vue Direction : évolution du CA net sur un an et position par rapport au budget | texte |
 
-Le pont de marge décompose l'écart de marge commerciale entre N-1 et N en cinq effets, produit par produit : volume, mix, prix catalogue, remises et coût d'achat. Leur somme boucle exactement sur la marge N, ce que vérifient un test et la requête de validation.
+Le pont de marge décompose l'écart de marge commerciale entre N-1 et N en cinq effets, produit par produit : volume, mix, prix catalogue, remises et coût d'achat. Leur somme égale exactement l'écart de marge, total de la cascade, ce que vérifient un test et la requête de validation.
 
 ## Valeurs attendues et obtenues
 
-Les valeurs attendues sont calculées en pandas, indépendamment du DAX, par `scripts/expected_values.py` (fichiers `tests/expected/*.json`). La colonne « Obtenue » se remplit avec Power BI Desktop ; la requête `tests/validation.dax` compare les 409 valeurs d'un coup.
+Les valeurs attendues sont calculées en pandas, indépendamment du DAX, par `scripts/expected_values.py` (fichiers `tests/expected/*.json`). La colonne « Obtenue » se remplit avec Power BI Desktop ; la requête `tests/validation.dax` compare les 466 valeurs d'un coup.
 
 | Cas | Mesure | Attendue | Obtenue |
 |---|---|---|---|
@@ -85,6 +85,10 @@ Les valeurs attendues sont calculées en pandas, indépendamment du DAX, par `sc
 | 2025 total | Effet coût d'achat | -504 061 € | |
 | 2025 total | # Clients à marge négative | 12 | |
 | 2025 total | # Produits sous le coût | 8 | |
+| 2025 total | # Nouveaux clients | 63 | |
+| 2025 total | Pont de marge | 180 945 € | |
+| 2025 total | # Nouveaux clients | 63 | |
+| 2025 total | Pont de marge | 180 945 € | |
 | 2024 total | CA net | 20 910 166 € | |
 | 2024 total | CA net évol. N-1 (%) | (vide) | |
 | 2025 région Sud | Taux de remise (%) | 16,0 % | |

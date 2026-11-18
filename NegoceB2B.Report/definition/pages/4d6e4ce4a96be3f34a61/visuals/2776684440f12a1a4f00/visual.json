@@ -31,17 +31,17 @@
             },
             {
               "field": {
-                "Measure": {
+                "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Mesures"
+                      "Entity": "Commercial"
                     }
                   },
-                  "Property": "CA net"
+                  "Property": "Commercial"
                 }
               },
-              "queryRef": "Mesures.CA net",
-              "nativeQueryRef": "CA net"
+              "queryRef": "Commercial.Commercial",
+              "nativeQueryRef": "Commercial"
             },
             {
               "field": {
@@ -51,11 +51,12 @@
                       "Entity": "Mesures"
                     }
                   },
-                  "Property": "Marge contributive"
+                  "Property": "Marge contributive écart N-1"
                 }
               },
-              "queryRef": "Mesures.Marge contributive",
-              "nativeQueryRef": "Marge contributive"
+              "queryRef": "Mesures.Marge contributive écart N-1",
+              "nativeQueryRef": "Marge contributive écart N-1",
+              "displayName": "Écart de marge"
             },
             {
               "field": {
@@ -65,11 +66,12 @@
                       "Entity": "Mesures"
                     }
                   },
-                  "Property": "Marge contributive (% CA)"
+                  "Property": "Taux de remise écart N-1 (pts)"
                 }
               },
-              "queryRef": "Mesures.Marge contributive (% CA)",
-              "nativeQueryRef": "Marge contributive (% CA)"
+              "queryRef": "Mesures.Taux de remise écart N-1 (pts)",
+              "nativeQueryRef": "Taux de remise écart N-1 (pts)",
+              "displayName": "Écart de remise"
             }
           ]
         }
@@ -84,7 +86,7 @@
                     "Entity": "Mesures"
                   }
                 },
-                "Property": "Marge contributive"
+                "Property": "Marge contributive écart N-1"
               }
             },
             "direction": "Ascending"
@@ -195,6 +197,19 @@
                       "Value": "'#E1DFDD'"
                     }
                   }
+                }
+              }
+            }
+          }
+        }
+      ],
+      "total": [
+        {
+          "properties": {
+            "totals": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
                 }
               }
             }
@@ -338,7 +353,7 @@
                       "Entity": "Mesures"
                     }
                   },
-                  "Property": "Titre clients déficitaires"
+                  "Property": "Titre clients en recul"
                 }
               }
             },
@@ -359,7 +374,7 @@
             "bold": {
               "expr": {
                 "Literal": {
-                  "Value": "true"
+                  "Value": "false"
                 }
               }
             },
@@ -395,7 +410,7 @@
                       "Entity": "Mesures"
                     }
                   },
-                  "Property": "Titre clients déficitaires"
+                  "Property": "Titre clients en recul"
                 }
               }
             }
@@ -407,7 +422,7 @@
   "filterConfig": {
     "filters": [
       {
-        "name": "Filtere1b04b04156130e8701f33b5",
+        "name": "Filter78f1bac26fe40a573e50a4c8",
         "field": {
           "Measure": {
             "Expression": {
@@ -415,7 +430,7 @@
                 "Entity": "Mesures"
               }
             },
-            "Property": "Marge contributive"
+            "Property": "Rang client en recul de marge"
           }
         },
         "type": "Advanced",
@@ -432,7 +447,7 @@
             {
               "Condition": {
                 "Comparison": {
-                  "ComparisonKind": 3,
+                  "ComparisonKind": 4,
                   "Left": {
                     "Measure": {
                       "Expression": {
@@ -440,12 +455,12 @@
                           "Source": "m"
                         }
                       },
-                      "Property": "Marge contributive"
+                      "Property": "Rang client en recul de marge"
                     }
                   },
                   "Right": {
                     "Literal": {
-                      "Value": "0D"
+                      "Value": "6D"
                     }
                   }
                 }

@@ -232,6 +232,13 @@
                 }
               }
             },
+            "labelPrecision": {
+              "expr": {
+                "Literal": {
+                  "Value": "0L"
+                }
+              }
+            },
             "labelPosition": {
               "expr": {
                 "Literal": {
@@ -287,6 +294,13 @@
                       "Value": "'#252423'"
                     }
                   }
+                }
+              }
+            },
+            "maxMarginFactor": {
+              "expr": {
+                "Literal": {
+                  "Value": "40L"
                 }
               }
             }
@@ -464,7 +478,7 @@
             "bold": {
               "expr": {
                 "Literal": {
-                  "Value": "true"
+                  "Value": "false"
                 }
               }
             },

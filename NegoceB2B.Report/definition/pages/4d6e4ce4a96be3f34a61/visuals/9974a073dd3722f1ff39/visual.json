@@ -114,7 +114,7 @@
                         {
                           "Condition": {
                             "Comparison": {
-                              "ComparisonKind": 2,
+                              "ComparisonKind": 1,
                               "Left": {
                                 "Measure": {
                                   "Expression": {
@@ -127,7 +127,7 @@
                               },
                               "Right": {
                                 "Literal": {
-                                  "Value": "0D"
+                                  "Value": "1D"
                                 }
                               }
                             }
@@ -154,7 +154,7 @@
                               },
                               "Right": {
                                 "Literal": {
-                                  "Value": "0D"
+                                  "Value": "-1D"
                                 }
                               }
                             }
@@ -162,6 +162,33 @@
                           "Value": {
                             "Literal": {
                               "Value": "'#1F4E79'"
+                            }
+                          }
+                        },
+                        {
+                          "Condition": {
+                            "Comparison": {
+                              "ComparisonKind": 2,
+                              "Left": {
+                                "Measure": {
+                                  "Expression": {
+                                    "SourceRef": {
+                                      "Entity": "Mesures"
+                                    }
+                                  },
+                                  "Property": "Taux de remise écart N-1 (pts)"
+                                }
+                              },
+                              "Right": {
+                                "Literal": {
+                                  "Value": "-1D"
+                                }
+                              }
+                            }
+                          },
+                          "Value": {
+                            "Literal": {
+                              "Value": "'#8A8886'"
                             }
                           }
                         }
@@ -215,6 +242,13 @@
               "expr": {
                 "Literal": {
                   "Value": "1D"
+                }
+              }
+            },
+            "labelPrecision": {
+              "expr": {
+                "Literal": {
+                  "Value": "1L"
                 }
               }
             },
@@ -273,6 +307,20 @@
                       "Value": "'#252423'"
                     }
                   }
+                }
+              }
+            },
+            "maxMarginFactor": {
+              "expr": {
+                "Literal": {
+                  "Value": "30L"
+                }
+              }
+            },
+            "preferredCategoryWidth": {
+              "expr": {
+                "Literal": {
+                  "Value": "12D"
                 }
               }
             }
@@ -450,7 +498,7 @@
             "bold": {
               "expr": {
                 "Literal": {
-                  "Value": "true"
+                  "Value": "false"
                 }
               }
             },

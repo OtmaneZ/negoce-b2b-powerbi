@@ -1,0 +1,25 @@
+/// Statuts de client qui décomposent l'écart de CA net avec N-1 : clients présents les deux années, nouveaux clients, clients perdus. Table utilitaire sans relation, lue par la mesure CA net écart N-1 par statut.
+table 'Statut client'
+
+	/// Statut du client sur la période, par rapport à la même période un an plus tôt.
+	column Statut
+		dataType: string
+		summarizeBy: none
+		sourceColumn: Statut
+		sortByColumn: Ordre
+
+	/// Ordre d'affichage des statuts, de 1 à 3.
+	column Ordre
+		dataType: int64
+		isHidden
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: Ordre
+
+	partition 'Statut client' = m
+		mode: import
+		source =
+				let
+					Source = #table(type table [Ordre = Int64.Type, Statut = text], {{1, "Clients existants"}, {2, "Nouveaux clients"}, {3, "Clients perdus"}})
+				in
+					Source
