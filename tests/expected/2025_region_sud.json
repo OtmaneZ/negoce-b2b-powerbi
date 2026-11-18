@@ -58,7 +58,7 @@
     {
       "mesure": "CA net budget",
       "type": "montant",
-      "attendu": 3865640.72
+      "attendu": 3920364.98
     },
     {
       "mesure": "CA net écart N-1",
@@ -68,12 +68,12 @@
     {
       "mesure": "CA net écart budget",
       "type": "montant",
-      "attendu": 142073.97
+      "attendu": 87349.71
     },
     {
       "mesure": "CA net écart budget (%)",
       "type": "taux",
-      "attendu": 0.0367530198
+      "attendu": 0.0222810148
     },
     {
       "mesure": "CA net évol. N-1 (%)",
@@ -153,7 +153,7 @@
     {
       "mesure": "Marge commerciale budget",
       "type": "montant",
-      "attendu": 1211906.91
+      "attendu": 1223873.4
     },
     {
       "mesure": "Marge commerciale écart N-1 (pts)",
@@ -163,7 +163,7 @@
     {
       "mesure": "Marge commerciale écart budget (%)",
       "type": "taux",
-      "attendu": -0.076913622
+      "attendu": -0.0859391502
     },
     {
       "mesure": "Marge commerciale évol. N-1 (%)",
@@ -273,12 +273,12 @@
     {
       "mesure": "Synthèse Marge",
       "type": "texte",
-      "attendu": "Principal frein : remises (-163 k€). Marge commerciale 7,7 % sous le budget. 2 clients à marge contributive négative, 9 produits vendus sous leur coût. Données fictives."
+      "attendu": "Principal frein : remises (-163 k€). Marge commerciale 8,6 % sous le budget. 2 clients à marge contributive négative, 9 produits vendus sous leur coût. Données fictives."
     },
     {
       "mesure": "Titre Direction",
       "type": "texte",
-      "attendu": "Vue Direction · En 2025, le CA net progresse de 9,9 % sur un an et dépasse le budget de 3,7 %"
+      "attendu": "Vue Direction · En 2025, le CA net progresse de 9,9 % sur un an et dépasse le budget de 2,2 %"
     },
     {
       "mesure": "Titre Marge",
@@ -318,7 +318,7 @@
     {
       "mesure": "Titre écart budget par famille",
       "type": "texte",
-      "attendu": "3 familles sur 6 atteignent leur budget de CA net"
+      "attendu": "4 familles sur 6 atteignent leur budget de CA net"
     },
     {
       "mesure": "Titre écart par famille",

@@ -14,7 +14,7 @@ Arvenor est une PME fictive de négoce B2B : visserie, outillage, abrasifs, équ
 
 Valeurs de l'exercice 2025, calculées par `scripts/expected_values.py` :
 
-- **D'où vient la croissance ?** Le CA net progresse de 8,3 % sur un an et dépasse le budget de 2,1 %. La plus forte hausse vient de la famille Équipements de protection (+778 k€) et de la région Rhône-Alpes (+699 k€) ; le nombre de clients actifs progresse de 2,2 %, les commandes par client de 5,0 %, le panier moyen de 0,9 %.
+- **D'où vient la croissance ?** Le CA net progresse de 8,3 % sur un an et dépasse le budget de 0,9 %. La plus forte hausse vient de la famille Équipements de protection (+778 k€) et de la région Rhône-Alpes (+699 k€) ; le nombre de clients actifs progresse de 2,2 %, les commandes par client de 5,0 %, le panier moyen de 0,9 %.
 - **Où part la marge ?** La marge commerciale ne progresse que de 2,6 % : son taux tombe à 31,4 % du CA net (-1,7 pts). Le pont de marge l'explique : hausse des coûts d'achat (-504 k€, surtout la visserie) et remises (-204 k€), avec un commercial dont le taux de remise passe de 10,9 % à 19,2 %. 12 clients ont une marge contributive négative et 8 produits sont vendus sous leur coût.
 
 ## Captures
@@ -74,7 +74,7 @@ Les valeurs attendues sont calculées en pandas, indépendamment du DAX, par `sc
 |---|---|---|---|
 | 2025 total | CA net | 22 637 017 € | |
 | 2025 total | CA net évol. N-1 (%) | 8,3 % | |
-| 2025 total | CA net écart budget (%) | 2,1 % | |
+| 2025 total | CA net écart budget (%) | 0,9 % | |
 | 2025 total | Marge commerciale | 7 099 071 € | |
 | 2025 total | Marge commerciale (% CA) | 31,4 % | |
 | 2025 total | Marge commerciale écart N-1 (pts) | -1,7 pts | |

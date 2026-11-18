@@ -58,7 +58,7 @@
     {
       "mesure": "CA net budget",
       "type": "montant",
-      "attendu": 4871472.12
+      "attendu": 4917429.42
     },
     {
       "mesure": "CA net écart N-1",
@@ -68,12 +68,12 @@
     {
       "mesure": "CA net écart budget",
       "type": "montant",
-      "attendu": -46552.58
+      "attendu": -92509.88
     },
     {
       "mesure": "CA net écart budget (%)",
       "type": "taux",
-      "attendu": -0.0095561627
+      "attendu": -0.0188126503
     },
     {
       "mesure": "CA net évol. N-1 (%)",
@@ -153,7 +153,7 @@
     {
       "mesure": "Marge commerciale budget",
       "type": "montant",
-      "attendu": 1850555.67
+      "attendu": 1868013.74
     },
     {
       "mesure": "Marge commerciale écart N-1 (pts)",
@@ -163,7 +163,7 @@
     {
       "mesure": "Marge commerciale écart budget (%)",
       "type": "taux",
-      "attendu": -0.1505876394
+      "attendu": -0.1585260717
     },
     {
       "mesure": "Marge commerciale évol. N-1 (%)",
@@ -273,12 +273,12 @@
     {
       "mesure": "Synthèse Marge",
       "type": "texte",
-      "attendu": "Principal frein : coût d'achat (-322 k€). Marge commerciale 15,1 % sous le budget. 13 clients à marge contributive négative, aucun produit vendu sous son coût. Données fictives."
+      "attendu": "Principal frein : coût d'achat (-322 k€). Marge commerciale 15,9 % sous le budget. 13 clients à marge contributive négative, aucun produit vendu sous son coût. Données fictives."
     },
     {
       "mesure": "Titre Direction",
       "type": "texte",
-      "attendu": "Vue Direction · En 2025, le CA net progresse de 5,0 % sur un an et reste sous le budget de 1,0 %"
+      "attendu": "Vue Direction · En 2025, le CA net progresse de 5,0 % sur un an et reste sous le budget de 1,9 %"
     },
     {
       "mesure": "Titre Marge",

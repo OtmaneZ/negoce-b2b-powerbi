@@ -44,6 +44,8 @@ FAMILLES = (
     (6, "Hygiène et maintenance", "HYG", 0.30, 0.07),
 )
 NOMBRE_PRODUITS = {1: 140, 2: 110, 3: 70, 4: 90, 5: 100, 6: 90}
+# Objectif de croissance du CA net 2025 par famille, fixé par la direction sur le réel 2024.
+OBJECTIFS_BUDGET_2025 = {1: 0.07, 2: 0.00, 3: 0.14, 4: 0.07, 5: 0.08, 6: 0.06}
 
 
 @dataclass(frozen=True)
@@ -862,7 +864,7 @@ def _generer_budget(rng: np.random.Generator, ventes: pd.DataFrame) -> pd.DataFr
     """Budget mensuel par famille et région.
 
     2024 : CA net réel 2024 avec une erreur de prévision de ±3 %.
-    2025 : CA net réel 2024 × 1,06.
+    2025 : CA net réel 2024 × (1 + objectif de croissance de la famille).
     Les deux années sont réparties par mois selon la saisonnalité et le nombre de jours
     ouvrés ; la marge budgétée applique le taux de marge commerciale réel 2024.
     """
@@ -884,7 +886,7 @@ def _generer_budget(rng: np.random.Generator, ventes: pd.DataFrame) -> pd.DataFr
             if annee == 2024:
                 annuel = ligne.net * (1 + rng.uniform(-0.03, 0.03))
             else:
-                annuel = ligne.net * 1.06
+                annuel = ligne.net * (1 + OBJECTIFS_BUDGET_2025[int(ligne.cle_famille)])
             mensuel = np.rint(annuel * poids_mois).astype(np.int64)
             marge = np.rint(mensuel * ligne.taux_marge).astype(np.int64)
             for mois in range(12):

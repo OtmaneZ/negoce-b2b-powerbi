@@ -53,7 +53,7 @@ Sur chaque page, le segment Année est sur 2025 et le segment Région sur « Tou
 
 **Résultat attendu, page Vue Direction** :
 
-- Titre : « Vue Direction · En 2025, le CA net progresse de 8,3 % sur un an et dépasse le budget de 2,1 % ».
+- Titre : « Vue Direction · En 2025, le CA net progresse de 8,3 % sur un an et dépasse le budget de 0,9 % ».
 - Synthèse : « Meilleure contribution : famille Équipements de protection (+778 k€), région Rhône-Alpes (+699 k€). Clients actifs +2,2 %, commandes par client +5,0 %, panier moyen +0,9 %. Données fictives. »
 - Bande de KPI sur deux rangées : les cinq indicateurs en haut, leur évolution ou le budget juste en dessous.
 - Courbe mensuelle titrée « CA net mensuel : au-dessus de 2024 sur 10 mois sur 12 », avec trois séries (2025 en bleu, 2024 en gris, budget en pointillés).
@@ -62,7 +62,7 @@ Sur chaque page, le segment Année est sur 2025 et le segment Région sur « Tou
 **Résultat attendu, page Marge** :
 
 - Titre : « Marge · En 2025, la marge commerciale progresse de 2,6 % et représente 31,4 % du CA net (-1,7 pts) ».
-- Synthèse : « Principal frein : coût d'achat (-504 k€). Marge commerciale 3,2 % sous le budget. 12 clients à marge contributive négative, 8 produits vendus sous leur coût. Données fictives. »
+- Synthèse : « Principal frein : coût d'achat (-504 k€). Marge commerciale 4,0 % sous le budget. 12 clients à marge contributive négative, 8 produits vendus sous leur coût. Données fictives. »
 - Graphique en cascade titré « Pont de marge 2024 → 2025 : l'effet coût d'achat pèse le plus (-504 k€) », dans l'ordre Marge N-1, Volume, Mix, Prix catalogue, Remises, Coût d'achat, puis la barre de total.
 - Barres des commerciaux titrées « Damien Revol : taux de remise de 10,9 % à 19,2 % (+8,3 pts) ».
 - Tableau de 12 clients et tableau de 8 produits, triés par marge croissante.
@@ -77,7 +77,7 @@ Modélisation > Afficher en tant que : cocher **Autre utilisateur**, saisir l'ad
 
 | Adresse | Résultat attendu |
 |---|---|
-| `damien.revol@example.com` | Le segment Région ne propose que Sud. Titre de la Vue Direction : « Vue Direction · En 2025, le CA net progresse de 9,9 % sur un an et dépasse le budget de 3,7 % ». |
+| `damien.revol@example.com` | Le segment Région ne propose que Sud. Titre de la Vue Direction : « Vue Direction · En 2025, le CA net progresse de 9,9 % sur un an et dépasse le budget de 2,2 % ». |
 | `direction.commerciale@example.com` | Les cinq régions sont visibles. Titre de la Vue Direction identique à celui de l'étape 4. |
 
 Revenir ensuite à l'affichage normal (Arrêter l'affichage).

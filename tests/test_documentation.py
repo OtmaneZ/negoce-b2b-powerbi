@@ -57,7 +57,7 @@ def test_chiffres_cles_du_readme():
         "région Rhône-Alpes (+699 k€)",
         "taux de remise de 10,9 % à 19,2 %",
         "l'effet coût d'achat pèse le plus (-504 k€)",
-        "progresse de 8,3 % sur un an et dépasse le budget de 2,1 %",
+        "progresse de 8,3 % sur un an et dépasse le budget de 0,9 %",
         "progresse de 2,6 % et représente 31,4 % du CA net (-1,7 pts)",
         "12 clients à marge contributive négative, 8 produits vendus sous leur coût",
     ):
@@ -68,7 +68,7 @@ def test_chiffres_cles_du_readme():
         "10,9 % à 19,2 %",
         "-504 k€",
         "8,3 %",
-        "2,1 %",
+        "0,9 %",
         "2,6 %",
         "31,4 %",
         "-1,7 pts",

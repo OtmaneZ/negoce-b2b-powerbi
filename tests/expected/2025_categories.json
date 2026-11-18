@@ -29,7 +29,7 @@
       },
       "mesure": "CA net budget",
       "type": "montant",
-      "attendu": 1797880.23
+      "attendu": 1820159.45
     },
     {
       "cas": "2025 total, mois 02",
@@ -59,7 +59,7 @@
       },
       "mesure": "CA net budget",
       "type": "montant",
-      "attendu": 1725238.59
+      "attendu": 1746617.64
     },
     {
       "cas": "2025 total, mois 03",
@@ -89,7 +89,7 @@
       },
       "mesure": "CA net budget",
       "type": "montant",
-      "attendu": 2097526.91
+      "attendu": 2123519.35
     },
     {
       "cas": "2025 total, mois 04",
@@ -119,7 +119,7 @@
       },
       "mesure": "CA net budget",
       "type": "montant",
-      "attendu": 2002184.79
+      "attendu": 2026995.74
     },
     {
       "cas": "2025 total, mois 05",
@@ -149,7 +149,7 @@
       },
       "mesure": "CA net budget",
       "type": "montant",
-      "attendu": 1638976.67
+      "attendu": 1659286.74
     },
     {
       "cas": "2025 total, mois 06",
@@ -179,7 +179,7 @@
       },
       "mesure": "CA net budget",
       "type": "montant",
-      "attendu": 1997644.66
+      "attendu": 2022399.36
     },
     {
       "cas": "2025 total, mois 07",
@@ -209,7 +209,7 @@
       },
       "mesure": "CA net budget",
       "type": "montant",
-      "attendu": 1897762.45
+      "attendu": 1921279.41
     },
     {
       "cas": "2025 total, mois 08",
@@ -239,7 +239,7 @@
       },
       "mesure": "CA net budget",
       "type": "montant",
-      "attendu": 998822.35
+      "attendu": 1011199.69
     },
     {
       "cas": "2025 total, mois 09",
@@ -269,7 +269,7 @@
       },
       "mesure": "CA net budget",
       "type": "montant",
-      "attendu": 2197409.16
+      "attendu": 2224639.28
     },
     {
       "cas": "2025 total, mois 10",
@@ -299,7 +299,7 @@
       },
       "mesure": "CA net budget",
       "type": "montant",
-      "attendu": 2401713.72
+      "attendu": 2431475.6
     },
     {
       "cas": "2025 total, mois 11",
@@ -329,7 +329,7 @@
       },
       "mesure": "CA net budget",
       "type": "montant",
-      "attendu": 1811500.5
+      "attendu": 1833948.52
     },
     {
       "cas": "2025 total, mois 12",
@@ -359,7 +359,7 @@
       },
       "mesure": "CA net budget",
       "type": "montant",
-      "attendu": 1598115.78
+      "attendu": 1617919.5
     },
     {
       "cas": "2025 total, famille Abrasifs et coupe",
@@ -379,7 +379,7 @@
       },
       "mesure": "CA net écart budget",
       "type": "montant",
-      "attendu": 53302.97
+      "attendu": 18531.1
     },
     {
       "cas": "2025 total, famille Abrasifs et coupe",
@@ -439,7 +439,7 @@
       },
       "mesure": "CA net écart budget",
       "type": "montant",
-      "attendu": -289681.36
+      "attendu": -125053.03
     },
     {
       "cas": "2025 total, famille Outillage à main",
@@ -469,7 +469,7 @@
       },
       "mesure": "CA net écart budget",
       "type": "montant",
-      "attendu": 118912.3
+      "attendu": -159080.59
     },
     {
       "cas": "2025 total, famille Outillage électroportatif",
@@ -499,7 +499,7 @@
       },
       "mesure": "CA net écart budget",
       "type": "montant",
-      "attendu": -46552.58
+      "attendu": -92509.88
     },
     {
       "cas": "2025 total, famille Visserie et fixations",
@@ -529,7 +529,7 @@
       },
       "mesure": "CA net écart budget",
       "type": "montant",
-      "attendu": 535859.41
+      "attendu": 455288.67
     },
     {
       "cas": "2025 total, famille Équipements de protection",
