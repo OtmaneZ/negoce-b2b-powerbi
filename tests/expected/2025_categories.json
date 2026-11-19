@@ -792,6 +792,17 @@
       "attendu": -19118.76
     },
     {
+      "cas": "2025 total, client Falarin Hydraulique, commercial Damien Revol",
+      "filtres": {
+        "annee": 2025,
+        "commercial": "Damien Revol",
+        "client": "Falarin Hydraulique"
+      },
+      "mesure": "Rang client en recul de marge",
+      "type": "nombre",
+      "attendu": 1
+    },
+    {
       "cas": "2025 total, client Lanovel Automatismes",
       "filtres": {
         "annee": 2025,
@@ -810,6 +821,17 @@
       "mesure": "Marge contributive écart N-1",
       "type": "montant",
       "attendu": -18195.33
+    },
+    {
+      "cas": "2025 total, client Lanovel Automatismes, commercial Damien Revol",
+      "filtres": {
+        "annee": 2025,
+        "commercial": "Damien Revol",
+        "client": "Lanovel Automatismes"
+      },
+      "mesure": "Rang client en recul de marge",
+      "type": "nombre",
+      "attendu": 2
     },
     {
       "cas": "2025 total, client Verorlor Aéronautique",
@@ -832,6 +854,17 @@
       "attendu": -14947.65
     },
     {
+      "cas": "2025 total, client Verorlor Aéronautique, commercial Mehdi Haddad",
+      "filtres": {
+        "annee": 2025,
+        "commercial": "Mehdi Haddad",
+        "client": "Verorlor Aéronautique"
+      },
+      "mesure": "Rang client en recul de marge",
+      "type": "nombre",
+      "attendu": 3
+    },
+    {
       "cas": "2025 total, client Kerenlia Industries",
       "filtres": {
         "annee": 2025,
@@ -850,6 +883,17 @@
       "mesure": "Marge contributive écart N-1",
       "type": "montant",
       "attendu": -13979.76
+    },
+    {
+      "cas": "2025 total, client Kerenlia Industries, commercial Gaëlle Le Guen",
+      "filtres": {
+        "annee": 2025,
+        "commercial": "Gaëlle Le Guen",
+        "client": "Kerenlia Industries"
+      },
+      "mesure": "Rang client en recul de marge",
+      "type": "nombre",
+      "attendu": 4
     },
     {
       "cas": "2025 total, client Vilarrin Énergie",
@@ -872,6 +916,17 @@
       "attendu": -13559.34
     },
     {
+      "cas": "2025 total, client Vilarrin Énergie, commercial Pauline Mercier",
+      "filtres": {
+        "annee": 2025,
+        "commercial": "Pauline Mercier",
+        "client": "Vilarrin Énergie"
+      },
+      "mesure": "Rang client en recul de marge",
+      "type": "nombre",
+      "attendu": 5
+    },
+    {
       "cas": "2025 total, client Duretec Énergie",
       "filtres": {
         "annee": 2025,
@@ -890,6 +945,39 @@
       "mesure": "Marge contributive écart N-1",
       "type": "montant",
       "attendu": -12525.02
+    },
+    {
+      "cas": "2025 total, client Duretec Énergie, commercial Gaëlle Le Guen",
+      "filtres": {
+        "annee": 2025,
+        "commercial": "Gaëlle Le Guen",
+        "client": "Duretec Énergie"
+      },
+      "mesure": "Rang client en recul de marge",
+      "type": "nombre",
+      "attendu": 6
+    },
+    {
+      "cas": "2025 total, client perdu Nororga Métallerie, commercial Sophie Vernet",
+      "filtres": {
+        "annee": 2025,
+        "commercial": "Sophie Vernet",
+        "client": "Nororga Métallerie"
+      },
+      "mesure": "Rang client en recul de marge",
+      "type": "nombre",
+      "attendu": null
+    },
+    {
+      "cas": "2025 total, client perdu Talelvia Hydraulique, commercial Laurent Schmitt",
+      "filtres": {
+        "annee": 2025,
+        "commercial": "Laurent Schmitt",
+        "client": "Talelvia Hydraulique"
+      },
+      "mesure": "Rang client en recul de marge",
+      "type": "nombre",
+      "attendu": null
     },
     {
       "cas": "2025 total, produit Pince universelle 180 mm",
@@ -912,6 +1000,16 @@
       "attendu": -7587.9
     },
     {
+      "cas": "2025 total, produit Pince universelle 180 mm",
+      "filtres": {
+        "annee": 2025,
+        "produit": "Pince universelle 180 mm"
+      },
+      "mesure": "Titre produits déficitaires",
+      "type": "texte",
+      "attendu": "8 produits vendus à perte (-40 k€) : les 6 plus lourds"
+    },
+    {
       "cas": "2025 total, produit Équerre de menuisier 400 mm",
       "filtres": {
         "annee": 2025,
@@ -930,6 +1028,16 @@
       "mesure": "Marge commerciale",
       "type": "montant",
       "attendu": -6402.37
+    },
+    {
+      "cas": "2025 total, produit Équerre de menuisier 400 mm",
+      "filtres": {
+        "annee": 2025,
+        "produit": "Équerre de menuisier 400 mm"
+      },
+      "mesure": "Titre produits déficitaires",
+      "type": "texte",
+      "attendu": "8 produits vendus à perte (-40 k€) : les 6 plus lourds"
     },
     {
       "cas": "2025 total, produit Niveau à bulle 60 cm",
@@ -952,6 +1060,16 @@
       "attendu": -6039.29
     },
     {
+      "cas": "2025 total, produit Niveau à bulle 60 cm",
+      "filtres": {
+        "annee": 2025,
+        "produit": "Niveau à bulle 60 cm"
+      },
+      "mesure": "Titre produits déficitaires",
+      "type": "texte",
+      "attendu": "8 produits vendus à perte (-40 k€) : les 6 plus lourds"
+    },
+    {
       "cas": "2025 total, produit Pince à dénuder 160 mm",
       "filtres": {
         "annee": 2025,
@@ -970,6 +1088,16 @@
       "mesure": "Marge commerciale",
       "type": "montant",
       "attendu": -5434.02
+    },
+    {
+      "cas": "2025 total, produit Pince à dénuder 160 mm",
+      "filtres": {
+        "annee": 2025,
+        "produit": "Pince à dénuder 160 mm"
+      },
+      "mesure": "Titre produits déficitaires",
+      "type": "texte",
+      "attendu": "8 produits vendus à perte (-40 k€) : les 6 plus lourds"
     },
     {
       "cas": "2025 total, produit Clé à pipe 8 mm",
@@ -992,6 +1120,16 @@
       "attendu": -4489.46
     },
     {
+      "cas": "2025 total, produit Clé à pipe 8 mm",
+      "filtres": {
+        "annee": 2025,
+        "produit": "Clé à pipe 8 mm"
+      },
+      "mesure": "Titre produits déficitaires",
+      "type": "texte",
+      "attendu": "8 produits vendus à perte (-40 k€) : les 6 plus lourds"
+    },
+    {
       "cas": "2025 total, produit Niveau à bulle 80 cm",
       "filtres": {
         "annee": 2025,
@@ -1010,6 +1148,16 @@
       "mesure": "Marge commerciale",
       "type": "montant",
       "attendu": -3766.28
+    },
+    {
+      "cas": "2025 total, produit Niveau à bulle 80 cm",
+      "filtres": {
+        "annee": 2025,
+        "produit": "Niveau à bulle 80 cm"
+      },
+      "mesure": "Titre produits déficitaires",
+      "type": "texte",
+      "attendu": "8 produits vendus à perte (-40 k€) : les 6 plus lourds"
     }
   ]
 }

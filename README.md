@@ -19,9 +19,9 @@ Valeurs de l'exercice 2025, calculées par `scripts/expected_values.py` :
 
 ## Captures
 
-> Emplacement réservé : capture de la page Vue Direction, à ajouter après le test dans Power BI Desktop (`docs/captures/vue-direction.png`).
+![Page Vue Direction](docs/captures/vue-direction.png)
 
-> Emplacement réservé : capture de la page Marge, à ajouter après le test dans Power BI Desktop (`docs/captures/marge.png`).
+![Page Marge](docs/captures/marge.png)
 
 ## Pages
 
@@ -53,7 +53,7 @@ Sécurité au niveau des lignes : le rôle Commercial ne laisse voir que les ré
 
 ## Mesures
 
-73 mesures dans la table Mesures, 67 visibles et 6 masquées, rangées en 6 dossiers : chiffre d'affaires (9), marge (11), comparaison N-1 (24), budget (5), pont de marge (10), textes (14). Chaque mesure a une description, un dossier et, hors mesures texte, un format. Dictionnaire complet, avec le DAX de chaque mesure : [docs/mesures.md](docs/mesures.md).
+93 mesures dans la table Mesures, 67 visibles et 26 masquées, rangées en 7 dossiers : chiffre d'affaires (9), marge (11), comparaison N-1 (24), budget (5), pont de marge (10), textes (14), cartes KPI (20). Chaque mesure a une description, un dossier et, hors mesures texte, un format. Les 20 mesures des cartes KPI renvoient les valeurs déjà mises en forme en français (« 22,6 M€ », « +8,3 % sur un an ») : l'affichage ne dépend pas des paramètres régionaux du poste. Dictionnaire complet, avec le DAX de chaque mesure : [docs/mesures.md](docs/mesures.md).
 
 | Mesure | Définition | Format |
 |---|---|---|
@@ -68,7 +68,7 @@ Le pont de marge décompose l'écart de marge commerciale entre N-1 et N en cinq
 
 ## Valeurs attendues et obtenues
 
-Les valeurs attendues sont calculées en pandas, indépendamment du DAX, par `scripts/expected_values.py` (fichiers `tests/expected/*.json`). La colonne « Obtenue » se remplit avec Power BI Desktop ; la requête `tests/validation.dax` compare les 466 valeurs d'un coup.
+Les valeurs attendues sont calculées en pandas, indépendamment du DAX, par `scripts/expected_values.py` (fichiers `tests/expected/*.json`). La colonne « Obtenue » se remplit avec Power BI Desktop ; la requête `tests/validation.dax` compare les 580 valeurs d'un coup.
 
 | Cas | Mesure | Attendue | Obtenue |
 |---|---|---|---|
@@ -85,8 +85,6 @@ Les valeurs attendues sont calculées en pandas, indépendamment du DAX, par `sc
 | 2025 total | Effet coût d'achat | -504 061 € | |
 | 2025 total | # Clients à marge négative | 12 | |
 | 2025 total | # Produits sous le coût | 8 | |
-| 2025 total | # Nouveaux clients | 63 | |
-| 2025 total | Pont de marge | 180 945 € | |
 | 2025 total | # Nouveaux clients | 63 | |
 | 2025 total | Pont de marge | 180 945 € | |
 | 2024 total | CA net | 20 910 166 € | |

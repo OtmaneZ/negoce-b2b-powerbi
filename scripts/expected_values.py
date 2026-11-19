@@ -188,6 +188,30 @@ STATUTS = {
     2: "Nouveaux clients",
     3: "Clients perdus",
 }
+CARTES_VALEURS = (
+    ("Carte CA net", "CA net", lambda v: millions(v)),
+    ("Carte budget CA net", "CA net budget", lambda v: millions(v)),
+    ("Carte clients actifs", "# Clients actifs", lambda v: format_fr(v, "#,0")),
+    ("Carte commandes par client", "Commandes par client", lambda v: format_fr(v, "0.0")),
+    ("Carte panier moyen", "Panier moyen", lambda v: format_fr(v, "#,0") + " €"),
+    ("Carte marge commerciale", "Marge commerciale", lambda v: millions(v)),
+    ("Carte taux de marge", "Marge commerciale (% CA)", lambda v: pct(v)),
+    ("Carte taux de remise", "Taux de remise (%)", lambda v: pct(v)),
+    ("Carte transport", "Transport (% CA)", lambda v: pct(v)),
+    ("Carte marge contributive", "Marge contributive", lambda v: millions(v)),
+)
+CARTES_EVOLUTIONS = (
+    ("Carte CA net évol.", "CA net évol. N-1 (%)", " sur un an"),
+    ("Carte budget CA net écart", "CA net écart budget (%)", " vs budget"),
+    ("Carte clients actifs évol.", "# Clients actifs évol. N-1 (%)", " sur un an"),
+    ("Carte commandes par client évol.", "Commandes par client évol. N-1 (%)", " sur un an"),
+    ("Carte panier moyen évol.", "Panier moyen évol. N-1 (%)", " sur un an"),
+    ("Carte marge commerciale évol.", "Marge commerciale évol. N-1 (%)", " sur un an"),
+    ("Carte taux de marge écart", "Marge commerciale écart N-1 (pts)", " pts sur un an"),
+    ("Carte taux de remise écart", "Taux de remise écart N-1 (pts)", " pts sur un an"),
+    ("Carte transport écart", "Transport écart N-1 (pts)", " pts sur un an"),
+    ("Carte marge contributive évol.", "Marge contributive évol. N-1 (%)", " sur un an"),
+)
 LIGNES_TABLEAUX = 6  # lignes affichées par les tableaux de la page Marge
 EFFETS = (
     ("volume", "Effet volume"),
@@ -410,7 +434,10 @@ class Moteur:
         if ctx.client not in n.index or ctx.client not in n1.index:
             return None
         propre = n[ctx.client] - n1[ctx.client]
-        classement = self.ecarts_clients_actifs(ctx.avec(client=None, segment=None))
+        # Classement sur tous les clients : le tableau regroupe aussi par commercial.
+        classement = self.ecarts_clients_actifs(
+            ctx.avec(client=None, segment=None, commercial=None)
+        )
         return int((classement < propre).sum()) + 1
 
     @cache  # noqa: B019
@@ -751,10 +778,7 @@ class Moteur:
                 f"marge commerciale {milliers(ecart_marge)}"
             )
             if ecart_ca > 0:
-                texte_evolution += (
-                    f", soit une marge de {pct(diviser(ecart_marge, ecart_ca))} "
-                    "sur le CA supplémentaire"
-                )
+                texte_evolution += f" ({pct(diviser(ecart_marge, ecart_ca))} du CA supplémentaire)"
             texte_evolution += ". "
         budget_marge = m["Marge commerciale écart budget (%)"]
         texte_budget = ""
@@ -821,7 +845,8 @@ class Moteur:
             t["Titre clients en recul"] = "Aucun client en recul de marge contributive"
         else:
             t["Titre clients en recul"] = "Clients en plus fort recul de marge contributive"
-        pertes = self.marges_produits(ctx)
+        # Tous les produits : le titre ignore le filtre des six premiers du tableau.
+        pertes = self.marges_produits(ctx.avec(produit=None))
         pertes = pertes[pertes < 0]
         nb_produits = len(pertes)
         perte = f" ({milliers(float(pertes.sum()))})" if nb_produits else ""
@@ -836,6 +861,18 @@ class Moteur:
                 f"{nb_produits} produits vendus à perte{perte} : les {LIGNES_TABLEAUX} plus lourds"
             )
         t["Frein principal (libellé)"] = frein
+
+        # Cartes KPI
+        for nom, mesure, mise_en_forme in CARTES_VALEURS:
+            t[nom] = "n.d." if m[mesure] is None else mise_en_forme(m[mesure])
+        for nom, mesure, suffixe in CARTES_EVOLUTIONS:
+            valeur = m[mesure]
+            if valeur is None:
+                t[nom] = "n.d."
+            elif suffixe.startswith(" pts"):
+                t[nom] = signe(valeur) + _format_absolu(valeur, "0.0") + suffixe
+            else:
+                t[nom] = pct_signe(valeur) + suffixe
         return t
 
 
@@ -962,11 +999,30 @@ class Calcul:
             ajouter(
                 f"2025 total, étape {ordre} {etape}", base.avec(etape=ordre), ("Pont de marge",)
             )
+        commercial_du_client = m.ventes.groupby("nom_client")["commercial"].first()
         for client in m.ecarts_clients_actifs(base).index[:LIGNES_TABLEAUX]:
             ajouter(
                 f"2025 total, client {client}",
                 base.avec(client=client),
                 ("Rang client en recul de marge", "Marge contributive écart N-1"),
+            )
+            # Contexte d'une ligne du tableau, regroupé par client et par commercial.
+            commercial = commercial_du_client[client]
+            ajouter(
+                f"2025 total, client {client}, commercial {commercial}",
+                base.avec(client=client, commercial=commercial),
+                ("Rang client en recul de marge",),
+            )
+        # Clients perdus en tête du tri du tableau : rang vide, donc hors du filtre 1 à 6.
+        perdus = m.marges_contributives(base.precedent()).drop(
+            m.marges_contributives(base).index, errors="ignore"
+        )
+        for client in perdus.sort_values(ascending=False).index[:2]:
+            commercial = commercial_du_client[client]
+            ajouter(
+                f"2025 total, client perdu {client}, commercial {commercial}",
+                base.avec(client=client, commercial=commercial),
+                ("Rang client en recul de marge",),
             )
         produits = m.marges_produits(base)
         for produit in produits[produits < 0].index[:LIGNES_TABLEAUX]:
@@ -974,6 +1030,17 @@ class Calcul:
                 f"2025 total, produit {produit}",
                 base.avec(produit=produit),
                 ("Rang produit sous le coût", "Marge commerciale"),
+            )
+            # Contexte du titre du tableau, filtré sur les produits affichés.
+            ctx = base.avec(produit=produit)
+            lignes.append(
+                {
+                    "cas": f"2025 total, produit {produit}",
+                    "filtres": _filtres(ctx),
+                    "mesure": "Titre produits déficitaires",
+                    "type": "texte",
+                    "attendu": m.textes(ctx)["Titre produits déficitaires"],
+                }
             )
         return {"cas": "2025 total, par catégorie", "lignes": lignes}
 

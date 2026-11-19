@@ -296,6 +296,106 @@
       "attendu": 0.0
     },
     {
+      "mesure": "Carte CA net",
+      "type": "texte",
+      "attendu": "1,7 M€"
+    },
+    {
+      "mesure": "Carte CA net évol.",
+      "type": "texte",
+      "attendu": "-3,1 % sur un an"
+    },
+    {
+      "mesure": "Carte budget CA net",
+      "type": "texte",
+      "attendu": "1,7 M€"
+    },
+    {
+      "mesure": "Carte budget CA net écart",
+      "type": "texte",
+      "attendu": "-4,9 % vs budget"
+    },
+    {
+      "mesure": "Carte clients actifs",
+      "type": "texte",
+      "attendu": "489"
+    },
+    {
+      "mesure": "Carte clients actifs évol.",
+      "type": "texte",
+      "attendu": "-1,4 % sur un an"
+    },
+    {
+      "mesure": "Carte commandes par client",
+      "type": "texte",
+      "attendu": "1,8"
+    },
+    {
+      "mesure": "Carte commandes par client évol.",
+      "type": "texte",
+      "attendu": "+1,2 % sur un an"
+    },
+    {
+      "mesure": "Carte marge commerciale",
+      "type": "texte",
+      "attendu": "0,5 M€"
+    },
+    {
+      "mesure": "Carte marge commerciale évol.",
+      "type": "texte",
+      "attendu": "-3,5 % sur un an"
+    },
+    {
+      "mesure": "Carte marge contributive",
+      "type": "texte",
+      "attendu": "0,5 M€"
+    },
+    {
+      "mesure": "Carte marge contributive évol.",
+      "type": "texte",
+      "attendu": "-3,6 % sur un an"
+    },
+    {
+      "mesure": "Carte panier moyen",
+      "type": "texte",
+      "attendu": "1 883 €"
+    },
+    {
+      "mesure": "Carte panier moyen évol.",
+      "type": "texte",
+      "attendu": "-2,9 % sur un an"
+    },
+    {
+      "mesure": "Carte taux de marge",
+      "type": "texte",
+      "attendu": "32,8 %"
+    },
+    {
+      "mesure": "Carte taux de marge écart",
+      "type": "texte",
+      "attendu": "-0,1 pts sur un an"
+    },
+    {
+      "mesure": "Carte taux de remise",
+      "type": "texte",
+      "attendu": "11,1 %"
+    },
+    {
+      "mesure": "Carte taux de remise écart",
+      "type": "texte",
+      "attendu": "+0,4 pts sur un an"
+    },
+    {
+      "mesure": "Carte transport",
+      "type": "texte",
+      "attendu": "2,3 %"
+    },
+    {
+      "mesure": "Carte transport écart",
+      "type": "texte",
+      "attendu": "+0,0 pts sur un an"
+    },
+    {
       "mesure": "Frein principal (libellé)",
       "type": "texte",
       "attendu": "volume"

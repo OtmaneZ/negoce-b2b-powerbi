@@ -91,7 +91,7 @@ table Mesures
 		formatString: #,0
 		displayFolder: 2. Marge
 
-	/// Rang du client parmi les clients actifs sur la période et sur N-1, du plus fort recul de marge contributive au plus faible (1 = plus fort recul). Vide pour un client sans vente sur l'une des deux périodes. Sert à filtrer le tableau des clients en recul.
+	/// Rang du client parmi les clients actifs sur la période et sur N-1, du plus fort recul de marge contributive au plus faible (1 = plus fort recul). Vide pour un client sans vente sur l'une des deux périodes. Le classement ignore les filtres Client et Commercial, colonnes du tableau qu'il filtre : sinon chaque client serait classé parmi les seuls clients de son commercial.
 	measure 'Rang client en recul de marge' = ```
 			VAR _ecart = [Marge contributive écart N-1]
 			VAR _classement =
@@ -104,7 +104,8 @@ table Mesures
 						),
 						[@actif] && NOT ISBLANK([@ecart])
 					),
-					REMOVEFILTERS('Client')
+					REMOVEFILTERS('Client'),
+					REMOVEFILTERS('Commercial')
 				)
 			RETURN
 				IF(
@@ -368,7 +369,7 @@ table Mesures
 				VALUES('Produit'[Clé produit]),
 				VAR _q = [Quantité]
 				VAR _qN1 = CALCULATE([Quantité], SAMEPERIODLASTYEAR('Date'[Date]))
-				VAR _prixNetN1 = IF(_qN1 > 0, DIVIDE([CA net N-1], _qN1), DIVIDE([CA net], _q))
+				VAR _prixNetN1 = IF(_qN1 > 0, DIVIDE(CONVERT([CA net N-1], DOUBLE), _qN1), DIVIDE(CONVERT([CA net], DOUBLE), _q))
 				RETURN _q * _prixNetN1
 			)
 			```
@@ -399,7 +400,7 @@ table Mesures
 					VAR _q = [Quantité]
 					VAR _qN1 = CALCULATE([Quantité], SAMEPERIODLASTYEAR('Date'[Date]))
 					VAR _margeUnitaireN1 =
-						IF(_qN1 > 0, DIVIDE([Marge commerciale N-1], _qN1), DIVIDE([Marge commerciale], _q))
+						IF(_qN1 > 0, DIVIDE(CONVERT([Marge commerciale N-1], DOUBLE), _qN1), DIVIDE(CONVERT([Marge commerciale], DOUBLE), _q))
 					RETURN _q * _margeUnitaireN1
 				)
 			RETURN
@@ -422,8 +423,8 @@ table Mesures
 					VAR _prixCatalogueN1 =
 						IF(
 							_qN1 > 0,
-							DIVIDE(CALCULATE([CA brut], SAMEPERIODLASTYEAR('Date'[Date])), _qN1),
-							DIVIDE([CA brut], _q)
+							DIVIDE(CONVERT(CALCULATE([CA brut], SAMEPERIODLASTYEAR('Date'[Date])), DOUBLE), _qN1),
+							DIVIDE(CONVERT([CA brut], DOUBLE), _q)
 						)
 					RETURN [CA brut] - _q * _prixCatalogueN1
 				)
@@ -442,8 +443,8 @@ table Mesures
 					VAR _remiseUnitaireN1 =
 						IF(
 							_qN1 > 0,
-							DIVIDE(CALCULATE([Remises], SAMEPERIODLASTYEAR('Date'[Date])), _qN1),
-							DIVIDE([Remises], _q)
+							DIVIDE(CONVERT(CALCULATE([Remises], SAMEPERIODLASTYEAR('Date'[Date])), DOUBLE), _qN1),
+							DIVIDE(CONVERT([Remises], DOUBLE), _q)
 						)
 					RETURN [Remises] - _q * _remiseUnitaireN1
 				)
@@ -466,8 +467,8 @@ table Mesures
 					VAR _coutUnitaireN1 =
 						IF(
 							_qN1 > 0,
-							DIVIDE(CALCULATE([Coût d'achat], SAMEPERIODLASTYEAR('Date'[Date])), _qN1),
-							DIVIDE([Coût d'achat], _q)
+							DIVIDE(CONVERT(CALCULATE([Coût d'achat], SAMEPERIODLASTYEAR('Date'[Date])), DOUBLE), _qN1),
+							DIVIDE(CONVERT([Coût d'achat], DOUBLE), _q)
 						)
 					RETURN [Coût d'achat] - _q * _coutUnitaireN1
 				)
@@ -760,8 +761,8 @@ table Mesures
 						& " k€"
 						& IF(
 							_ecartCA > 0,
-							", soit une marge de " & FORMAT(DIVIDE(_ecartMarge, _ecartCA), "0.0 %", "fr-FR")
-								& " sur le CA supplémentaire"
+							" (" & FORMAT(DIVIDE(_ecartMarge, _ecartCA), "0.0 %", "fr-FR")
+								& " du CA supplémentaire)"
 						)
 						& ". "
 				)
@@ -871,12 +872,15 @@ table Mesures
 			```
 		displayFolder: 6. Textes
 
-	/// Titre du tableau des produits vendus sous leur coût d'achat : nombre, perte totale et, au-delà de six, mention des six plus lourds affichés.
+	/// Titre du tableau des produits vendus sous leur coût d'achat : nombre, perte totale et, au-delà de six, mention des six plus lourds affichés. Compte tous les produits, sans le filtre des six premiers appliqué au tableau.
 	measure 'Titre produits déficitaires' = ```
 			VAR _produits =
-				FILTER(
-					ADDCOLUMNS(VALUES('Produit'[Clé produit]), "@marge", [Marge commerciale]),
-					[@marge] < 0
+				CALCULATETABLE(
+					FILTER(
+						ADDCOLUMNS(VALUES('Produit'[Clé produit]), "@marge", [Marge commerciale]),
+						[@marge] < 0
+					),
+					REMOVEFILTERS('Produit')
 				)
 			VAR _nombre = COUNTROWS(_produits) + 0
 			VAR _perte = SUMX(_produits, [@marge])
@@ -892,6 +896,216 @@ table Mesures
 				)
 			```
 		displayFolder: 6. Textes
+
+	/// Valeur de la carte CA net, en millions d'euros, mise en forme en français quel que soit le poste.
+	measure 'Carte CA net' = ```
+			VAR _valeur = [CA net]
+			RETURN IF(ISBLANK(_valeur), "n.d.", FORMAT(_valeur / 1000000, "#,0.0", "fr-FR") & " M€")
+			```
+		isHidden
+		displayFolder: 7. Cartes KPI
+
+	/// Évolution du CA net sur un an, en texte, sous la carte CA net.
+	measure 'Carte CA net évol.' = ```
+			VAR _valeur = [CA net évol. N-1 (%)]
+			RETURN
+				IF(
+					ISBLANK(_valeur),
+					"n.d.",
+					IF(_valeur < 0, "-", "+") & FORMAT(ABS(_valeur), "0.0 %", "fr-FR") & " sur un an"
+				)
+			```
+		isHidden
+		displayFolder: 7. Cartes KPI
+
+	/// Valeur de la carte budget de CA net, en millions d'euros.
+	measure 'Carte budget CA net' = ```
+			VAR _valeur = [CA net budget]
+			RETURN IF(ISBLANK(_valeur), "n.d.", FORMAT(_valeur / 1000000, "#,0.0", "fr-FR") & " M€")
+			```
+		isHidden
+		displayFolder: 7. Cartes KPI
+
+	/// Écart du CA net au budget, en texte, sous la carte budget.
+	measure 'Carte budget CA net écart' = ```
+			VAR _valeur = [CA net écart budget (%)]
+			RETURN
+				IF(
+					ISBLANK(_valeur),
+					"n.d.",
+					IF(_valeur < 0, "-", "+") & FORMAT(ABS(_valeur), "0.0 %", "fr-FR") & " vs budget"
+				)
+			```
+		isHidden
+		displayFolder: 7. Cartes KPI
+
+	/// Valeur de la carte clients actifs.
+	measure 'Carte clients actifs' = ```
+			VAR _valeur = [# Clients actifs]
+			RETURN IF(ISBLANK(_valeur), "n.d.", FORMAT(_valeur, "#,0", "fr-FR"))
+			```
+		isHidden
+		displayFolder: 7. Cartes KPI
+
+	/// Évolution du nombre de clients actifs sur un an, en texte.
+	measure 'Carte clients actifs évol.' = ```
+			VAR _valeur = [# Clients actifs évol. N-1 (%)]
+			RETURN
+				IF(
+					ISBLANK(_valeur),
+					"n.d.",
+					IF(_valeur < 0, "-", "+") & FORMAT(ABS(_valeur), "0.0 %", "fr-FR") & " sur un an"
+				)
+			```
+		isHidden
+		displayFolder: 7. Cartes KPI
+
+	/// Valeur de la carte commandes par client.
+	measure 'Carte commandes par client' = ```
+			VAR _valeur = [Commandes par client]
+			RETURN IF(ISBLANK(_valeur), "n.d.", FORMAT(_valeur, "0.0", "fr-FR"))
+			```
+		isHidden
+		displayFolder: 7. Cartes KPI
+
+	/// Évolution des commandes par client sur un an, en texte.
+	measure 'Carte commandes par client évol.' = ```
+			VAR _valeur = [Commandes par client évol. N-1 (%)]
+			RETURN
+				IF(
+					ISBLANK(_valeur),
+					"n.d.",
+					IF(_valeur < 0, "-", "+") & FORMAT(ABS(_valeur), "0.0 %", "fr-FR") & " sur un an"
+				)
+			```
+		isHidden
+		displayFolder: 7. Cartes KPI
+
+	/// Valeur de la carte panier moyen, en euros.
+	measure 'Carte panier moyen' = ```
+			VAR _valeur = [Panier moyen]
+			RETURN IF(ISBLANK(_valeur), "n.d.", FORMAT(_valeur, "#,0", "fr-FR") & " €")
+			```
+		isHidden
+		displayFolder: 7. Cartes KPI
+
+	/// Évolution du panier moyen sur un an, en texte.
+	measure 'Carte panier moyen évol.' = ```
+			VAR _valeur = [Panier moyen évol. N-1 (%)]
+			RETURN
+				IF(
+					ISBLANK(_valeur),
+					"n.d.",
+					IF(_valeur < 0, "-", "+") & FORMAT(ABS(_valeur), "0.0 %", "fr-FR") & " sur un an"
+				)
+			```
+		isHidden
+		displayFolder: 7. Cartes KPI
+
+	/// Valeur de la carte marge commerciale, en millions d'euros.
+	measure 'Carte marge commerciale' = ```
+			VAR _valeur = [Marge commerciale]
+			RETURN IF(ISBLANK(_valeur), "n.d.", FORMAT(_valeur / 1000000, "#,0.0", "fr-FR") & " M€")
+			```
+		isHidden
+		displayFolder: 7. Cartes KPI
+
+	/// Évolution de la marge commerciale sur un an, en texte.
+	measure 'Carte marge commerciale évol.' = ```
+			VAR _valeur = [Marge commerciale évol. N-1 (%)]
+			RETURN
+				IF(
+					ISBLANK(_valeur),
+					"n.d.",
+					IF(_valeur < 0, "-", "+") & FORMAT(ABS(_valeur), "0.0 %", "fr-FR") & " sur un an"
+				)
+			```
+		isHidden
+		displayFolder: 7. Cartes KPI
+
+	/// Valeur de la carte taux de marge commerciale.
+	measure 'Carte taux de marge' = ```
+			VAR _valeur = [Marge commerciale (% CA)]
+			RETURN IF(ISBLANK(_valeur), "n.d.", FORMAT(_valeur, "0.0 %", "fr-FR"))
+			```
+		isHidden
+		displayFolder: 7. Cartes KPI
+
+	/// Écart du taux de marge commerciale sur un an, en points, en texte.
+	measure 'Carte taux de marge écart' = ```
+			VAR _valeur = [Marge commerciale écart N-1 (pts)]
+			RETURN
+				IF(
+					ISBLANK(_valeur),
+					"n.d.",
+					IF(_valeur < 0, "-", "+") & FORMAT(ABS(_valeur), "0.0", "fr-FR") & " pts sur un an"
+				)
+			```
+		isHidden
+		displayFolder: 7. Cartes KPI
+
+	/// Valeur de la carte taux de remise.
+	measure 'Carte taux de remise' = ```
+			VAR _valeur = [Taux de remise (%)]
+			RETURN IF(ISBLANK(_valeur), "n.d.", FORMAT(_valeur, "0.0 %", "fr-FR"))
+			```
+		isHidden
+		displayFolder: 7. Cartes KPI
+
+	/// Écart du taux de remise sur un an, en points, en texte.
+	measure 'Carte taux de remise écart' = ```
+			VAR _valeur = [Taux de remise écart N-1 (pts)]
+			RETURN
+				IF(
+					ISBLANK(_valeur),
+					"n.d.",
+					IF(_valeur < 0, "-", "+") & FORMAT(ABS(_valeur), "0.0", "fr-FR") & " pts sur un an"
+				)
+			```
+		isHidden
+		displayFolder: 7. Cartes KPI
+
+	/// Valeur de la carte coût de transport rapporté au CA net.
+	measure 'Carte transport' = ```
+			VAR _valeur = [Transport (% CA)]
+			RETURN IF(ISBLANK(_valeur), "n.d.", FORMAT(_valeur, "0.0 %", "fr-FR"))
+			```
+		isHidden
+		displayFolder: 7. Cartes KPI
+
+	/// Écart du coût de transport rapporté au CA net sur un an, en points, en texte.
+	measure 'Carte transport écart' = ```
+			VAR _valeur = [Transport écart N-1 (pts)]
+			RETURN
+				IF(
+					ISBLANK(_valeur),
+					"n.d.",
+					IF(_valeur < 0, "-", "+") & FORMAT(ABS(_valeur), "0.0", "fr-FR") & " pts sur un an"
+				)
+			```
+		isHidden
+		displayFolder: 7. Cartes KPI
+
+	/// Valeur de la carte marge contributive, en millions d'euros.
+	measure 'Carte marge contributive' = ```
+			VAR _valeur = [Marge contributive]
+			RETURN IF(ISBLANK(_valeur), "n.d.", FORMAT(_valeur / 1000000, "#,0.0", "fr-FR") & " M€")
+			```
+		isHidden
+		displayFolder: 7. Cartes KPI
+
+	/// Évolution de la marge contributive sur un an, en texte.
+	measure 'Carte marge contributive évol.' = ```
+			VAR _valeur = [Marge contributive évol. N-1 (%)]
+			RETURN
+				IF(
+					ISBLANK(_valeur),
+					"n.d.",
+					IF(_valeur < 0, "-", "+") & FORMAT(ABS(_valeur), "0.0 %", "fr-FR") & " sur un an"
+				)
+			```
+		isHidden
+		displayFolder: 7. Cartes KPI
 
 	/// Colonne technique : une table de mesures doit contenir au moins une colonne.
 	column 'Colonne technique'

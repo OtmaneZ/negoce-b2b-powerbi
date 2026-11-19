@@ -14,7 +14,7 @@ import sys
 
 import tmdl
 
-DOSSIER_TEXTES = "6. Textes"
+DOSSIERS_TEXTES = {"6. Textes", "7. Cartes KPI"}
 MESURES_TEXTE_HORS_DOSSIER = {"Frein principal (libellé)"}
 
 
@@ -51,7 +51,7 @@ def controler(modele: tmdl.Modele) -> list[str]:
         dossier = mesure.proprietes.get("displayFolder")
         if not dossier:
             erreurs.append(f"{lieu} : dossier manquant")
-        texte = dossier == DOSSIER_TEXTES or mesure.nom in MESURES_TEXTE_HORS_DOSSIER
+        texte = dossier in DOSSIERS_TEXTES or mesure.nom in MESURES_TEXTE_HORS_DOSSIER
         if not texte and not mesure.proprietes.get("formatString"):
             erreurs.append(f"{lieu} : format manquant")
         if table != "Mesures":

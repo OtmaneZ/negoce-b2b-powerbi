@@ -57,7 +57,7 @@ def test_chiffres_cles_du_readme():
         "Par région : Rhône-Alpes en tête (+699 k€)",
         "Par statut : clients existants en tête (+1 617 k€)",
         "63 nouveaux clients, 45 clients perdus",
-        "soit une marge de 10,5 % sur le CA supplémentaire",
+        "marge commerciale +181 k€ (10,5 % du CA supplémentaire)",
         "8 produits vendus à perte (-40 k€)",
         "taux de remise de 10,9 % à 19,2 %",
         "l'effet coût d'achat pèse le plus (-504 k€)",
@@ -172,3 +172,9 @@ def test_textes_cites_par_la_procedure():
         sud["Titre Direction"],
     ):
         assert f"« {texte} »" in TEST_WINDOWS, texte
+
+
+def test_tableau_attendu_sans_doublon():
+    lignes = [tuple(ligne[:2]) for ligne in lignes_tableau_attendu()]
+    doublons = [ligne for ligne, nombre in Counter(lignes).items() if nombre > 1]
+    assert not doublons

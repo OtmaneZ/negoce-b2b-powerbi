@@ -2,7 +2,7 @@
 
 Généré par `scripts/generate_docs.py` depuis le modèle TMDL (`NegoceB2B.SemanticModel/definition/tables/Mesures.tmdl`) ; ne pas modifier à la main.
 
-73 mesures, toutes dans la table Mesures : 67 visibles, 6 masquées. CA : chiffre d'affaires hors taxes. N : période sélectionnée ; N-1 : même période un an plus tôt.
+93 mesures, toutes dans la table Mesures : 67 visibles, 26 masquées. CA : chiffre d'affaires hors taxes. N : période sélectionnée ; N-1 : même période un an plus tôt.
 
 | Dossier | Mesures |
 |---|---|
@@ -12,6 +12,7 @@ Généré par `scripts/generate_docs.py` depuis le modèle TMDL (`NegoceB2B.Sema
 | 4. Budget | 5 |
 | 5. Pont de marge | 10 |
 | 6. Textes | 14 |
+| 7. Cartes KPI | 20 |
 
 ## 1. Chiffre d'affaires
 
@@ -199,7 +200,7 @@ COUNTROWS(FILTER(VALUES('Produit'[Clé produit]), [Marge commerciale] < 0))
 
 ### Rang client en recul de marge
 
-Rang du client parmi les clients actifs sur la période et sur N-1, du plus fort recul de marge contributive au plus faible (1 = plus fort recul). Vide pour un client sans vente sur l'une des deux périodes. Sert à filtrer le tableau des clients en recul.
+Rang du client parmi les clients actifs sur la période et sur N-1, du plus fort recul de marge contributive au plus faible (1 = plus fort recul). Vide pour un client sans vente sur l'une des deux périodes. Le classement ignore les filtres Client et Commercial, colonnes du tableau qu'il filtre : sinon chaque client serait classé parmi les seuls clients de son commercial.
 
 Format : `0` ; masquée.
 
@@ -215,7 +216,8 @@ VAR _classement =
             ),
             [@actif] && NOT ISBLANK([@ecart])
         ),
-        REMOVEFILTERS('Client')
+        REMOVEFILTERS('Client'),
+        REMOVEFILTERS('Commercial')
     )
 RETURN
     IF(
@@ -594,7 +596,7 @@ SUMX(
     VALUES('Produit'[Clé produit]),
     VAR _q = [Quantité]
     VAR _qN1 = CALCULATE([Quantité], SAMEPERIODLASTYEAR('Date'[Date]))
-    VAR _prixNetN1 = IF(_qN1 > 0, DIVIDE([CA net N-1], _qN1), DIVIDE([CA net], _q))
+    VAR _prixNetN1 = IF(_qN1 > 0, DIVIDE(CONVERT([CA net N-1], DOUBLE), _qN1), DIVIDE(CONVERT([CA net], DOUBLE), _q))
     RETURN _q * _prixNetN1
 )
 ```
@@ -630,7 +632,7 @@ VAR _margeAuxMargesUnitairesN1 =
         VAR _q = [Quantité]
         VAR _qN1 = CALCULATE([Quantité], SAMEPERIODLASTYEAR('Date'[Date]))
         VAR _margeUnitaireN1 =
-            IF(_qN1 > 0, DIVIDE([Marge commerciale N-1], _qN1), DIVIDE([Marge commerciale], _q))
+            IF(_qN1 > 0, DIVIDE(CONVERT([Marge commerciale N-1], DOUBLE), _qN1), DIVIDE(CONVERT([Marge commerciale], DOUBLE), _q))
         RETURN _q * _margeUnitaireN1
     )
 RETURN
@@ -656,8 +658,8 @@ IF(
         VAR _prixCatalogueN1 =
             IF(
                 _qN1 > 0,
-                DIVIDE(CALCULATE([CA brut], SAMEPERIODLASTYEAR('Date'[Date])), _qN1),
-                DIVIDE([CA brut], _q)
+                DIVIDE(CONVERT(CALCULATE([CA brut], SAMEPERIODLASTYEAR('Date'[Date])), DOUBLE), _qN1),
+                DIVIDE(CONVERT([CA brut], DOUBLE), _q)
             )
         RETURN [CA brut] - _q * _prixCatalogueN1
     )
@@ -679,8 +681,8 @@ VAR _variation =
         VAR _remiseUnitaireN1 =
             IF(
                 _qN1 > 0,
-                DIVIDE(CALCULATE([Remises], SAMEPERIODLASTYEAR('Date'[Date])), _qN1),
-                DIVIDE([Remises], _q)
+                DIVIDE(CONVERT(CALCULATE([Remises], SAMEPERIODLASTYEAR('Date'[Date])), DOUBLE), _qN1),
+                DIVIDE(CONVERT([Remises], DOUBLE), _q)
             )
         RETURN [Remises] - _q * _remiseUnitaireN1
     )
@@ -706,8 +708,8 @@ VAR _variation =
         VAR _coutUnitaireN1 =
             IF(
                 _qN1 > 0,
-                DIVIDE(CALCULATE([Coût d'achat], SAMEPERIODLASTYEAR('Date'[Date])), _qN1),
-                DIVIDE([Coût d'achat], _q)
+                DIVIDE(CONVERT(CALCULATE([Coût d'achat], SAMEPERIODLASTYEAR('Date'[Date])), DOUBLE), _qN1),
+                DIVIDE(CONVERT([Coût d'achat], DOUBLE), _q)
             )
         RETURN [Coût d'achat] - _q * _coutUnitaireN1
     )
@@ -1047,8 +1049,8 @@ VAR _texteEvolution =
             & " k€"
             & IF(
                 _ecartCA > 0,
-                ", soit une marge de " & FORMAT(DIVIDE(_ecartMarge, _ecartCA), "0.0 %", "fr-FR")
-                    & " sur le CA supplémentaire"
+                " (" & FORMAT(DIVIDE(_ecartMarge, _ecartCA), "0.0 %", "fr-FR")
+                    & " du CA supplémentaire)"
             )
             & ". "
     )
@@ -1175,15 +1177,18 @@ RETURN
 
 ### Titre produits déficitaires
 
-Titre du tableau des produits vendus sous leur coût d'achat : nombre, perte totale et, au-delà de six, mention des six plus lourds affichés.
+Titre du tableau des produits vendus sous leur coût d'achat : nombre, perte totale et, au-delà de six, mention des six plus lourds affichés. Compte tous les produits, sans le filtre des six premiers appliqué au tableau.
 
 Format : texte.
 
 ```dax
 VAR _produits =
-    FILTER(
-        ADDCOLUMNS(VALUES('Produit'[Clé produit]), "@marge", [Marge commerciale]),
-        [@marge] < 0
+    CALCULATETABLE(
+        FILTER(
+            ADDCOLUMNS(VALUES('Produit'[Clé produit]), "@marge", [Marge commerciale]),
+            [@marge] < 0
+        ),
+        REMOVEFILTERS('Produit')
     )
 VAR _nombre = COUNTROWS(_produits) + 0
 VAR _perte = SUMX(_produits, [@marge])
@@ -1196,5 +1201,277 @@ RETURN
         _nombre = 1, "1 produit vendu à perte" & _perteTexte,
         _nombre <= 6, _nombre & " produits vendus à perte" & _perteTexte,
         _nombre & " produits vendus à perte" & _perteTexte & " : les 6 plus lourds"
+    )
+```
+
+## 7. Cartes KPI
+
+### Carte CA net
+
+Valeur de la carte CA net, en millions d'euros, mise en forme en français quel que soit le poste.
+
+Format : texte ; masquée.
+
+```dax
+VAR _valeur = [CA net]
+RETURN IF(ISBLANK(_valeur), "n.d.", FORMAT(_valeur / 1000000, "#,0.0", "fr-FR") & " M€")
+```
+
+### Carte CA net évol.
+
+Évolution du CA net sur un an, en texte, sous la carte CA net.
+
+Format : texte ; masquée.
+
+```dax
+VAR _valeur = [CA net évol. N-1 (%)]
+RETURN
+    IF(
+        ISBLANK(_valeur),
+        "n.d.",
+        IF(_valeur < 0, "-", "+") & FORMAT(ABS(_valeur), "0.0 %", "fr-FR") & " sur un an"
+    )
+```
+
+### Carte budget CA net
+
+Valeur de la carte budget de CA net, en millions d'euros.
+
+Format : texte ; masquée.
+
+```dax
+VAR _valeur = [CA net budget]
+RETURN IF(ISBLANK(_valeur), "n.d.", FORMAT(_valeur / 1000000, "#,0.0", "fr-FR") & " M€")
+```
+
+### Carte budget CA net écart
+
+Écart du CA net au budget, en texte, sous la carte budget.
+
+Format : texte ; masquée.
+
+```dax
+VAR _valeur = [CA net écart budget (%)]
+RETURN
+    IF(
+        ISBLANK(_valeur),
+        "n.d.",
+        IF(_valeur < 0, "-", "+") & FORMAT(ABS(_valeur), "0.0 %", "fr-FR") & " vs budget"
+    )
+```
+
+### Carte clients actifs
+
+Valeur de la carte clients actifs.
+
+Format : texte ; masquée.
+
+```dax
+VAR _valeur = [# Clients actifs]
+RETURN IF(ISBLANK(_valeur), "n.d.", FORMAT(_valeur, "#,0", "fr-FR"))
+```
+
+### Carte clients actifs évol.
+
+Évolution du nombre de clients actifs sur un an, en texte.
+
+Format : texte ; masquée.
+
+```dax
+VAR _valeur = [# Clients actifs évol. N-1 (%)]
+RETURN
+    IF(
+        ISBLANK(_valeur),
+        "n.d.",
+        IF(_valeur < 0, "-", "+") & FORMAT(ABS(_valeur), "0.0 %", "fr-FR") & " sur un an"
+    )
+```
+
+### Carte commandes par client
+
+Valeur de la carte commandes par client.
+
+Format : texte ; masquée.
+
+```dax
+VAR _valeur = [Commandes par client]
+RETURN IF(ISBLANK(_valeur), "n.d.", FORMAT(_valeur, "0.0", "fr-FR"))
+```
+
+### Carte commandes par client évol.
+
+Évolution des commandes par client sur un an, en texte.
+
+Format : texte ; masquée.
+
+```dax
+VAR _valeur = [Commandes par client évol. N-1 (%)]
+RETURN
+    IF(
+        ISBLANK(_valeur),
+        "n.d.",
+        IF(_valeur < 0, "-", "+") & FORMAT(ABS(_valeur), "0.0 %", "fr-FR") & " sur un an"
+    )
+```
+
+### Carte panier moyen
+
+Valeur de la carte panier moyen, en euros.
+
+Format : texte ; masquée.
+
+```dax
+VAR _valeur = [Panier moyen]
+RETURN IF(ISBLANK(_valeur), "n.d.", FORMAT(_valeur, "#,0", "fr-FR") & " €")
+```
+
+### Carte panier moyen évol.
+
+Évolution du panier moyen sur un an, en texte.
+
+Format : texte ; masquée.
+
+```dax
+VAR _valeur = [Panier moyen évol. N-1 (%)]
+RETURN
+    IF(
+        ISBLANK(_valeur),
+        "n.d.",
+        IF(_valeur < 0, "-", "+") & FORMAT(ABS(_valeur), "0.0 %", "fr-FR") & " sur un an"
+    )
+```
+
+### Carte marge commerciale
+
+Valeur de la carte marge commerciale, en millions d'euros.
+
+Format : texte ; masquée.
+
+```dax
+VAR _valeur = [Marge commerciale]
+RETURN IF(ISBLANK(_valeur), "n.d.", FORMAT(_valeur / 1000000, "#,0.0", "fr-FR") & " M€")
+```
+
+### Carte marge commerciale évol.
+
+Évolution de la marge commerciale sur un an, en texte.
+
+Format : texte ; masquée.
+
+```dax
+VAR _valeur = [Marge commerciale évol. N-1 (%)]
+RETURN
+    IF(
+        ISBLANK(_valeur),
+        "n.d.",
+        IF(_valeur < 0, "-", "+") & FORMAT(ABS(_valeur), "0.0 %", "fr-FR") & " sur un an"
+    )
+```
+
+### Carte taux de marge
+
+Valeur de la carte taux de marge commerciale.
+
+Format : texte ; masquée.
+
+```dax
+VAR _valeur = [Marge commerciale (% CA)]
+RETURN IF(ISBLANK(_valeur), "n.d.", FORMAT(_valeur, "0.0 %", "fr-FR"))
+```
+
+### Carte taux de marge écart
+
+Écart du taux de marge commerciale sur un an, en points, en texte.
+
+Format : texte ; masquée.
+
+```dax
+VAR _valeur = [Marge commerciale écart N-1 (pts)]
+RETURN
+    IF(
+        ISBLANK(_valeur),
+        "n.d.",
+        IF(_valeur < 0, "-", "+") & FORMAT(ABS(_valeur), "0.0", "fr-FR") & " pts sur un an"
+    )
+```
+
+### Carte taux de remise
+
+Valeur de la carte taux de remise.
+
+Format : texte ; masquée.
+
+```dax
+VAR _valeur = [Taux de remise (%)]
+RETURN IF(ISBLANK(_valeur), "n.d.", FORMAT(_valeur, "0.0 %", "fr-FR"))
+```
+
+### Carte taux de remise écart
+
+Écart du taux de remise sur un an, en points, en texte.
+
+Format : texte ; masquée.
+
+```dax
+VAR _valeur = [Taux de remise écart N-1 (pts)]
+RETURN
+    IF(
+        ISBLANK(_valeur),
+        "n.d.",
+        IF(_valeur < 0, "-", "+") & FORMAT(ABS(_valeur), "0.0", "fr-FR") & " pts sur un an"
+    )
+```
+
+### Carte transport
+
+Valeur de la carte coût de transport rapporté au CA net.
+
+Format : texte ; masquée.
+
+```dax
+VAR _valeur = [Transport (% CA)]
+RETURN IF(ISBLANK(_valeur), "n.d.", FORMAT(_valeur, "0.0 %", "fr-FR"))
+```
+
+### Carte transport écart
+
+Écart du coût de transport rapporté au CA net sur un an, en points, en texte.
+
+Format : texte ; masquée.
+
+```dax
+VAR _valeur = [Transport écart N-1 (pts)]
+RETURN
+    IF(
+        ISBLANK(_valeur),
+        "n.d.",
+        IF(_valeur < 0, "-", "+") & FORMAT(ABS(_valeur), "0.0", "fr-FR") & " pts sur un an"
+    )
+```
+
+### Carte marge contributive
+
+Valeur de la carte marge contributive, en millions d'euros.
+
+Format : texte ; masquée.
+
+```dax
+VAR _valeur = [Marge contributive]
+RETURN IF(ISBLANK(_valeur), "n.d.", FORMAT(_valeur / 1000000, "#,0.0", "fr-FR") & " M€")
+```
+
+### Carte marge contributive évol.
+
+Évolution de la marge contributive sur un an, en texte.
+
+Format : texte ; masquée.
+
+```dax
+VAR _valeur = [Marge contributive évol. N-1 (%)]
+RETURN
+    IF(
+        ISBLANK(_valeur),
+        "n.d.",
+        IF(_valeur < 0, "-", "+") & FORMAT(ABS(_valeur), "0.0 %", "fr-FR") & " sur un an"
     )
 ```

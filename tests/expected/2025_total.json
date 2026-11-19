@@ -295,6 +295,106 @@
       "attendu": 0.0
     },
     {
+      "mesure": "Carte CA net",
+      "type": "texte",
+      "attendu": "22,6 M€"
+    },
+    {
+      "mesure": "Carte CA net évol.",
+      "type": "texte",
+      "attendu": "+8,3 % sur un an"
+    },
+    {
+      "mesure": "Carte budget CA net",
+      "type": "texte",
+      "attendu": "22,4 M€"
+    },
+    {
+      "mesure": "Carte budget CA net écart",
+      "type": "texte",
+      "attendu": "+0,9 % vs budget"
+    },
+    {
+      "mesure": "Carte clients actifs",
+      "type": "texte",
+      "attendu": "855"
+    },
+    {
+      "mesure": "Carte clients actifs évol.",
+      "type": "texte",
+      "attendu": "+2,2 % sur un an"
+    },
+    {
+      "mesure": "Carte commandes par client",
+      "type": "texte",
+      "attendu": "13,5"
+    },
+    {
+      "mesure": "Carte commandes par client évol.",
+      "type": "texte",
+      "attendu": "+5,0 % sur un an"
+    },
+    {
+      "mesure": "Carte marge commerciale",
+      "type": "texte",
+      "attendu": "7,1 M€"
+    },
+    {
+      "mesure": "Carte marge commerciale évol.",
+      "type": "texte",
+      "attendu": "+2,6 % sur un an"
+    },
+    {
+      "mesure": "Carte marge contributive",
+      "type": "texte",
+      "attendu": "6,6 M€"
+    },
+    {
+      "mesure": "Carte marge contributive évol.",
+      "type": "texte",
+      "attendu": "+2,2 % sur un an"
+    },
+    {
+      "mesure": "Carte panier moyen",
+      "type": "texte",
+      "attendu": "1 963 €"
+    },
+    {
+      "mesure": "Carte panier moyen évol.",
+      "type": "texte",
+      "attendu": "+0,9 % sur un an"
+    },
+    {
+      "mesure": "Carte taux de marge",
+      "type": "texte",
+      "attendu": "31,4 %"
+    },
+    {
+      "mesure": "Carte taux de marge écart",
+      "type": "texte",
+      "attendu": "-1,7 pts sur un an"
+    },
+    {
+      "mesure": "Carte taux de remise",
+      "type": "texte",
+      "attendu": "11,6 %"
+    },
+    {
+      "mesure": "Carte taux de remise écart",
+      "type": "texte",
+      "attendu": "+0,6 pts sur un an"
+    },
+    {
+      "mesure": "Carte transport",
+      "type": "texte",
+      "attendu": "2,2 %"
+    },
+    {
+      "mesure": "Carte transport écart",
+      "type": "texte",
+      "attendu": "+0,0 pts sur un an"
+    },
+    {
       "mesure": "Frein principal (libellé)",
       "type": "texte",
       "attendu": "coût d'achat"
@@ -307,7 +407,7 @@
     {
       "mesure": "Synthèse Marge",
       "type": "texte",
-      "attendu": "Sur un an : CA net +1 727 k€, marge commerciale +181 k€, soit une marge de 10,5 % sur le CA supplémentaire. Marge commerciale 4,0 % sous le budget. Données fictives."
+      "attendu": "Sur un an : CA net +1 727 k€, marge commerciale +181 k€ (10,5 % du CA supplémentaire). Marge commerciale 4,0 % sous le budget. Données fictives."
     },
     {
       "mesure": "Titre Direction",

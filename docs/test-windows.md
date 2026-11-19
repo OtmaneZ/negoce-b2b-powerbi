@@ -43,7 +43,7 @@ Six étapes, à suivre dans l'ordre. Pour chacune : ce qui doit s'afficher, et c
 
 **Résultat attendu** : deux résultats.
 
-- Le premier affiche **Contrôles = 466** et **KO = 0**.
+- Le premier affiche **Contrôles = 580** et **KO = 0**.
 - Le second détaille chaque contrôle (colonnes Cas, Mesure, Attendu, Obtenu, Écart, Statut), lignes KO en premier.
 
 **À relever sinon** : si la requête échoue, le message d'erreur complet ; si KO est supérieur à 0, toutes les lignes KO du second résultat (bouton de copie du tableau de résultats).
@@ -56,14 +56,14 @@ Sur chaque page, le segment Année est sur 2025 et le segment Région sur « Tou
 
 - Titre : « En 2025, le CA net progresse de 8,3 % sur un an et dépasse le budget de 0,9 % ».
 - Synthèse : « Plus faible contribution : famille Outillage à main (-125 k€), région Nord-Est (-215 k€). 63 nouveaux clients, 45 clients perdus. Données fictives. »
-- Bande de KPI sur deux rangées : les cinq indicateurs en haut (CA net et budget en M€, par exemple « 22,6 M€ »), leur évolution sur un an ou l'écart au budget juste en dessous ; aucune valeur rognée en bas de la carte.
+- Bande de cinq KPI, chacun sur deux lignes : libellé et valeur en haut (« CA net », « 22,6 M€ »), évolution juste en dessous (« +8,3 % sur un an », « +0,9 % vs budget ») ; libellés et valeurs entiers, sans « … ».
 - Courbe mensuelle titrée « CA net mensuel : au-dessus de 2024 sur 10 mois sur 12 », avec trois séries (2025 en bleu épais, 2024 en gris, budget en pointillés fins) et un axe en millions.
 - Quatre graphiques en barres : barres bleues pour les hausses, rouges pour les baisses ; titres sur une ligne ; noms de famille entiers, sans « … ». Le graphique du bas au centre est titré « Par statut : clients existants en tête (+1 617 k€) » et montre, dans cet ordre, Clients existants, Nouveaux clients et Clients perdus.
 
 **Résultat attendu, page Marge** :
 
 - Titre : « En 2025, la marge commerciale progresse de 2,6 % et représente 31,4 % du CA net (-1,7 pts) ».
-- Synthèse : « Sur un an : CA net +1 727 k€, marge commerciale +181 k€, soit une marge de 10,5 % sur le CA supplémentaire. Marge commerciale 4,0 % sous le budget. Données fictives. »
+- Synthèse : « Sur un an : CA net +1 727 k€, marge commerciale +181 k€ (10,5 % du CA supplémentaire). Marge commerciale 4,0 % sous le budget. Données fictives. »
 - Graphique en cascade titré « Pont de marge 2024 → 2025 : l'effet coût d'achat pèse le plus (-504 k€) », dans l'ordre Volume, Mix, Prix catalogue, Remises, Coût d'achat, puis la barre de total (+181 k€, l'écart de marge sur un an).
 - Barres des commerciaux titrées « Damien Revol : taux de remise de 10,9 % à 19,2 % (+8,3 pts) » : la barre de Damien Revol est rouge, les neuf autres, inférieures à un point, sont grises.
 - Tableau titré « Clients en plus fort recul de marge contributive » : six clients avec leur commercial, de Falarin Hydraulique (-19 119 €) à Duretec Énergie (-12 525 €) ; les deux premiers, chez Damien Revol, ont un écart de remise de plus de 25 points.

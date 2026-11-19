@@ -295,6 +295,106 @@
       "attendu": null
     },
     {
+      "mesure": "Carte CA net",
+      "type": "texte",
+      "attendu": "20,9 M€"
+    },
+    {
+      "mesure": "Carte CA net évol.",
+      "type": "texte",
+      "attendu": "n.d."
+    },
+    {
+      "mesure": "Carte budget CA net",
+      "type": "texte",
+      "attendu": "20,9 M€"
+    },
+    {
+      "mesure": "Carte budget CA net écart",
+      "type": "texte",
+      "attendu": "+0,2 % vs budget"
+    },
+    {
+      "mesure": "Carte clients actifs",
+      "type": "texte",
+      "attendu": "837"
+    },
+    {
+      "mesure": "Carte clients actifs évol.",
+      "type": "texte",
+      "attendu": "n.d."
+    },
+    {
+      "mesure": "Carte commandes par client",
+      "type": "texte",
+      "attendu": "12,8"
+    },
+    {
+      "mesure": "Carte commandes par client évol.",
+      "type": "texte",
+      "attendu": "n.d."
+    },
+    {
+      "mesure": "Carte marge commerciale",
+      "type": "texte",
+      "attendu": "6,9 M€"
+    },
+    {
+      "mesure": "Carte marge commerciale évol.",
+      "type": "texte",
+      "attendu": "n.d."
+    },
+    {
+      "mesure": "Carte marge contributive",
+      "type": "texte",
+      "attendu": "6,4 M€"
+    },
+    {
+      "mesure": "Carte marge contributive évol.",
+      "type": "texte",
+      "attendu": "n.d."
+    },
+    {
+      "mesure": "Carte panier moyen",
+      "type": "texte",
+      "attendu": "1 945 €"
+    },
+    {
+      "mesure": "Carte panier moyen évol.",
+      "type": "texte",
+      "attendu": "n.d."
+    },
+    {
+      "mesure": "Carte taux de marge",
+      "type": "texte",
+      "attendu": "33,1 %"
+    },
+    {
+      "mesure": "Carte taux de marge écart",
+      "type": "texte",
+      "attendu": "n.d."
+    },
+    {
+      "mesure": "Carte taux de remise",
+      "type": "texte",
+      "attendu": "11,0 %"
+    },
+    {
+      "mesure": "Carte taux de remise écart",
+      "type": "texte",
+      "attendu": "n.d."
+    },
+    {
+      "mesure": "Carte transport",
+      "type": "texte",
+      "attendu": "2,2 %"
+    },
+    {
+      "mesure": "Carte transport écart",
+      "type": "texte",
+      "attendu": "n.d."
+    },
+    {
       "mesure": "Frein principal (libellé)",
       "type": "texte",
       "attendu": null

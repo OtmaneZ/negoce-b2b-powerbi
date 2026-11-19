@@ -299,7 +299,7 @@ Identité vérifiée par test : CA net = # Clients actifs × Commandes par clien
 | Marge contributive (% CA) | Marge contributive rapportée au CA net | `DIVIDE([Marge contributive], [CA net])` | PCT |
 | # Clients à marge négative | Clients dont la marge contributive est négative sur la période | `COUNTROWS(FILTER(VALUES('Client'[Clé client]), [Marge contributive] < 0))` | NB |
 | # Produits sous le coût | Références dont la marge commerciale est négative sur la période | `COUNTROWS(FILTER(VALUES('Produit'[Clé produit]), [Marge commerciale] < 0))` | NB |
-| Rang client en recul de marge | Masquée. Rang du client parmi les clients actifs en N et en N-1, du plus fort recul de marge contributive au plus faible ; filtre le tableau M9 aux six premiers | Nombre de clients au recul plus fort, plus un, calculé sur la liste des clients sans filtre Client (`REMOVEFILTERS('Client')`) | NB |
+| Rang client en recul de marge | Masquée. Rang du client parmi les clients actifs en N et en N-1, du plus fort recul de marge contributive au plus faible ; filtre le tableau M9 aux six premiers ; le classement ignore aussi le filtre Commercial, colonne du tableau | Nombre de clients au recul plus fort, plus un, calculé sur la liste des clients sans filtre Client (`REMOVEFILTERS('Client')`) | NB |
 | Rang produit sous le coût | Masquée. Rang du produit parmi les produits à marge négative, de la plus forte perte à la plus faible ; filtre le tableau M10 aux six premiers | Même construction sur Produit | NB |
 
 ### 3. Comparaison N-1
@@ -498,7 +498,7 @@ Les mesures texte suivent des règles communes, appliquées à l'identique par l
 | Titre écart par statut client | Barres statuts | « Par statut : clients existants en tête (+1 600 k€) » ; si aucune hausse : « Par statut : aucune hausse » ; sans N-1 : « Écart de CA net par statut client » |
 | Titre écart budget par famille | Barres budget | « 4 familles sur 6 atteignent leur budget de CA net » ; « 1 famille sur 6 atteint son budget de CA net » ; budget vide : « Écart de CA net au budget par famille » |
 | Titre Marge | Titre de page Marge | « En 2025, la marge commerciale recule de 1,5 % et représente 30,1 % du CA net (-2,6 pts) » ; sans N-1 : « En 2024, la marge commerciale atteint 5,8 M€, soit 32,0 % du CA net (pas d'exercice précédent) » |
-| Synthèse Marge | Sous-titre Marge | « Sur un an : CA net +1 700 k€, marge commerciale +180 k€, soit une marge de 10,6 % sur le CA supplémentaire. Marge commerciale 4,2 % sous le budget. Données fictives. » La part de marge sur le CA supplémentaire n'est citée que si le CA progresse. Sans N-1 : « Pas d'exercice précédent : évolution de la marge non calculable. » ; budget vide : phrase budgétaire omise |
+| Synthèse Marge | Sous-titre Marge | « Sur un an : CA net +1 700 k€, marge commerciale +180 k€ (10,6 % du CA supplémentaire). Marge commerciale 4,2 % sous le budget. Données fictives. » La part de marge sur le CA supplémentaire n'est citée que si le CA progresse ; la phrase tient sur une ligne de 920 px. Sans N-1 : « Pas d'exercice précédent : évolution de la marge non calculable. » ; budget vide : phrase budgétaire omise |
 | Titre pont de marge | Cascade | « Pont de marge 2024 → 2025 : l'effet coût d'achat pèse le plus (-310 k€) » ; « Pont de marge 2024 → 2025 : aucun effet défavorable » ; sans N-1 : « Pont de marge commerciale : pas d'exercice précédent à comparer » |
 | Titre remises par commercial | Barres commerciaux | « Damien Revol : taux de remise de 9,1 % à 15,8 % (+6,7 pts) » (plus forte hausse) ; « Aucun commercial n'augmente ses remises » ; sans N-1 : « Taux de remise par commercial : écart avec l'exercice précédent » |
 | Titre marge par famille | Barres familles | « Visserie et fixations : taux de marge -5,2 pts » (plus forte baisse) ; « Taux de marge : aucune famille en recul » ; sans N-1 : « Écart de taux de marge par famille » |
@@ -535,7 +535,7 @@ RETURN
         )
 ```
 
-Récapitulatif des dossiers : 1. Chiffre d'affaires (9 mesures), 2. Marge (11, dont 2 masquées), 3. Comparaison N-1 (24), 4. Budget (5), 5. Pont de marge (10, dont 4 masquées), 6. Textes (14). Total : 73 mesures.
+Récapitulatif des dossiers : 1. Chiffre d'affaires (9 mesures), 2. Marge (11, dont 2 masquées), 3. Comparaison N-1 (24), 4. Budget (5), 5. Pont de marge (10, dont 4 masquées), 6. Textes (14), 7. Cartes KPI (20, toutes masquées). Total : 93 mesures.
 
 ## 5. Rapport
 
@@ -580,7 +580,7 @@ Récapitulatif des dossiers : 1. Chiffre d'affaires (9 mesures), 2. Marge (11, d
 
 Infobulles : D7 et D8 ajoutent CA net, CA net N-1 et CA net évol. N-1 (%) ; D10 ajoute CA net budget et CA net écart budget (%). L'axe des catégories réserve jusqu'à 30 à 40 % de la largeur du visuel aux libellés (`maxMarginFactor`), pour que les noms de famille ne soient pas tronqués.
 
-Les deux bandes de KPI affichent l'évolution de chaque indicateur juste sous sa valeur, dans la même carte. Les étiquettes de référence de la carte n'ont pas été retenues : leur encodage PBIR n'est pas documenté de façon vérifiable sans Desktop. Dans une carte à plusieurs valeurs, la police et la couleur s'appliquent à toutes les valeurs : les évolutions ne peuvent pas être colorées une à une, seul le signe les distingue. Valeurs en 12 pt, libellés en 9 pt, marges intérieures de 2 px et aucun espace entre les rangées : deux rangées tiennent dans 96 px. Une valeur vide s'affiche « n.d. ».
+Les deux bandes de KPI affichent l'évolution de chaque indicateur juste sous sa valeur. Chaque bande compte dix cartes à une seule valeur : cinq cartes de 240 × 56 px (libellé 9 pt, valeur 14 pt) en haut, cinq cartes de 240 × 40 px (évolution 10 pt, gris) juste en dessous, sans espace entre les deux rangées ni couleur de fond différente, si bien que chaque indicateur se lit comme une seule tuile. Une première version plaçait les dix valeurs dans une seule carte avec `columnCount` à 5 : Desktop a ignoré la grille et aligné dix valeurs rognées sur une ligne. Les étiquettes de référence n'ont pas été retenues : leur encodage PBIR n'est pas documenté de façon vérifiable sans Desktop. Les valeurs sont des mesures texte du dossier 7. Cartes KPI, mises en forme avec FORMAT(…, "fr-FR") : un poste en anglais aurait affiché « 22,637,017 € » avec un format numérique. Seul le signe distingue une évolution favorable ; une valeur vide s'affiche « n.d. ».
 
 ### Page 2 : « Marge » (où part la marge)
 
@@ -593,8 +593,8 @@ Les deux bandes de KPI affichent l'évolution de chaque indicateur juste sous sa
 | M6 | principal | waterfallChart | Catégorie : 'Étape du pont'[Étape], triée par 'Étape du pont'[Ordre] (jamais par valeur) ; valeur : [Pont de marge] ; total = écart de marge commerciale avec N-1 ; titre : [Titre pont de marge] | Pourquoi la marge a-t-elle changé depuis N-1 ? |
 | M7 | secondaire | clusteredBarChart | Commercial[Commercial] ; Taux de remise écart N-1 (pts) ; tri décroissant ; rouge au-delà de +1 point, bleu en deçà de -1 point, gris entre les deux ; infobulles : Taux de remise (%), Taux de remise N-1 (%) ; titre : [Titre remises par commercial] | Qui accorde plus de remises qu'avant ? |
 | M8 | bas_gauche | clusteredBarChart | Famille[Famille] ; Marge commerciale écart N-1 (pts) ; tri croissant ; même règle de couleur à ±1 point ; titre : [Titre marge par famille] | Quelle famille perd du taux de marge ? |
-| M9 | bas_centre | tableEx | Client[Client], Commercial[Commercial], Marge contributive écart N-1 (« Écart de marge »), Taux de remise écart N-1 (pts) (« Écart de remise ») ; filtre de visuel : Rang client en recul de marge ≤ 6 ; tri croissant sur l'écart ; sans ligne de total ; titre : [Titre clients en recul] | Quels clients rapportent beaucoup moins qu'un an plus tôt, et pourquoi ? |
-| M10 | bas_droite | tableEx | Produit[Produit], CA net, Marge commerciale (« Marge »), Marge commerciale (% CA) (« Taux de marge ») ; filtre de visuel : Rang produit sous le coût ≤ 6 ; tri croissant ; sans ligne de total ; titre : [Titre produits déficitaires] | Quels produits sont vendus à perte ? |
+| M9 | bas_centre | tableEx | Client[Client], Commercial[Commercial], Marge contributive écart N-1 (« Écart de marge »), Taux de remise écart N-1 (pts) (« Écart de remise ») ; filtre de visuel : Rang client en recul de marge entre 1 et 6 (une borne basse est nécessaire : un rang vide passe un filtre « ≤ 6 » et ferait apparaître les clients perdus) ; tri croissant sur l'écart ; sans ligne de total ; titre : [Titre clients en recul] | Quels clients rapportent beaucoup moins qu'un an plus tôt, et pourquoi ? |
+| M10 | bas_droite | tableEx | Produit[Produit], CA net, Marge commerciale (« Marge »), Marge commerciale (% CA) (« Taux de marge ») ; filtre de visuel : Rang produit sous le coût entre 1 et 6 ; tri croissant ; sans ligne de total ; titre : [Titre produits déficitaires] | Quels produits sont vendus à perte ? |
 
 La cascade M6 affiche : Volume, Mix, Prix catalogue, Remises, Coût d'achat, puis la barre de total, égale à l'écart de marge commerciale (le test de bouclage le garantit). Le format PBIR du graphique en cascade n'offre aucune propriété pour renommer la barre de total : son libellé « Total » reste à contrôler dans Desktop.
 
@@ -616,7 +616,7 @@ Une seule couleur d'accent ; le rouge est réservé au défavorable ; le reste e
 
 - **Sémantique favorable / défavorable** : une hausse de CA ou de taux de marge est favorable (accent), une hausse du taux de remise ou du transport est défavorable (alerte). La couleur double toujours une information déjà portée par le signe et la position de la barre ; pas de vert, ce qui évite la confusion rouge-vert.
 - `dataColors` : `#1F4E79`, `#8A8886`, `#252423`, `#B42318`, `#6F93B8`, `#C9D8E8`, `#605E5C`, `#E1DFDD`. Sentiments : good `#1F4E79`, neutral `#605E5C`, bad `#B42318`.
-- Typographie Segoe UI : titre de page 14 pt et titres de visuel 11 pt, dans la police semi-grasse du thème, sans gras ajouté ; synthèses 10 pt ; valeurs des cartes KPI 12 pt (deux rangées dans 96 px) ; libellés de carte 9 pt ; axes et étiquettes 9 pt.
+- Typographie Segoe UI : titre de page 14 pt et titres de visuel 11 pt, dans la police semi-grasse du thème, sans gras ajouté ; synthèses 10 pt ; valeurs des cartes KPI 14 pt et évolutions 10 pt ; libellés de carte 9 pt ; axes et étiquettes 9 pt.
 - Règles de mise en forme : barres partant de zéro ; montants signés dans les écarts ; k€ dans les barres, M€ dans les cartes, € dans les tableaux ; aucune 3D, aucun camembert, aucune jauge ; étiquettes de données en `#252423` ; quadrillage horizontal seulement sur les courbes.
 
 ## 6. Plan de contrôle
@@ -870,14 +870,14 @@ Design Brief:
             purpose: "Quels clients rapportent beaucoup moins qu'un an plus tôt, et pourquoi ?"
             field_bindings: ["Client[Client]", "Commercial[Commercial]", "Mesures[Marge contributive écart N-1]", "Mesures[Taux de remise écart N-1 (pts)]"]
             sort_policy: value_asc
-            insight_basis: "Filtre de visuel : rang de recul de marge contributive ≤ 6"
+            insight_basis: "Filtre de visuel : rang de recul de marge contributive entre 1 et 6"
           - id: produits_deficitaires
             region: bas_droite
             kind: tableEx
             purpose: "Quels produits sont vendus à perte ?"
             field_bindings: ["Produit[Produit]", "Mesures[CA net]", "Mesures[Marge commerciale]", "Mesures[Marge commerciale (% CA)]"]
             sort_policy: value_asc
-            insight_basis: "Filtre de visuel : rang parmi les produits à marge négative ≤ 6"
+            insight_basis: "Filtre de visuel : rang parmi les produits à marge négative entre 1 et 6"
         space_audit:
           content_cell_count: 120
           placed_cell_count: 120
