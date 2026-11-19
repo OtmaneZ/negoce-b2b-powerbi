@@ -68,33 +68,34 @@ Le pont de marge décompose l'écart de marge commerciale entre N-1 et N en cinq
 
 ## Valeurs attendues et obtenues
 
-Les valeurs attendues sont calculées en pandas, indépendamment du DAX, par `scripts/expected_values.py` (fichiers `tests/expected/*.json`). La colonne « Obtenue » se remplit avec Power BI Desktop ; la requête `tests/validation.dax` compare les 580 valeurs d'un coup.
+Les valeurs attendues sont calculées en pandas, indépendamment du DAX, par `scripts/expected_values.py` (fichiers `tests/expected/*.json`). La requête `tests/validation.dax` compare les 580 valeurs d'un coup dans Power BI Desktop. Résultat du 19 novembre 2026 : 580 contrôles, 0 KO ; la colonne « Obtenue » reprend les valeurs calculées par Desktop, identiques à l'arrondi affiché.
+
+![Résultat de la requête de validation dans Power BI Desktop](docs/captures/validation-dax.png)
 
 | Cas | Mesure | Attendue | Obtenue |
 |---|---|---|---|
-| 2025 total | CA net | 22 637 017 € | |
-| 2025 total | CA net évol. N-1 (%) | 8,3 % | |
-| 2025 total | CA net écart budget (%) | 0,9 % | |
-| 2025 total | Marge commerciale | 7 099 071 € | |
-| 2025 total | Marge commerciale (% CA) | 31,4 % | |
-| 2025 total | Marge commerciale écart N-1 (pts) | -1,7 pts | |
-| 2025 total | Effet volume | 504 337 € | |
-| 2025 total | Effet mix | -21 814 € | |
-| 2025 total | Effet prix catalogue | 406 123 € | |
-| 2025 total | Effet remises | -203 641 € | |
-| 2025 total | Effet coût d'achat | -504 061 € | |
-| 2025 total | # Clients à marge négative | 12 | |
-| 2025 total | # Produits sous le coût | 8 | |
-| 2025 total | # Nouveaux clients | 63 | |
-| 2025 total | Pont de marge | 180 945 € | |
-| 2024 total | CA net | 20 910 166 € | |
-| 2024 total | CA net évol. N-1 (%) | (vide) | |
-| 2025 région Sud | Taux de remise (%) | 16,0 % | |
-| 2025 région Sud | Effet remises | -162 686 € | |
-| 2025 famille Visserie et fixations | Marge commerciale écart N-1 (pts) | -5,4 pts | |
-| 2025 famille Visserie et fixations | Effet coût d'achat | -321 991 € | |
-| Février 2025 | CA net évol. N-1 (%) | -3,1 % | |
-
+| 2025 total | CA net | 22 637 017 € | 22 637 017 € |
+| 2025 total | CA net évol. N-1 (%) | 8,3 % | 8,3 % |
+| 2025 total | CA net écart budget (%) | 0,9 % | 0,9 % |
+| 2025 total | Marge commerciale | 7 099 071 € | 7 099 071 € |
+| 2025 total | Marge commerciale (% CA) | 31,4 % | 31,4 % |
+| 2025 total | Marge commerciale écart N-1 (pts) | -1,7 pts | -1,7 pts |
+| 2025 total | Effet volume | 504 337 € | 504 337 € |
+| 2025 total | Effet mix | -21 814 € | -21 814 € |
+| 2025 total | Effet prix catalogue | 406 123 € | 406 123 € |
+| 2025 total | Effet remises | -203 641 € | -203 641 € |
+| 2025 total | Effet coût d'achat | -504 061 € | -504 061 € |
+| 2025 total | # Clients à marge négative | 12 | 12 |
+| 2025 total | # Produits sous le coût | 8 | 8 |
+| 2025 total | # Nouveaux clients | 63 | 63 |
+| 2025 total | Pont de marge | 180 945 € | 180 945 € |
+| 2024 total | CA net | 20 910 166 € | 20 910 166 € |
+| 2024 total | CA net évol. N-1 (%) | (vide) | (vide) |
+| 2025 région Sud | Taux de remise (%) | 16,0 % | 16,0 % |
+| 2025 région Sud | Effet remises | -162 686 € | -162 686 € |
+| 2025 famille Visserie et fixations | Marge commerciale écart N-1 (pts) | -5,4 pts | -5,4 pts |
+| 2025 famille Visserie et fixations | Effet coût d'achat | -321 991 € | -321 991 € |
+| Février 2025 | CA net évol. N-1 (%) | -3,1 % | -3,1 % |
 ## Contrôles automatiques
 
 `make check` enchaîne, sans connexion :
